@@ -1,77 +1,258 @@
-//Realizar una clase “ProductManager” que gestione un conjunto de productos.
-//Debe crearse desde su constructor con el elemento products, el cual será un arreglo vacío.
+// const fs = require('fs')
 
-//Cada producto que gestione debe contar con las propiedades:
-// title (nombre del producto)
-// description (descripción del producto)
-// price (precio)
-// thumbnail (ruta de imagen)
-// id (código identificador)
-// stock (número de piezas disponibles)
+// class ProductManager {
 
-// Aspectos a incluir
-// Debe contar con un método “addProduct” el cual agregará un producto al arreglo de productos inicial.
-// Todos los campos son obligatorios menos id que debe agregarse automáticamente  y auto- incrementable
+//     constructor(path) {
+//         this.products = [] 
+//         this.path = path 
+//         this.init(path) 
+//     }
+    
+//     init(path) {
+//             let file = fs.existsSync(path)
+//             if (!file) {
+//                 fs.writeFileSync(path,'[]')
+//                 console.log('file created at path: '+this.path)
+//                 return 'file created at path: '+this.path
+//             } else {
+//                 this.users = JSON.parse(fs.readFileSync(path,'UTF-8'))
+//                 console.log('data recovered')
+//                 return 'data recovered'
+//             }
+//         }
+//     async addProduct({title, description, price, thumbnail, stock}) {
+//         try {
+//             let data = {title, description, price, thumbnail, stock}
+//             if(this.products.length>0){
+//                             let next_id = this.products[this.products.length-1].id+1
+//                             data.id = next_id
+//             } else {
+//                 data.id = 1
+//             }
+//             this.products.push(data)
+//             let data_json = JSON.stringify(this.products,null,2)
+//             await fs.promises.writeFile(this.path,data_json)
+//             console.log('id´s created product: '+data.id)
+//             return 'id´s product: '+data.id
+//         } catch(error){
+//             console.log(error)
+//             return 'Error: Creating product'
+//         }
+//     }
 
-// Debe contar con un método “getProducts” el cual debe devolver el arreglo con todos los productos creados hasta ese momento
+// getProducts() {
+//     try {
+//         if (this.products.length === 0) {
+//         console.log("Not found");
+//         }
+//         console.log(this.products);
+//         return this.products;
+//     } catch (error) {
+//         console.log(error);
+//         return "getProduct: Error";
+//     }
+//     }
 
-// Debe contar con un método “getProductById” el cual debe buscar en el arreglo el producto que coincida con el id
-// En caso de no coincidir ningún id, mostrar en consola un error “Not found”
+//     getProductById(product_id) {
+//         let buscar = this.products.find(each=> each.id === product_id)
+//         try {
+//             if (buscar) {
+//                 console.log(buscar)
+//                 return buscar
+//         } 
+//         console.log('not found')
+//     } catch {
+//         console.log(error);
+//         return "getProductById: Error";
+//     }
+//     }
 
-// Formato del entregable
+//     read_products() {
+//         //console.log(this.users)
+//         return this.products
+//     }
+//     read_product(id) {
+//         let one = this.products.find(each=>each.id===id)
+//         //console.log(one)
+//         return one
+//     }
+//     async updateProduct(id,data) {
+//         //data es el objeto con las propiedades que necesito modificar del usuario
+//         try {
+//             if(id == 'undefined' || data == 'undefined'){
+//                 console.log ('Not found')
+//                 return 'not found'
+//             }
+//             //busco el usuario
+//             let one = this.read_product(id)
+//             //itero para modificar la propiedad correspondiente
+//             for (let prop in data) {
+//                 //console.log(prop)
+//                 one[prop] = data[prop]
+//             }
 
-// Pull Request (PR) de rama sprint-1 hacia main/master según corresponda
-// Incluir readme.md explicando lo que se entregó
+//             //convierto a texto plano el array
+//             let data_json = JSON.stringify(this.products,null,2)
+//             //sobre-escribo el archivo
+//             await fs.promises.writeFile(this.path,data_json)
+//             console.log('updateProduct: done')
+//             return 'updateProduct: done'
+//         } catch(error) {
+//             console.log(error)
+//             return 'error: updating product'
+//         }
+//     }
 
-
+//     async deleteProduct(id) {
+//         try {
+//             this.products = this.products.filter(each=>each.id!==id)
+//             let data_json = JSON.stringify(this.products,null,2)
+//             await fs.promises.writeFile(this.path,data_json)
+//             console.log('deleteProduct: done')
+//             return 'delete user: '+id
+//         } catch(error) {
+//             console.log(error)
+//             return 'deleteProduct: error'
+//         }
+//     }
+// }
+    
+const fs = require('fs');
 
 class ProductManager {
+    constructor(path) {
+        this.products = [];
+        this.path = path;
+        this.init(path);
+    }
 
-    #iva
+    init(path) {
+        const file = fs.existsSync(path);
+        if (!file) {
+        fs.writeFileSync(path, '[]');
+        console.log('file created at path: ' + this.path);
+        return 'file created at path: ' + this.path;
+        } else {
+        this.products = JSON.parse(fs.readFileSync(path, 'UTF-8'));
+        console.log('data recovered');
+        return 'data recovered';
+        }
+    }
 
-    constructor() {
-        this.products = []
-        this.#iva = 0.21
+    async addProduct({ title, description, price, thumbnail, stock }) {
+        try {
+        let data = { title, description, price, thumbnail, stock };
+        if (this.products.length > 0) {
+            let next_id = this.products[this.products.length - 1].id + 1;
+            data.id = next_id;
+        } else {
+            data.id = 1;
+        }
+        this.products.push(data);
+        let data_json = JSON.stringify(this.products, null, 2);
+        await fs.promises.writeFile(this.path, data_json);
+        console.log('id´s created product: ' + data.id);
+        return 'id´s product: ' + data.id;
+        } catch (error) {
+        console.log(error);
+        return 'Error: Creating product';
+        }
     }
 
     getProducts() {
-        console.log(this.products)
-        return this.products
+        try {
+        if (this.products.length === 0) {
+            console.log('Not found');
+        }
+        console.log(this.products);
+        return this.products;
+        } catch (error) {
+        console.log(error);
+        return 'getProduct: Error';
+        }
+    }
+    read_products() {
+        //console.log(this.users)
+        return this.products;
     }
 
-    getProductById(product_id) {
-        let buscar = this.products.find(each=> each.id === product_id)
+    read_product(id) {
+        let one = this.products.find((each) => each.id === id);
+        //console.log(one)
+        return one;
+    }
+    getProductById(id) {
+        let buscar = this.read_product(id);
+        try {
         if (buscar) {
-            console.log(buscar)
-            return buscar
+            console.log(buscar);
+            return buscar;
         }
-        console.log('not found')
-        return null
+        console.log('not found');
+        return 'Not found'
+        } catch (error) {
+        console.log(error);
+        return 'getProductById: Error';
+        }
     }
 
-    addProduct({title, description, price, thumbnail, stock}) {
-        let id = 0
-        if (this.products.length===0){
-            id = 1
-        } else {
-            let lastProduct = this.products[this.products.length-1]
-            id = lastProduct.id + 1
+    async updateProduct(id, data) {
+        try {
+        let one = this.read_product(id);
+        if(one){
+            for (let prop in data) {
+                one[prop] = data[prop];
+            }
+        }else{
+            console.log('Not found')
+            return 'Not found'
         }
-        price = price + this.#iva * price
-        let product = {id,title, description, price, thumbnail, stock}
-        this.products.push(product)
+        let data_json = JSON.stringify(this.products, null, 2);
+        await fs.promises.writeFile(this.path, data_json);
+        console.log('updateProduct: done');
+        return 'updateProduct: done';
+        } catch (error) {
+        console.log(error);
+        return 'updateProduct: error';
+        }
     }
+
+    async deleteProduct(id) {
+        try {
+            let one = this.read_product(id);
+            if(one){
+                this.products = this.products.filter((each) => each.id !== id);
+                let data_json = JSON.stringify(this.products, null, 2);
+                await fs.promises.writeFile(this.path, data_json);
+                console.log('deleteProduct: done');
+                return 'deleteProduct: done';
+            }else{
+                console.log('Not found')
+                return 'Not found'
+            }
+
+        } catch (error) {
+        console.log(error);
+        return 'deleteProduct: error';
+        }
+    }
+    }
+
+async function manager() {
+    let product = new ProductManager('./data/user.json')
+    await product.addProduct({title: 'iphone x', description: 'Usadito pero anda bien :)', price: 35000, thumbnail: './img/iphone002.jpg', stock: 3})
+    await product.addProduct({title: 'PC Gamer I7', description: 'Nave de pc', price: 80000, thumbnail: './img/pc002.jpg', stock: 20})
+    await product.addProduct({title: 'Ipad pro retina', description: 'Nuevita ', price: 90, thumbnail: './img/ipad998.jpg', stock: 15})
+    await product.addProduct({title: 'Calefon electrico', description: 'hay que facturar asi que vendemos lo que sea', price: 2000, thumbnail: './img/calefon.jpg', stock: 10})
+    await product.addProduct({title: 'HeadSet Astros A50', description: 'Una locura lo que se escuchan', price: 5064, thumbnail: './img/a50.jpg', stock: 25})
+    await product.addProduct({title: 'Camara Canon EOS T6', description: 'Hermosa camara, sentite un profesional', price: 60000, thumbnail: './img/canont6.jpg', stock: 1})
+    await product.getProductById(2)
+    await product.getProductById(10)
+    await product.updateProduct(200,{ title:'Nuevo nombre' })
+    await product.updateProduct(2,{ price:'string' })
+    await product.deleteProduct(10)
+    product.getProducts()
+
 }
+manager()
 
-let product = new ProductManager()
-
-product.addProduct({title: 'iphone x', description: 'Usadito pero anda bien :)', price: 35000, thumbnail: './img/iphone002.jpg', stock: 3})
-product.addProduct({title: 'PC Gamer I7', description: 'Nave de pc', price: 80000, thumbnail: './img/pc002.jpg', stock: 20})
-product.addProduct({title: 'Ipad pro retina', description: 'Nuevita ', price: 90, thumbnail: './img/ipad998.jpg', stock: 15})
-product.addProduct({title: 'Calefon electrico', description: 'hay que facturar asi que vendemos lo que sea', price: 2000, thumbnail: './img/calefon.jpg', stock: 10})
-product.addProduct({title: 'HeadSet Astros A50', description: 'Una locura lo que se escuchan', price: 5064, thumbnail: './img/a50.jpg', stock: 25})
-product.addProduct({title: 'Camara Canon EOS T6', description: 'Hermosa camara, sentite un profesional', price: 60000, thumbnail: './img/canont6.jpg', stock: 1})
-
-product.getProducts()
-product.getProductById(5)
-product.getProductById(10)
