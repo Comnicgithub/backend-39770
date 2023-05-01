@@ -1,21 +1,21 @@
 [
   {
-    "product": 4,
+    "product": "Mezcla Gumbo del chef Anton",
     "quantity": 2,
     "id": 1
   },
   {
-    "product": 2,
+    "product": "Té Dharamsala",
     "quantity": 10,
     "id": 2
   },
   {
-    "product": 4,
-    "quantity": 2,
+    "product": "Salsa de arándanos Northwoods",
+    "quantity": 10,
     "id": 3
   },
   {
-    "product": 2,
+    "product": "Bondiola ahumada",
     "quantity": 10,
     "id": 4
   }

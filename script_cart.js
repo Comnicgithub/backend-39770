@@ -20,9 +20,11 @@ class CartManager {
     }
 
 
-    async addCart({ product, quantity }) {
+    async addCart({ productId, quantity }) {
         try { 
-            
+            console.log("productId: ", productId);
+            let product = await manager.getProductById(productId).title
+            console.log(product); 
             let data = { product, quantity };
             let nextCartId = 1;
         if (this.carts.length > 0) {
@@ -122,13 +124,15 @@ class CartManager {
 // }
 }
 let cartsManager = new CartManager('./data/cart.json')
-// async function manage() {
-//     await cartsManager.addCart({product:4, quantity: 2})
-//     await cartsManager.addCart({product:2, quantity:10})
-//     await cartsManager.getCarts()
-//     await cartsManager.getCartById(2)
-//     }
-// manage()
+async function manage() {
+    await cartsManager.addCart({productId:4, quantity: 2})
+    await cartsManager.addCart({productId:1, quantity:10})
+    await cartsManager.addCart({productId:5, quantity:10})
+    await cartsManager.addCart({productId:11, quantity:10})
+    await cartsManager.getCarts()
+    await cartsManager.getCartById(2)
+    }
+manage()
 
 
 export default cartsManager
