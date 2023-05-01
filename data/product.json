@@ -8,7 +8,7 @@
     "id": 1
   },
   {
-    "title": "Cerveza tibetana Barley",
+    "title": "probando",
     "description": "24 - bot. 12 l",
     "price": 80000,
     "thumbnail": "./img/pc002.jpg",
@@ -20,7 +20,7 @@
     "description": "12 - bot. 550 ml",
     "price": 90,
     "thumbnail": "./img/ipad998.jpg",
-    "stock": 15,
+    "stock": 50,
     "id": 3
   },
   {
@@ -70,5 +70,21 @@
     "thumbnail": "./img/ipad998.jpg",
     "stock": 15,
     "id": 9
+  },
+  {
+    "title": "Té Dharamsala",
+    "description": "10 cajas x 20 bolsas",
+    "price": 18000,
+    "thumbnail": "./img/iphone002.jpg",
+    "stock": 3,
+    "id": 10
+  },
+  {
+    "title": "Bondiola ahumada",
+    "description": "10 cajas x 20 bolsas",
+    "price": 18000,
+    "thumbnail": "./img/iphone002.jpg",
+    "stock": 3,
+    "id": 11
   }
 ]

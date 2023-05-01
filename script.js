@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs'
 
 class ProductManager {
     constructor(path) {
@@ -33,7 +33,7 @@ class ProductManager {
         let data_json = JSON.stringify(this.products, null, 2);
         await fs.promises.writeFile(this.path, data_json);
         console.log('id´s created product: ' + data.id);
-        return 'id´s product: ' + data.id;
+        return data
         } catch (error) {
         console.log(error);
         return 'Error: Creating product';
@@ -53,7 +53,6 @@ class ProductManager {
         }
     }
     read_products() {
-        //console.log(this.users)
         return this.products;
     }
 
@@ -62,8 +61,8 @@ class ProductManager {
         //console.log(one)
         return one;
     }
-    getProductById(id) {
-        let buscar = this.read_product(id);
+    getProductById(pid) {
+        let buscar = this.read_product(pid);
         try {
         if (buscar) {
             console.log(buscar);
@@ -118,25 +117,28 @@ class ProductManager {
         }
     }
     }
+    let manager = new ProductManager('./data/product.json')
+// async function manage() {
+//     await manager.addProduct({title: 'Té Dharamsala', description: '10 cajas x 20 bolsas', price: 18000, thumbnail: './img/iphone002.jpg', stock: 3})
+//     await manager.addProduct({title: 'Cerveza tibetana Barley', description: '24 - bot. 12 l', price: 80000, thumbnail: './img/pc002.jpg', stock: 20})
+//     await manager.addProduct({title: 'Sirope de regaliz', description: '12 - bot. 550 ml', price: 90, thumbnail: './img/ipad998.jpg', stock: 15})
+//     await manager.addProduct({title: 'Mezcla Gumbo del chef Anton', description: '36 cajas', price: 2000, thumbnail: './img/calefon.jpg', stock: 10})
+//     await manager.addProduct({title: 'Salsa de arándanos Northwoods', description: '12 - frascos 12 l', price: 5064, thumbnail: './img/a50.jpg', stock: 25})
+//     await manager.addProduct({title: 'Queso Manchego La Pastora', description: '10 - paq. 500 g', price: 60000, thumbnail: './img/canont6.jpg', stock: 1})
+//     await manager.addProduct({title: 'Cordero Alice Springs', description: '20 - latas 1 kg', price: 35000, thumbnail: './img/iphone002.jpg', stock: 3})
+//     await manager.addProduct({title: 'Refresco Guaraná Fantástica', description: '12 - latas 355 ml', price: 80000, thumbnail: './img/pc002.jpg', stock: 20})
+//     await manager.addProduct({title: 'Salchicha Thüringer', description: '50 bolsas x 30 salch', price: 90, thumbnail: './img/ipad998.jpg', stock: 15})
+//     await manager.addProduct({title: 'Arenque salado', description: '4 - vasos 450 g', price: 2000, thumbnail: './img/calefon.jpg', stock: 10})
+//     manager.getProducts()
+//     await manager.getProductById(9)
+//     await manager.updateProduct(9,{ title:'Chocolate Schoggi', description: '100 - piezas 100 g' })
+//     await manager.getProductById(9)
+//     await manager.deleteProduct(10)
+// }
+// manage()
 
-async function manager() {
-    let product = new ProductManager('./data/user.json')
-    await product.addProduct({title: 'Té Dharamsala', description: '10 cajas x 20 bolsas', price: 18000, thumbnail: './img/iphone002.jpg', stock: 3})
-    await product.addProduct({title: 'Cerveza tibetana Barley', description: '24 - bot. 12 l', price: 80000, thumbnail: './img/pc002.jpg', stock: 20})
-    await product.addProduct({title: 'Sirope de regaliz', description: '12 - bot. 550 ml', price: 90, thumbnail: './img/ipad998.jpg', stock: 15})
-    await product.addProduct({title: 'Mezcla Gumbo del chef Anton', description: '36 cajas', price: 2000, thumbnail: './img/calefon.jpg', stock: 10})
-    await product.addProduct({title: 'Salsa de arándanos Northwoods', description: '12 - frascos 12 l', price: 5064, thumbnail: './img/a50.jpg', stock: 25})
-    await product.addProduct({title: 'Queso Manchego La Pastora', description: '10 - paq. 500 g', price: 60000, thumbnail: './img/canont6.jpg', stock: 1})
-    await product.addProduct({title: 'Cordero Alice Springs', description: '20 - latas 1 kg', price: 35000, thumbnail: './img/iphone002.jpg', stock: 3})
-    await product.addProduct({title: 'Refresco Guaraná Fantástica', description: '12 - latas 355 ml', price: 80000, thumbnail: './img/pc002.jpg', stock: 20})
-    await product.addProduct({title: 'Salchicha Thüringer', description: '50 bolsas x 30 salch', price: 90, thumbnail: './img/ipad998.jpg', stock: 15})
-    await product.addProduct({title: 'Arenque salado', description: '4 - vasos 450 g', price: 2000, thumbnail: './img/calefon.jpg', stock: 10})
-    product.getProducts()
-    await product.getProductById(9)
-    await product.updateProduct(9,{ title:'Chocolate Schoggi', description: '100 - piezas 100 g' })
-    await product.getProductById(9)
-    await product.deleteProduct(10)
 
-}
-manager()
+
+export default manager
+
 
