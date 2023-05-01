@@ -5,18 +5,28 @@
     "id": 1
   },
   {
-    "product": "Té Dharamsala",
+    "product": "Té Dalailana",
     "quantity": 10,
     "id": 2
   },
   {
-    "product": "Salsa de arándanos Northwoods",
-    "quantity": 10,
+    "product": "Mezcla Gumbo del chef Anton",
+    "quantity": 2,
     "id": 3
   },
   {
-    "product": "Bondiola ahumada",
+    "product": "Té Dalailana",
     "quantity": 10,
     "id": 4
+  },
+  {
+    "product": "Queso Manchego La Pastora",
+    "quantity": 10,
+    "id": 5
+  },
+  {
+    "product": "Té Dharamsala",
+    "quantity": 10,
+    "id": 6
   }
 ]
