@@ -125,8 +125,10 @@ let cartsManager = new CartManager('./data/cart.json')
 // async function manage() {
 //     await cartsManager.addCart({productId:4, quantity: 2})
 //     await cartsManager.addCart({productId:2, quantity:10})
-//     await cartsManager.addCart({productId:6, quantity:10})
-//     await cartsManager.addCart({productId:10, quantity:10})
+//     await cartsManager.addCart({productId:6, quantity:15})
+//     await cartsManager.addCart({productId:10, quantity:15})
+//     await cartsManager.addCart({productId:11, quantity:15})
+//     await cartsManager.addCart({productId:9, quantity:15})
 //     // await cartsManager.getCarts()
 //     // await cartsManager.getCartById(2)
 //     }
