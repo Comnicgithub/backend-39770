@@ -1,5 +1,6 @@
 import fs from 'fs'
 
+
 class Cart {
     constructor(path) {
         this.carts = []
@@ -44,12 +45,14 @@ class Cart {
     read_cart(id) {
         return this.carts.find(each=>each.id===id)
     }
+
     async update_cart(id,data) {
         try {
             let one = this.read_cart(id)
             for (let prop in data) {
                 one[prop] = data[prop]
             }
+            console.log(data)
             let data_json = JSON.stringify(this.carts,null,2)
             await fs.promises.writeFile(this.path,data_json)
             console.log('updated cart: '+id)
@@ -59,6 +62,9 @@ class Cart {
             return null
         }
     }
+
+    
+
     async destroy_cart(id) {
         try {
             let one = this.carts.find(each=>each.id===id)

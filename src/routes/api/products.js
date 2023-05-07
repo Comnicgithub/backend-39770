@@ -1,11 +1,11 @@
 import { Router } from "express"
-import manager from '../../managers/product.js'
+import prod_manager from '../../managers/product.js'
 
 const router = Router()
 
 router.post('/', async(req,res,next)=> {
     try {
-        let response = await manager.add_product(req.body)
+        let response = await prod_manager.add_product(req.body)
         if (response===201) {
             return res.json({ status:201,message:'product created'})
         }
@@ -16,7 +16,7 @@ router.post('/', async(req,res,next)=> {
 })
 router.get('/', async(req,res,next)=> {
     try {
-        let products = manager.read_products()
+        let products = prod_manager.read_products()
         if (products.length>0) {
             return res.json({ status:200,products })
         }
@@ -31,7 +31,7 @@ router.get('/', async(req,res,next)=> {
 router.get('/:pid', async(req,res,next)=> {
     try {
         let id = Number(req.params.pid)
-        let product = manager.read_product(id)
+        let product = prod_manager.read_product(id)
         if (product) {
             return res.json({ status:200,product })
         }
@@ -45,7 +45,7 @@ router.put('/:pid', async(req,res,next)=> {
     try {
         let id = Number(req.params.pid)
         let data = req.body
-        let response = await manager.update_product(id,data)
+        let response = await prod_manager.update_product(id,data)
         if (response===200) {
             return res.json({ status:200,message:'product updated'})
         }
@@ -57,7 +57,7 @@ router.put('/:pid', async(req,res,next)=> {
 router.delete('/:pid', async(req,res,next)=> {
     try {
         let id = Number(req.params.pid)
-        let response = await manager.destroy_product(id)
+        let response = await prod_manager.destroy_product(id)
         if (response===200) {
             return res.json({ status:200,message:'product deleted'})
         }

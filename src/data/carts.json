@@ -1,6 +1,11 @@
 [
-    {
-        "products": [],
-        "id": 1
-    }
+  {
+    "products": [
+      {
+        "title": "Producto 1",
+        "cantidad": 30
+      }
+    ],
+    "id": 1
+  }
 ]
