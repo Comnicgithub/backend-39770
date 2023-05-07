@@ -54,17 +54,17 @@ router.put('/:cid', async(req,res,next)=> {
     }
 })
 
-//2do intento
 router.put('/:cid/product/:pid/:units', async(req,res,next)=> {
     try {
         let id = Number(req.params.cid)
         let pid = Number(req.params.pid)
-        let cantidad = Number(req.params.unit)
-        let agregar_producto = {products: [
-            "product: " + prod_manager.getProductById(pid).title,
-            "cantidad: " + cantidad 
-        ]}
-        let response = await manager.update_cart(id,agregar_producto)
+        let units = Number(req.params.units)
+
+        let data = {products:[{
+            Producto: prod_manager.getProductById(pid),
+            Cantidad: units
+        }]}
+        let response = await manager.update_cart(id,data)
         if (response===200) {
             return res.json({ status:200,message:'cart updated'})
         }
@@ -74,52 +74,19 @@ router.put('/:cid/product/:pid/:units', async(req,res,next)=> {
     }
 })
 
-// router.put(':cid/product/:pid/:units ', async(req,res,next)=> {
-//     try {
-//         let id = Number(req.params.cid)
-//         let pid= Number(rep.param.pid)
-//         let cantidad = Number(rec.param.unit)
-//         let agregar_producto = prod_manager.getProductById(pid).title
-//         let data = { products: [agregar_producto, cantidad]}
-//         let response = await manager.update_cart(id,data)
-//         if (response===200) {
-//             return res.json({ status:200,message:'cart updated'})
-//         }
-//         return res.json({ status:404,message:'not found'})
-//     } catch(error) {
-//         next(error)
-//     }
-// })
+router.delete('/:cid', async(req,res,next)=> {
+    try {
+        let id = Number(req.params.cid)
+        let response = await manager.destroy_cart(id)
+        if (response===200) {
+            return res.json({ status:200,message:'cart deleted'})
+        }
+        return res.json({ status:404,message:'not found'})
+    } catch(error) {
+        next(error)
+    }
+})
 
-// router.put('/cart/:cid/product/:pid', async (req, res) => {
-//     try {
-//         const { cid, pid } = req.params;
-//         const { quantity } = req.body;
-
-//         const cart = await manager.read_cart(cid);
-//         if (!cart) {
-//             return res.status(404).send({ message: 'Cart not found' });
-//         }
-
-//         const product = await prod_manager.getProductById(pid)
-//         if (!product) {
-//             return res.status(404).send({ message: 'Product not found' });
-//         }
-
-//         const productInCart = cart.products.find(item => item.product.toString() === pid);
-//         if (productInCart) {
-//             productInCart.quantity = quantity;
-//         } else {
-//             cart.products.push({ product: pid, quantity });
-//         }
-
-//         await cart.save();
-//         res.status(200).send({ message: 'Product added to cart', cart });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).send({ message: 'Internal server error' });
-//     }
-// });
 
 router.delete('/:cid', async(req,res,next)=> {
     try {
