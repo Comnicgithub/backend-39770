@@ -47,22 +47,22 @@ class Cart {
         return this.carts.find(each=>each.id===id)
     }
 
-    // async update_cart(id,data) {
-    //     try {
-    //         let one = this.read_cart(id)
-    //         for (let prop in data) {
-    //             one[prop] = data[prop]
-    //         }
-    //         console.log(data)
-    //         let data_json = JSON.stringify(this.carts,null,2)
-    //         await fs.promises.writeFile(this.path,data_json)
-    //         console.log('updated cart: '+id)
-    //         return 200
-    //     } catch(error) {
-    //         console.log(error)
-    //         return null
-    //     }
-    // }
+    async update_cart(id,data) {
+        try {
+            let one = this.read_cart(id)
+            for (let prop in data) {
+                one[prop] = data[prop]
+            }
+            console.log(data)
+            let data_json = JSON.stringify(this.carts,null,2)
+            await fs.promises.writeFile(this.path,data_json)
+            console.log('updated cart: '+id)
+            return 200
+        } catch(error) {
+            console.log(error)
+            return null
+        }
+    }
 
     async update_cart(cid, pid, x) {
             try {
@@ -70,9 +70,11 @@ class Cart {
             let auxProducts = prod_manager.read_products();
             let auxProduct = prod_manager.read_product(pid);
             if (auxProduct.stock > x) {
-                auxCart.products.push(...auxCart.products, {
-                id: auxProduct.title,
-                units: x,
+                
+                auxCart.products.push({
+                id: auxProduct.id,
+                title: auxProduct.title,
+                units: x
                 });
             }
         
@@ -110,8 +112,40 @@ class Cart {
             return null
         }
     }
-}
 
+
+
+    async destroy_cart(cid, pid, x) {
+        try {
+            let auxCart = this.read_cart(cid);
+            let auxProducts = prod_manager.read_products();
+            let auxProduct = prod_manager.read_product(pid);
+            let unitscartProduct = auxCart.products(pid).units;
+
+
+
+
+
+            for (let index = 0; index < auxProducts.length; index++) {
+                let element = auxProducts[index];
+                if (pid === element.id) {
+                auxProducts[index].stock = element.stock + x;
+                prod_manager.update_product(pid, element);
+                }
+            }
+
+            // Condition for deleting cart not defined
+            this.carts = this.carts.filter(each => each.id !== id);
+            let data_json = JSON.stringify(this.carts,null,2)
+                await fs.promises.writeFile(this.path,data_json)
+                console.log('delete cart: '+id)
+                return 200
+        } catch(error) {
+            console.log(error)
+            return null
+        }
+    }
+}
 let manager = new Cart('./src/data/carts.json')
 
 export default manager
