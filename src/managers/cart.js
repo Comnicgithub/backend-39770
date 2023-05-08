@@ -1,4 +1,5 @@
 import fs from 'fs'
+import prod_manager from '../managers/product.js'
 
 
 class Cart {
@@ -46,24 +47,51 @@ class Cart {
         return this.carts.find(each=>each.id===id)
     }
 
-    async update_cart(id,data) {
-        try {
-            let one = this.read_cart(id)
-            for (let prop in data) {
-                one[prop] = data[prop]
-            }
-            console.log(data)
-            let data_json = JSON.stringify(this.carts,null,2)
-            await fs.promises.writeFile(this.path,data_json)
-            console.log('updated cart: '+id)
-            return 200
-        } catch(error) {
-            console.log(error)
-            return null
-        }
-    }
+    // async update_cart(id,data) {
+    //     try {
+    //         let one = this.read_cart(id)
+    //         for (let prop in data) {
+    //             one[prop] = data[prop]
+    //         }
+    //         console.log(data)
+    //         let data_json = JSON.stringify(this.carts,null,2)
+    //         await fs.promises.writeFile(this.path,data_json)
+    //         console.log('updated cart: '+id)
+    //         return 200
+    //     } catch(error) {
+    //         console.log(error)
+    //         return null
+    //     }
+    // }
 
-    
+    async update_cart(cid, pid, x) {
+            try {
+            let auxCart = this.read_cart(cid);
+            let auxProducts = prod_manager.read_products();
+            let auxProduct = prod_manager.read_product(pid);
+            if (auxProduct.stock > x) {
+                auxCart.products.push(...auxCart.products, {
+                id: auxProduct.title,
+                units: x,
+                });
+            }
+        
+            for (let index = 0; index < auxProducts.length; index++) {
+                let element = auxProducts[index];
+                if (pid === element.id) {
+                auxProducts[index].stock = element.stock - x;
+                prod_manager.update_product(pid, element);
+                }
+            }
+            // this.carts.push(auxCart);
+            let data_json = JSON.stringify(this.carts, null, 2);
+            await fs.promises.writeFile(this.path, data_json);
+            return 200;
+            } catch (error) {
+            console.log(error);
+            return null;
+            }
+        }
 
     async destroy_cart(id) {
         try {
