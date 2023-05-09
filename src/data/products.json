@@ -4,7 +4,7 @@
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
     "thumbnail": "./img/iphone002.jpg",
-    "stock": 77,
+    "stock": 100,
     "id": 1
   },
   {
@@ -12,7 +12,7 @@
     "description": "24 - bot. 12 l",
     "price": 80000,
     "thumbnail": "./img/pc002.jpg",
-    "stock": 90,
+    "stock": 100,
     "id": 2
   },
   {
@@ -20,7 +20,7 @@
     "description": "12 - bot. 550 ml",
     "price": 90,
     "thumbnail": "./img/ipad998.jpg",
-    "stock": 77,
+    "stock": 100,
     "id": 3
   },
   {
@@ -36,7 +36,7 @@
     "description": "12 - frascos 12 l",
     "price": 5064,
     "thumbnail": "./img/a50.jpg",
-    "stock": 25,
+    "stock": 76,
     "id": 5
   },
   {
@@ -44,7 +44,7 @@
     "description": "10 - paq. 500 g",
     "price": 60000,
     "thumbnail": "./img/canont6.jpg",
-    "stock": 75,
+    "stock": 100,
     "id": 6
   },
   {
@@ -52,7 +52,7 @@
     "description": "20 - latas 1 kg",
     "price": 35000,
     "thumbnail": "./img/iphone002.jpg",
-    "stock": 30,
+    "stock": 100,
     "id": 7
   },
   {
@@ -68,7 +68,7 @@
     "description": "100 - piezas 100 g",
     "price": 90,
     "thumbnail": "./img/ipad998.jpg",
-    "stock": 20,
+    "stock": 100,
     "id": 9
   },
   {
@@ -76,7 +76,7 @@
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
     "thumbnail": "./img/iphone002.jpg",
-    "stock": 75,
+    "stock": 100,
     "id": 10
   },
   {
@@ -84,7 +84,7 @@
     "description": "36 cajas",
     "price": 2000,
     "thumbnail": "./img/calefon.jpg",
-    "stock": 10,
+    "stock": 100,
     "id": 11
   },
   {
@@ -92,7 +92,7 @@
     "description": "36 cajas",
     "price": 2000,
     "thumbnail": "./img/calefon.jpg",
-    "stock": 10,
+    "stock": 95,
     "id": 12
   }
 ]

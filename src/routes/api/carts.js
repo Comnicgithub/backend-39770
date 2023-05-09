@@ -70,25 +70,6 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
         }
     });
 
-// router.put('/:cid/product/:pid/:units', async(req,res,next)=> {
-//     try {
-//         let id = Number(req.params.cid)
-//         let pid = Number(req.params.pid)
-//         let units = Number(req.params.units)
-
-//         let data = {products:[{
-//             Producto: prod_manager.getProductById(pid),
-//             Cantidad: units
-//         }]}
-//         let response = await manager.update_cart(id,data)
-//         if (response===200) {
-//             return res.json({ status:200,message:'cart updated'})
-//         }
-//         return res.json({ status:404,message:'not found'})
-//     } catch(error) {
-//         next(error)
-//     }
-// })
 
 router.delete('/:cid', async(req,res,next)=> {
     try {
@@ -103,22 +84,38 @@ router.delete('/:cid', async(req,res,next)=> {
     }
 })
 
-
-router.delete('/:cid/product/:pid/:units', async(req,res,next)=> {
-    try {
-        let id = Number(req.params.pid)
-        let cid = Number(req.params.cid)
-        let units = Number(req.params.units)
-
-        let response = await manager.destroy_cart(cid, id, units);
+router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
+        try {
+        let id = Number(req.params.pid);
+        let cid = Number(req.params.cid);
+        let units = Number(req.params.units);
+    
+        let response = await manager.delete_cart(cid, id, units);
         if (response === 200) {
-            return res.json({ status: 200, message: "Stock descontado" });
+            return res.json({ status: 200, message: "cart delete" });
         }
+        return res.json({ status: 404, message: "not found" });
+        } catch (error) {
+        next(error);
+        }
+    });
 
-        return res.json({ status:404,message:'not found'})
-    } catch(error) {
-        next(error)
-    }
-})
+
+// router.delete('/:cid/product/:pid/:units', async(req,res,next)=> {
+//     try {
+//         let id = Number(req.params.pid)
+//         let cid = Number(req.params.cid)
+//         let units = Number(req.params.units)
+
+//         let response = await manager.destroy_cart(cid, id, units);
+//         if (response === 200) {
+//             return res.json({ status: 200, message: "Stock descontado" });
+//         }
+
+//         return res.json({ status:404,message:'not found'})
+//     } catch(error) {
+//         next(error)
+//     }
+// })
 
 export default router
