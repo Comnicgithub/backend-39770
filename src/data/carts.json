@@ -2,12 +2,7 @@
   {
     "products": [
       {
-        "id": 5,
-        "title": "Salsa de arándanos Northwoods",
-        "units": 8
-      },
-      {
-        "id": 12,
+        "id": 11,
         "title": "Mezcla Gumbo del chef Anton",
         "units": 5
       }

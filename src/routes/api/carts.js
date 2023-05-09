@@ -92,7 +92,7 @@ router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
     
         let response = await manager.delete_cart(cid, id, units);
         if (response === 200) {
-            return res.json({ status: 200, message: "cart delete" });
+            return res.json({ status: 200, message: "Units Delete" });
         }
         return res.json({ status: 404, message: "not found" });
         } catch (error) {

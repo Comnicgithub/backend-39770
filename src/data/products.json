@@ -1,6 +1,6 @@
 [
   {
-    "title": "Té Dharamsala",
+    "title": "Titulo nuevo",
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
     "thumbnail": "./img/iphone002.jpg",
@@ -84,7 +84,7 @@
     "description": "36 cajas",
     "price": 2000,
     "thumbnail": "./img/calefon.jpg",
-    "stock": 100,
+    "stock": 95,
     "id": 11
   },
   {
@@ -92,7 +92,7 @@
     "description": "36 cajas",
     "price": 2000,
     "thumbnail": "./img/calefon.jpg",
-    "stock": 95,
-    "id": 12
+    "stock": 10,
+    "id": 13
   }
 ]
