@@ -19,3 +19,10 @@
 » Tambien se establecienron los querys de limit para que muestre la cantidad que el usuario determine.
 
 » Por ultimo se configuro un endpoint para los productos (/:pid) y para los carts (/:cip) para que muestre el id buscado. 
+
+» Se generaron los routes, y se ordenaron los manager de prodcuts y de carts.
+
+» Se configuro dentro del manager de carts un metodo para ingresar productos a un array vario antes creado llamado products. Estos productos se agregar por medio del postman mediante parametros asignados. 
+
+» Se configuro el metodo delete_cart para poder sacarle unidades a un prodcuto especifico dentro del carrito, estas unidades se agregan de neuvo al stock inicial.
+
