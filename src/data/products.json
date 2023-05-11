@@ -92,7 +92,7 @@
     "description": "36 cajas",
     "price": 2000,
     "thumbnail": "./img/calefon.jpg",
-    "stock": 10,
+    "stock": 100,
     "id": 13
   }
 ]

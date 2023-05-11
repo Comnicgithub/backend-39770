@@ -4,9 +4,9 @@ const router = Router()
 
 router.get('/', async(req,res,next)=> {
     try {
-        return res.render('index',{
-            title: 'index',
-            description: 'ESTO VA EN EL MAIN'
+        return res.render('chat',{
+            title: 'chat',
+            script: 'chat.js'
         })
     } catch(error) {
         next(error)
