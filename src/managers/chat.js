@@ -28,9 +28,9 @@ $(function () {
     const addParticipantsMessage = (data) => {
         let message = '';
         if (data.numUsers === 1) {
-            message += `Participantes en la sala 1`;
+            message += `there's 1 participant`;
         } else {
-            message += `Hay ${data.numUsers} participantes en la sala`;
+            message += `there are ${data.numUsers} participants`;
         }
         log(message);
     }
@@ -228,7 +228,7 @@ $(function () {
     socket.on('login', (data) => {
         connected = true;
         // Display the welcome message
-        const message = 'Bienvenidos al chat del Sitio';
+        const message = 'Welcome to Socket.IO Chat – ';
         log(message, {
             prepend: true
         });
