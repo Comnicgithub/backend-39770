@@ -11,7 +11,7 @@ function emit_data() {
     )
 }
 
-let selectors = document.querySelectorAll('.emit_data')
+let selectors = document.querySelectorAll('.btn')
 console.log(selectors)
 selectors.forEach(each=> each.addEventListener('click',emit_data))
 
