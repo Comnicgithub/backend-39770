@@ -1,21 +1,29 @@
-import server from './app.js'
-import { Server } from 'socket.io'
+import server from "./app.js"
+import { Server } from "socket.io"
 
-const PORT = 8080
+const PORT = process.env.PORT || 8080
 const ready = ()=> console.log('server ready on port '+PORT)
 
-const http_server = server.listen(PORT,ready)
-const socket_server = new Server(http_server)
+let http_server = server.listen(PORT,ready)
+let socket_server = new Server(http_server)
 
-socket_server.on(
-    'connection',
-    socket => {
-        console.log(`client ${socket.id} connected`)
+let contador = 0
+
+socket_server.on(       //on sirve para escuchar los mensajes que llegan (en este caso del cliente)
+    'connection',       //identificador del mensaje a escuchar (el primero siempre connection)
+    socket => {         //callback que se va a ejecutar apenas se conecta un cliente
+        //console.log(socket)
+        console.log(`client ${socket.client.id} connected`)
+        socket.on(
+            'primer_conexion',
+            data=> {
+                console.log(data.name)
+                contador++
+                socket_server.emit(
+                    'contador',
+                    { contador }
+                )
+            }
+        )
     }
-    //agregar recepcion de la autenticacion
-        //en la practica debe emitir los mensajes de la memoria
-        //en la entrega debe enviar las opciones del chatbot que crean necesarias
-    //agregar recepcion del nuevo mensaje
-        //en la práctica debe enviar los mensajes de la memoria
-        //para la entrega debe emitir una respuesta
 )
