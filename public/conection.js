@@ -6,6 +6,7 @@ function emit_data() {
         'primer_conexion',  //identificador del mensaje
         {                   //objeto con las propiedades a enviar (en este caso al servidor)
             name: 'Nico',
+            last_name: 'Lopez',
             age: 37
         }
     )
