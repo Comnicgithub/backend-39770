@@ -1,6 +1,19 @@
 <div class="container title">
     {{title}}
 </div>
+<div class="container usuario">
+    <div>
+        
+    </div>
+    <div>
+        <img src={{photo}} alt="Avatar" class="avatar"><h2>{{name}}  
+        {{#if last_name}}
+        {{last_name}}
+        {{else}}
+        Apellido desconocido</h2>
+        {{/if}}
+    </div>
+</div>
 <div class="container">
     <div class="d-flex ">
     {{#each produtcs}}
