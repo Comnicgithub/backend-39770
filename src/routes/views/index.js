@@ -1,6 +1,7 @@
 import { Router } from "express"
 import auth_router from "./auth.js"
 
+
 const router = Router()
 
 router.get(
@@ -35,7 +36,7 @@ router.get(
         try {
             return res.render(
                 'products',
-                { produtcs: [
+                {   produtcs: [
                     {name:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/1.jpg', price: '$15.000'},
                     {name:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
                     {name:'Anteojos Ray-Ban Wayfarer 4195Mi', photo: 'public/img/3.jpg', price: '$23.000'}],
@@ -49,13 +50,26 @@ router.get(
     }
 )
 
+
+
 router.get(
     '/carts',
     async(req,res,next) => {
         try {
             return res.render(
                 'carts',
-                { title: 'Cart' }
+                {    name: 'Nico',
+                    last_name: 'Lopez',
+                    photo: 'https://www.w3schools.com/howto/img_avatar.png',
+                    //last_name: 'borraz',
+                    
+                    produtcs: [
+                    {name:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/1.jpg', price: '$15.000'},
+                    {name:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                    {name:'Anteojos Ray-Ban Wayfarer 4195Mi', photo: 'public/img/3.jpg', price: '$23.000'}],
+                title: 'index',
+                script: '/public/conection.js',
+                    title: 'Cart' }
             )
         } catch (error) {
             next()

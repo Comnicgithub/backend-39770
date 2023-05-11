@@ -3,31 +3,35 @@
 </div>
 <div class="container usuario">
     <div>
-        
+
     </div>
     <div>
-        <img src={{photo}} alt="Avatar" class="avatar"><h2>{{name}}  
-        {{#if last_name}}
-        {{last_name}}
-        {{else}}
-        Apellido desconocido</h2>
+        <img src={{photo}} alt="Avatar" class="avatar">
+        <h2>{{name}}
+            {{#if last_name}}
+            {{last_name}}
+            {{else}}
+            Apellido desconocido</h2>
         {{/if}}
     </div>
 </div>
 <div class="container">
-    <div class="d-flex ">
-    {{#each produtcs}}
+    <ul class="list-group">
+        <div class="d-flex flex-column ">
+            {{#each produtcs}}
+            <li>
+                <div class="d-flex" style="width: 500px">
+                    <div>
+                        <img src={{this.photo}} class="cart-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5>{{this.name}}</h5>
+                        <p class="card-text">{{this.price}}</p>
+                    </div>
+                </div>
 
-    <div class="card">
-        <div class="">
-            <img src={{this.photo}} class="card-img-top">
+            </li>
+            {{/each}}
         </div>
-        <div class="card-body">
-            <h5>{{this.name}}</h5>
-            <p class="card-text">{{price}}</p>
-            <a href="#" class="btn agregar-carrito"> Agregar al carrito </a>
-        </div>
-    </div>
-    {{/each}}
-</div>
+    </ul>
 </div>
