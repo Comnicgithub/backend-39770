@@ -15,7 +15,8 @@ footer {
 }
 
 .bkg {
-    background-color: white;
+    background-color: #fff;
+    height: 600px;
 }
 
 .d-flex {
@@ -33,9 +34,8 @@ footer {
 }
 
 .navbar ul {
-    font-size: 20px;
-    font-weight: bold;
-    width: 40vw;
+    font-size: 18px;
+    width: 30vw;
     justify-content: space-around;
         transition: 0.3s;
 }
@@ -47,7 +47,8 @@ footer {
 
 }
 .navbar ul li:hover {
-    font-size: 16px;
+    font-weight: bold;
+    transform: scale(1.1);
     transition: 0.3s;
 
 }

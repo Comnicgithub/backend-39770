@@ -83,11 +83,11 @@ socket_server.on('connection', (socket) => {
         if (addedUser) {
             --numUsers;
 
-            // echo globally that this client has left
-            socket.broadcast.emit('user left', {
-                username: socket.username,
-                numUsers: numUsers
-            });
+            // // echo globally that this client has left
+            // socket.broadcast.emit('user left', {
+            //     username: socket.username,
+            //     numUsers: numUsers
+            // });
         }
     });
 });
