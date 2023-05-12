@@ -43,6 +43,10 @@ router.put('/:cid', async(req,res,next)=> {
     try {
         let id = Number(req.params.cid)
         let data = req.body
+
+
+        const cart = await manager.read_cart(id)
+
         let response = await manager.update_cart(id,data)
         if (response===200) {
             return res.json({ status:200,message:'cart updated'})
@@ -59,7 +63,7 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
         let cid = Number(req.params.cid);
         let units = Number(req.params.units);
     
-        let response = await manager.update_cart(cid, id, units);
+        let response = await manager.reserve_stock(cid, id, units);
         if (response === 200) {
             return res.json({ status: 200, message: "cart updated" });
         }
