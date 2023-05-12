@@ -1,20 +1,28 @@
 <div class="container title">
-    {{title}}
+    {{topTitle}}
 </div>
 <div class="container">
     <div class="d-flex prodcutos">
-    {{#each produtcs}}
-
+    {{#each products}}
     <div class="card">
-        <div>
-            <img src={{this.photo}} class="card-img-top">
+        
+        <div class="thumbnailContainer">
+            <img src={{this.thumbnail}} alt={{this.id}} class="card-img-top">
         </div>
         <div class="card-body">
             <h5>{{this.title}}</h5>
-            <p class="card-text">{{price}}</p>
-            <a href="#" class="btn agregar-carrito"> Agregar al carrito </a>
+            <!-- <p class="prodDescription-creator prodDescription-position">{{this.description}}</p> -->
+            <p class="card-text">{{this.price}}</p>
+            {{#if this.inStock }}
+                <button type="button" class="btn agregar-carrito">SUMAR AL CARRITO</button>
+            {{else}}
+                <button type="button" class="btn sin-stock" disabled>SIN STOCK</button>
+            {{/if}}
         </div>
+        
     </div>
-    {{/each}}
+{{/each}}
 </div>
 </div>
+
+<script src={{script2}}></script>

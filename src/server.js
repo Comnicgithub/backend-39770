@@ -1,7 +1,7 @@
 import server from "./app.js"
 import { Server } from "socket.io"
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000 // lo cambie pq mi puerto 8080 esta siempre ocupado despues rechaza este cambio
 const ready = ()=> console.log('server ready on port '+PORT)
 
 let http_server = server.listen(PORT,ready)
