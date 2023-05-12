@@ -3,25 +3,20 @@ import prod_manager from '../../managers/product.js'
 
 const router = Router()
 
-// router.post('/', async(req,res,next)=> {
-//     try {
-//         let response = await prod_manager.add_product(req.body)
-//         if (response===201) {
-//             return res.json({ status:201,message:'product created'})
-//         }
-//         return res.json({ status:400,message:'not created'})
-//     } catch(error) {
-//         next(error)
-//     }
-// })
-
 router.post('/', async (req, res, next) => {
     try {
-        const { title, description, price, thumbnail, stock } = req.body;
-    
+        let title = req.body.title
+        let description = req.body.description
+        let price = Number(req.body.price)
+        let thumbnail = req.body.thumbnail
+        let stock = Number(req.body.stock)
+
         // Ejecutar la función de añadir producto correctamente y manejar errores
-        const newProduct = await prod_manager.add_product({ title, description, price, thumbnail, stock });
-        if (newProduct) return res.status(201).json({ status: 201, message: 'Product created', product: newProduct }); // Devolver una respuesta más detallada con el nuevo producto agregado
+        let response = await prod_manager.add_product( { title, description, price, thumbnail, stock } );
+        if (response===201) {
+            return res.redirect('/products') 
+            // ,res.json({ status:201,message:'product created'}); 
+        }
     
         return res.status(400).json({ status: 400, message: 'Product not created' }); // Manejar error genérico
         } catch (error) {

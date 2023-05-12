@@ -94,5 +94,85 @@
     "thumbnail": "./img/calefon.jpg",
     "stock": 100,
     "id": 13
+  },
+  {
+    "title": "fdvfd",
+    "description": "vdfvfvf",
+    "price": 433434,
+    "thumbnail": "fddf",
+    "stock": 433433,
+    "id": 14
+  },
+  {
+    "title": "Agua de alibur",
+    "description": "Aguita fresca para tomar despues de los partidos",
+    "price": 300,
+    "thumbnail": "no hay",
+    "stock": 500,
+    "id": 15
+  },
+  {
+    "title": "probando producto nuevo",
+    "description": "lalalala",
+    "price": 5456,
+    "thumbnail": "dddsc",
+    "stock": 5166,
+    "id": 16
+  },
+  {
+    "title": "csdcsdcsdcds",
+    "description": "sdcsdc",
+    "price": 43433443,
+    "thumbnail": "fdvdfv",
+    "stock": 4343,
+    "id": 17
+  },
+  {
+    "title": "dcsdcd",
+    "description": "sdsdsdccsdcd",
+    "price": 32323232,
+    "thumbnail": "dsdsc",
+    "stock": 3.2323223222222224e+27,
+    "id": 18
+  },
+  {
+    "title": "dcsdcd",
+    "description": "sdsdsdccsdcd",
+    "price": 32323232,
+    "thumbnail": "dsdsc",
+    "stock": 3.2323223222222224e+27,
+    "id": 19
+  },
+  {
+    "title": "dcsdcd",
+    "description": "sdsdsdccsdcd",
+    "price": 32323232,
+    "thumbnail": "dsdsc",
+    "stock": 3.2323223222222224e+27,
+    "id": 20
+  },
+  {
+    "title": "dcsdcd",
+    "description": "sdsdsdccsdcd",
+    "price": 32323232,
+    "thumbnail": "dsdsc",
+    "stock": 3.2323223222222224e+27,
+    "id": 21
+  },
+  {
+    "title": "sdcdssdsd",
+    "description": "csdcsd",
+    "price": 2212121,
+    "thumbnail": "dsds",
+    "stock": 2112,
+    "id": 22
+  },
+  {
+    "title": "fdvvfdvfdvfd",
+    "description": "ffvdvdf",
+    "price": 323423232,
+    "thumbnail": "fdvfvdfdv",
+    "stock": 3232,
+    "id": 23
   }
 ]

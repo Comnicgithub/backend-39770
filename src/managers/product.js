@@ -18,57 +18,27 @@ class Product {
             return 200
         }
     }
-    // async add_product({ title,description,price,thumbnail,stock }) {
-    //     try {
-    //         if (title&&description&&price&&thumbnail&&stock) {
-    //             let data = { title,description,price,thumbnail,stock }
-    //             if (this.products.length>0) {
-    //                 let next_id = this.products[this.products.length-1].id+1
-    //                 data.id = next_id
-    //             } else {
-    //                 data.id = 1
-    //             }
-    //             this.products.push(data)
-    //             let data_json = JSON.stringify(this.products,null,2)
-    //             await fs.promises.writeFile(this.path,data_json)
-    //             console.log('id´s created product: '+data.id)
-    //             return 201
-    //         }
-    //         console.log('complete data')
-    //         return null
-    //     } catch(error) {
-    //         console.log(error)
-    //         return null
-    //     }
-    // }
-
     async add_product({ title,description,price,thumbnail,stock }) {
         try {
-            if (title && description && price && thumbnail && stock) {
-                let data = await fs.promises.readFile('products.json');
-                const products = JSON.parse(data);
-    
-                let next_id = 1;
-                if (products.length > 0) {
-                    const last_product = products[products.length - 1];
-                    next_id = last_product.id + 1;
+            if (title&&description&&price&&thumbnail&&stock) {
+                let data = { title,description,price,thumbnail,stock }
+                if (this.products.length>0) {
+                    let next_id = this.products[this.products.length-1].id+1
+                    data.id = next_id
+                } else {
+                    data.id = 1
                 }
-    
-                const newProduct = { id: next_id, title, description, price, thumbnail, stock };
-                this.products.push(newProduct);
-    
-                await fs.promises.writeFile('products.json', JSON.stringify(products));
-    
-                console.log(`Product with id ${next_id} added successfully.`);
-                return 201;
+                this.products.push(data)
+                let data_json = JSON.stringify(this.products,null,2)
+                await fs.promises.writeFile(this.path,data_json)
+                console.log('id´s created product: '+data.id)
+                return 201
             }
-    
-            console.log('Please provide complete product data.');
-            return null;
-        }
-        catch (error) {
-            console.log('Error adding product to database: ', error);
-            return null;
+            console.log('complete data')
+            return null
+        } catch(error) {
+            console.log(error)
+            return null
         }
     }
 

@@ -21,7 +21,37 @@ footer {
 .d-flex {
     width: 100%;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
+
+.navbar {
+    padding: 30px;
+}
+
+.navbar img {
+    width: 300px;
+}
+
+.navbar ul {
+    font-size: 20px;
+    font-weight: bold;
+    width: 40vw;
+    justify-content: space-around;
+        transition: 0.3s;
+}
+
+
+
+.navbar ul li{
+    transition: 0.3s;
+
+}
+.navbar ul li:hover {
+    font-size: 16px;
+    transition: 0.3s;
+
+}
+
 
 .avatar {
     vertical-align: middle;

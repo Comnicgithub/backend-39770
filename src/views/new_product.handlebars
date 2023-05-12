@@ -6,23 +6,23 @@
                     <form id="product-form" action="./api/products", method="POST">
                         <fieldset class="mb-2">
                             <label for="productTitle" class="form-label">Title</label>
-                            <input type="text" class="form-control" name="title" id="productTitle" />
+                            <input type="text" class="form-control" name="title" id="title" />
                         </fieldset>
                                 <fieldset class="mb-2">
                                     <label for="productDescription" class="form-label">Description</label>
-                                    <input type="text" class="form-control" name="description" id="productDescription" />
+                                    <input type="text" class="form-control" name="description" id="description" />
                                 </fieldset>
                                 <fieldset class="mb-2">
                                     <label for="productPrice" class="form-label">Price</label>
-                                    <input type="number" class="form-control" name="price" id="productPrice" />
+                                    <input type="number" class="form-control" name="price" id="price" />
                                 </fieldset>
                                 <fieldset class="mb-2">
                                     <label for="productStock" class="form-label">Stock</label>
-                                    <input type="number" class="form-control" name="stock" id="productStock" />
+                                    <input type="number" class="form-control" name="stock" id="stock" />
                                 </fieldset>
                                 <div class="mb-2">
                                     <label for="productPhoto" class="form-label">Photo</label>
-                                    <input type="text" class="form-control" name="url_photo" id="productPhoto" aria-describedby="photoSource"/>
+                                    <input type="text" class="form-control" name="thumbnail" id="thumbnail" aria-describedby="photoSource"/>
                                 </div>
                                 <button id='newProduct' type="submit" class="btn btn-danger mt-2">Save product</button>
                             </form>
