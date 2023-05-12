@@ -1,3 +1,4 @@
+
 $(function () {
     const FADE_TIME = 150; // ms
     const TYPING_TIMER_LENGTH = 400; // ms
@@ -25,7 +26,7 @@ $(function () {
     let lastTypingTime;
     let $currentInput = $usernameInput.focus();
 
-    const addParticipantsMessage = (data) => {
+    const addParticipantsMessage = (data) => { 
         let message = '';
         if (data.numUsers === 1) {
             message += `Participantes en la sala 1`;

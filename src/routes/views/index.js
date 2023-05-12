@@ -50,6 +50,25 @@ router.get(
     }
 )
 
+router.get(
+    '/new_product',
+    async(req,res,next) => {
+        try {
+            return res.render(
+                'new_product',
+                {   produtcs: [
+                    {name:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/1.jpg', price: '$15.000'},
+                    {name:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                    {name:'Anteojos Ray-Ban Wayfarer 4195Mi', photo: 'public/img/3.jpg', price: '$23.000'}],
+                title: 'index',
+                script: '/public/conection.js',
+                    title: 'Product' }
+            )
+        } catch (error) {
+            next()
+        }
+    }
+)
 
 
 router.get(

@@ -43,6 +43,7 @@ socket_server.on('connection', (socket) => {
             username: socket.username,
             message: data
         });
+        
     });
 
     // when the client emits 'add user', this listens and executes
