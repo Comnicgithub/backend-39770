@@ -94,5 +94,13 @@
     "thumbnail": "./img/calefon.jpg",
     "stock": 100,
     "id": 13
+  },
+  {
+    "title": "Fernet Branca",
+    "description": "Unico como la gente que lo toma",
+    "price": 4000,
+    "thumbnail": "no tiene",
+    "stock": 2000,
+    "id": 14
   }
 ]

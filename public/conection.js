@@ -20,3 +20,8 @@ socket.on(
     'contador',
     data => console.log(data)
 )
+
+    socket.on('contador', data => {
+        const contadorSpan = document.getElementById('contador');
+        contadorSpan.innerText = data.contador;
+    });
