@@ -4,7 +4,7 @@
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
     "thumbnail": "./public/img/0.jpg",
-    "stock": 100,
+    "stock": 98,
     "id": 1
   },
   {
@@ -12,7 +12,7 @@
     "description": "24 - bot. 12 l",
     "price": 80000,
     "thumbnail": "./public/img/1.jpg",
-    "stock": 99,
+    "stock": 98,
     "id": 2
   },
   {
@@ -20,7 +20,7 @@
     "description": "12 - bot. 550 ml",
     "price": 90,
     "thumbnail": "./public/img/2.jpg",
-    "stock": 91,
+    "stock": 90,
     "id": 3
   },
   {
