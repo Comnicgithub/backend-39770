@@ -31,6 +31,18 @@ router.get(
     }
 )
 
+router.get("/products/:pid", async (req, res, next) => {
+
+    try {
+        return res.render("view_product", {
+            script2: '/public/uniqueProduct.js',
+            topTitle: "prueba"
+        })
+    } catch(error) {
+
+    }
+})
+
 router.get(
     '/products',
     async(req,res,next) => {
@@ -63,8 +75,7 @@ router.get(
                 products: products,
                 title: 'Products Page',
                 topTitle: `Products: ${products.length}`,
-                script: '/public/conection.js',
-                script2: 'public/products.js'
+                script: '/public/products.js',
             })
 
         } catch (error) {

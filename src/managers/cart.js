@@ -64,21 +64,37 @@ class Cart {
     //     }
     // }
 
-    async update_cart(cid, pid, x) {
+    async reserve_stock(cid, pid, x) {
             try {
             let auxCart = this.read_cart(cid);
             let auxProducts = prod_manager.read_products();
             let auxProduct = prod_manager.read_product(pid);
-            if (auxProduct.stock > x) {
-                
-                auxCart.products.push({
-                id: auxProduct.id,
-                thumbnail: auxProduct.thumbnail,
-                title: auxProduct.title,
-                units: x
-                });
-            }
+            if (auxProduct.stock < x || auxProduct.stock <= 0) return null
         
+            if (!auxCart) { // si no existe el carro con ese id directamente se agregara con el contenido y regresara todo ok.
+                this.carts.push({
+                    id: auxProduct.id,
+                    products: [
+                        {pid: pid, x: x}
+                    ]
+                });
+                let data_json = JSON.stringify(this.carts, null, 2);
+                await fs.promises.writeFile(this.path, data_json);
+                return 200;
+            }
+            const index = auxProducts.findIndex(e => e.id == cid)
+            if (index == -1) return null
+
+            const index2 = this.carts[index].products.findIndex(e => e.pid == pid)
+            if (index2 == -1) {
+                this.carts[index].products.push({
+                    pid: pid,
+                    x: x
+                })
+            } else {
+                console.log(this.carts[index].products[index2])
+                this.carts[index].products[index2].x += Number(x)
+            }
             for (let index = 0; index < auxProducts.length; index++) {
                 let element = auxProducts[index];
                 if (pid === element.id) {

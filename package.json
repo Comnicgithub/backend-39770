@@ -8,6 +8,13 @@
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js"
   },
+
+  "nodemonConfig": {
+    "ignore": [
+      "src/data/carts.json",
+      "src/data/products.json"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
