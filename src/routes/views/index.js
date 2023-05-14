@@ -1,7 +1,7 @@
 import { Router } from "express"
 import auth_router from "./auth.js"
-
-
+import ProductManager from "../../managers/product.js"
+import { ProductsArrayConvert } from "../../devUtils.js"
 
 const router = Router()
 
@@ -35,27 +35,40 @@ router.get(
     '/products',
     async(req,res,next) => {
         try {
-            return res.render(
-                'products',
-                {   produtcs: 
-                    [
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/1.jpg', price: '$15.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                    {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo: 'public/img/3.jpg', price: '$23.000'}],
-                title: 'index',
+
+            const prods = ProductManager.read_products()
+            const prodsClone = JSON.parse(JSON.stringify(prods)) // esto lo hago porque nose si el product manager regresa el objeto original 
+            const products = ProductsArrayConvert(prodsClone)
+            // al final si cambia el array original y tuve que clonar
+
+
+            /*
+            [ // estos eran los productos que estaban en el render.
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/1.jpg', price: '$15.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
+                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo: 'public/img/3.jpg', price: '$23.000'}
+            ],
+            */
+
+            return res.render('products', {
+                products: products,
+                title: 'Products Page',
+                topTitle: `Products: ${products.length}`,
                 script: '/public/conection.js',
-                    title: 'Products' }
-            )
+                script2: 'public/products.js'
+            })
+
         } catch (error) {
+            console.log(error)
             next()
         }
     }
