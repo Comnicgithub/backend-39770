@@ -4,7 +4,7 @@
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
     "thumbnail": "./public/img/1.jpg",
-    "stock": 85,
+    "stock": 62,
     "id": 1
   },
   {
@@ -12,7 +12,7 @@
     "description": "24 - bot. 12 l",
     "price": 80000,
     "thumbnail": "./public/img/pc002.jpg",
-    "stock": 88,
+    "stock": 75,
     "id": 2
   },
   {
@@ -20,7 +20,7 @@
     "description": "12 - bot. 550 ml",
     "price": 90,
     "thumbnail": "./public/img/ipad998.jpg",
-    "stock": 90,
+    "stock": 82,
     "id": 3
   },
   {
@@ -36,7 +36,7 @@
     "description": "12 - frascos 12 l",
     "price": 5064,
     "thumbnail": "./public/img/a50.jpg",
-    "stock": 76,
+    "stock": 74,
     "id": 5
   },
   {
@@ -68,7 +68,7 @@
     "description": "100 - piezas 100 g",
     "price": 90,
     "thumbnail": "./public/img/ipad998.jpg",
-    "stock": 100,
+    "stock": 99,
     "id": 9
   },
   {
@@ -172,7 +172,7 @@
     "description": "ffvdvdf",
     "price": 323423232,
     "thumbnail": "fdvfvdfdv",
-    "stock": 3232,
+    "stock": 3227,
     "id": 23
   }
 ]

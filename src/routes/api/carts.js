@@ -68,10 +68,10 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
             return res.json({ status: 200, message: "cart updated" });
         }
         return res.json({ status: 404, message: "not found" });
-        } catch (error) {
+    } catch (error) {
         next(error);
-        }
-    });
+    }
+});
 
 
 router.delete('/:cid', async(req,res,next)=> {
