@@ -12,7 +12,7 @@
     "description": "24 - bot. 12 l",
     "price": 80000,
     "thumbnail": "./public/img/1.jpg",
-    "stock": 100,
+    "stock": 99,
     "id": 2
   },
   {
@@ -20,7 +20,7 @@
     "description": "12 - bot. 550 ml",
     "price": 90,
     "thumbnail": "./public/img/2.jpg",
-    "stock": 100,
+    "stock": 91,
     "id": 3
   },
   {
@@ -107,7 +107,7 @@
     "title": "Agua de alibur",
     "description": "Aguita fresca para tomar despues de los partidos",
     "price": 300,
-    "thumbnail":"./public/img/13.jpg",
+    "thumbnail": "./public/img/13.jpg",
     "stock": 500,
     "id": 15
   }
