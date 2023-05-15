@@ -14,6 +14,19 @@ router.post('/', async(req,res,next)=> {
         next(error)
     }
 })
+// router.get('/', async(req,res,next)=> {
+//     try {
+//         let all = manager.read_carts()
+//         if (all.length>0) {
+//             return res.json({ status:200,all })
+//         }
+//         let message = 'not found'
+//         return res.json({ status:404,message })
+//     } catch(error) {
+//         next(error)
+//     }
+// })
+
 router.get('/', async(req,res,next)=> {
     try {
         let all = manager.read_carts()
@@ -103,22 +116,5 @@ router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
         }
     });
 
-
-// router.delete('/:cid/product/:pid/:units', async(req,res,next)=> {
-//     try {
-//         let id = Number(req.params.pid)
-//         let cid = Number(req.params.cid)
-//         let units = Number(req.params.units)
-
-//         let response = await manager.destroy_cart(cid, id, units);
-//         if (response === 200) {
-//             return res.json({ status: 200, message: "Stock descontado" });
-//         }
-
-//         return res.json({ status:404,message:'not found'})
-//     } catch(error) {
-//         next(error)
-//     }
-// })
 
 export default router

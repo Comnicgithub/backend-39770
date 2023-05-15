@@ -3,176 +3,112 @@
     "title": "Titulo nuevo",
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
-    "thumbnail": "./public/img/1.jpg",
-    "stock": 62,
+    "thumbnail": "./public/img/0.jpg",
+    "stock": 550,
     "id": 1
   },
   {
     "title": "probando",
     "description": "24 - bot. 12 l",
     "price": 80000,
-    "thumbnail": "./public/img/pc002.jpg",
-    "stock": 75,
+    "thumbnail": "./public/img/1.jpg",
+    "stock": 105,
     "id": 2
   },
   {
     "title": "Sirope de regaliz",
     "description": "12 - bot. 550 ml",
     "price": 90,
-    "thumbnail": "./public/img/ipad998.jpg",
-    "stock": 82,
+    "thumbnail": "./public/img/2.jpg",
+    "stock": 76,
     "id": 3
   },
   {
     "title": "Bondiola ahumada",
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
-    "thumbnail": "./public/img/iphone002.jpg",
-    "stock": 100,
+    "thumbnail": "./public/img/3.jpg",
+    "stock": 99,
     "id": 4
   },
   {
     "title": "Salsa de arándanos Northwoods",
     "description": "12 - frascos 12 l",
     "price": 5064,
-    "thumbnail": "./public/img/a50.jpg",
-    "stock": 74,
+    "thumbnail": "./public/img/4.jpg",
+    "stock": 103,
     "id": 5
   },
   {
     "title": "Queso Manchego La Pastora",
     "description": "10 - paq. 500 g",
     "price": 60000,
-    "thumbnail": "./public/img/canont6.jpg",
-    "stock": 100,
+    "thumbnail": "./public/img/5.jpg",
+    "stock": 99,
     "id": 6
   },
   {
     "title": "Cordero Alice Springs",
     "description": "20 - latas 1 kg",
     "price": 35000,
-    "thumbnail": "./public/img/iphone002.jpg",
-    "stock": 100,
+    "thumbnail": "./public/img/6.jpg",
+    "stock": 99,
     "id": 7
   },
   {
     "title": "Refresco Guaraná Fantástica",
     "description": "12 - latas 355 ml",
     "price": 80000,
-    "thumbnail": "./public/img/pc002.jpg",
-    "stock": 100,
+    "thumbnail": "./public/img/7.jpg",
+    "stock": 93,
     "id": 8
   },
   {
     "title": "Chocolate Schoggi",
     "description": "100 - piezas 100 g",
     "price": 90,
-    "thumbnail": "./public/img/ipad998.jpg",
-    "stock": 99,
+    "thumbnail": "./public/img/8.jpg",
+    "stock": 94,
     "id": 9
   },
   {
     "title": "Té Dharamsala",
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
-    "thumbnail": "./public/img/iphone002.jpg",
-    "stock": 100,
+    "thumbnail": "./public/img/9.jpg",
+    "stock": 99,
     "id": 10
   },
   {
     "title": "Mezcla Gumbo del chef Anton",
     "description": "36 cajas",
     "price": 2000,
-    "thumbnail": "./public/img/calefon.jpg",
-    "stock": 95,
+    "thumbnail": "./public/img/10.jpg",
+    "stock": 89,
     "id": 11
   },
   {
     "title": "Mezcla Gumbo del chef Anton",
     "description": "36 cajas",
     "price": 2000,
-    "thumbnail": "./public/img/calefon.jpg",
-    "stock": 100,
+    "thumbnail": "./public/img/11.jpg",
+    "stock": 94,
     "id": 13
   },
   {
-    "title": "fdvfd",
-    "description": "vdfvfvf",
-    "price": 433434,
-    "thumbnail": "fddf",
-    "stock": 433433,
+    "title": "Fernet Branca",
+    "description": "Unico como la gente que lo toma",
+    "price": 4000,
+    "thumbnail": "./public/img/12.jpg",
+    "stock": 1995,
     "id": 14
   },
   {
     "title": "Agua de alibur",
     "description": "Aguita fresca para tomar despues de los partidos",
     "price": 300,
-    "thumbnail": "no hay",
-    "stock": 500,
+    "thumbnail": "./public/img/13.jpg",
+    "stock": 444,
     "id": 15
-  },
-  {
-    "title": "probando producto nuevo",
-    "description": "lalalala",
-    "price": 5456,
-    "thumbnail": "dddsc",
-    "stock": 5166,
-    "id": 16
-  },
-  {
-    "title": "csdcsdcsdcds",
-    "description": "sdcsdc",
-    "price": 43433443,
-    "thumbnail": "fdvdfv",
-    "stock": 4343,
-    "id": 17
-  },
-  {
-    "title": "dcsdcd",
-    "description": "sdsdsdccsdcd",
-    "price": 32323232,
-    "thumbnail": "dsdsc",
-    "stock": 0,
-    "id": 18
-  },
-  {
-    "title": "dcsdcd",
-    "description": "sdsdsdccsdcd",
-    "price": 32323232,
-    "thumbnail": "dsdsc",
-    "stock": 0,
-    "id": 19
-  },
-  {
-    "title": "dcsdcd",
-    "description": "sdsdsdccsdcd",
-    "price": 32323232,
-    "thumbnail": "dsdsc",
-    "stock": 0,
-    "id": 20
-  },
-  {
-    "title": "dcsdcd",
-    "description": "sdsdsdccsdcd",
-    "price": 32323232,
-    "thumbnail": "dsdsc",
-    "stock": 0,
-    "id": 21
-  },
-  {
-    "title": "sdcdssdsd",
-    "description": "csdcsd",
-    "price": 2212121,
-    "thumbnail": "dsds",
-    "stock": 2112,
-    "id": 22
-  },
-  {
-    "title": "fdvvfdvfdvfd",
-    "description": "ffvdvdf",
-    "price": 323423232,
-    "thumbnail": "fdvfvdfdv",
-    "stock": 3227,
-    "id": 23
   }
 ]

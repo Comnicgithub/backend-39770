@@ -1,5 +1,38 @@
 const websiteUrl = 'http://localhost:3000'
 
+const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un texto para agregar entre separaciones (Esto para convertir el amount en un texto mas bonito para el usuario)
+    try {
+        amount = Number(amount)
+
+        const entero = Math.floor(amount)
+        const centavos = amount-entero
+        const amountString = entero.toString()
+        const amountArray = amountString.split("")
+        const amountString_reverse = amountArray.reverse().join("")
+
+        let text = ""
+        let init = 0
+        if (entero>999) {
+            const cant = Math.floor(amountArray.length/3)
+            for (let i = 0; i<cant; i++) {
+                text += amountString_reverse.substring(init, init+3) + add
+                init += 3
+            }
+            if (init<amountString_reverse.length) { text += amountString_reverse.substring(init) }
+            else { text = text.substring(0, text.length-1) }
+
+            text = text.split("").reverse().join("")
+        } else {
+            text = String(entero) 
+        }
+        if (centavos != 0)  text += "," + (String(centavos) + "0").substring(2, 4) // esta mezcla toda rara es para evitar el .555555555555 y el 0.5 para que finalize en "0.55" y "0.50"}
+        text = "$ " + text
+        return text
+    } catch(err) {
+        return "ERROR"
+    }
+}
+
 const createView = async () => {
     const { pathname } = window.location
     const response = await fetch(`${websiteUrl}/api${pathname}`, {
@@ -54,7 +87,7 @@ const createView = async () => {
 
     prodAddButton.classList.add("btn")
     prodAddButton.classList.add("prodAddButton")
-    prodAddButton.classList.add("prodAddButton-enabled")
+    prodAddButton.classList.add(response.product.stock>0 ? "prodAddButton-enabled" : "prodAddButton-disabled")
 
     prodImage.classList.add("prodImage-big")
 
@@ -65,14 +98,85 @@ const createView = async () => {
     addStockRestar.textContent = "-"
     addStockInput.placeholder = "1"
 
-    prodAddButton.textContent = "ADD 1 PRODUCT TO CART"
+    prodAddButton.textContent = response.product.stock>0 ? "ADD 1 PRODUCT TO CART" : "PRODUCT WITHOUT STOCK"
+
     prodAddButton.type = "button"
 
-    prodImage.alt = response.product.title
+    prodImage.alt = response.product.title 
+    prodImage.src = `../${response.product.thumbnail}`
 
-    prodPrice.textContent = response.product.price
+    prodPrice.textContent = ConvertPrice(response.product.price, ".")
     prodTitle.textContent = response.product.title
     prodDescription.textContent = response.product.description
+
+    let currentAmount = 1
+
+    const currentCart = 1
+    const pid = response.product.id
+    
+    const add = (type) => {
+        const x = 1
+        if (currentAmount.stock <= 0) {
+            prodAddButton.textContent = "PRODUCT WITHOUT STOCK"
+        } else {
+            if (type == "-"){
+                currentAmount -= 1
+            } else {
+                currentAmount += 1
+            }
+
+            const max = Math.max(1, currentAmount)
+            const min = Math.min(max, response.product.stock, 9)
+            currentAmount = min
+
+            prodAddButton.textContent = "ADD TO CART"//currentAmount == 1 ? `ADD 1 PRODUCT TO CART` : `ADD ${currentAmount} PRODUCTS TO CART`
+            addStockInput.value = currentAmount
+        }
+        
+    }
+    addStockRestar.addEventListener("click", () => {
+        add("-")
+    })
+
+    addStockSumar.addEventListener("click", () => {
+        add("+")
+    })
+
+    prodAddButton.addEventListener("click", async () => {
+        const response = await fetch(`${websiteUrl}/api/carts/${currentCart}/product/${pid}/${currentAmount}`, {
+            method: "PUT",
+            body: JSON.stringify({units: currentAmount}),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json())
+
+        if (response.status == 200) {
+            Swal.fire({
+                title: currentAmount==1 ? `Product added successfully` : `${currentAmount} Products added successfully`,
+                icon: 'error',
+                position: 'bottom-right',
+                confirmButtonText: 'Cool',
+                showConfirmButton: false,
+                animation: false,
+                toast: true,
+                icon: 'success',
+                timer: 3000,
+                timerProgressBar: true
+            })
+        }
+    })
+
+    addStockInput.addEventListener("keyup", (data) => {
+        const n = Number(data.key)
+        if (n != NaN && n>0 && n<10){
+            currentAmount = Math.min(n, response.product.stock)
+        } else {
+            addStockInput.value = currentAmount
+        }
+    })
+
+    add("-")
 
 }
 
