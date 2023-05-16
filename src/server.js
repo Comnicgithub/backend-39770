@@ -9,8 +9,6 @@ const ready = ()=> console.log('server ready on port '+PORT)
 let http_server = server.listen(PORT,ready)
 let socket_server = new Server(http_server)
 
-let contador = 0
-
 socket_server.on(
     'connection', 
     socket => {
@@ -22,8 +20,9 @@ socket_server.on(
             'agregar_a_carrito', 
             data => {
                 const carts = JSON.parse(fs.readFileSync('./src/data/carts.json'))
-                const num_products = carts.reduce((total, currentCart) => total + currentCart.products.length,0)
-                socket.emit('num_products', num_products)
+                const numContador = carts.reduce((total, currentCart) => total + currentCart.products.length,0)
+                console.log(numContador)
+                socket.emit('num_products', numContador)
             }
         )
     }

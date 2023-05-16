@@ -74,7 +74,8 @@ router.get(
                 title: 'Products Page',
                 topTitle: `Products: ${products.length}`,
                 script: '/public/products.js',
-                conection: '/public/conection.js'
+                conection: '/public/conection.js',
+                cart: 'numProducts'
             })
 
         } catch (error) {
