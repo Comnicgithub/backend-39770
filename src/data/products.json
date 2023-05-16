@@ -1,18 +1,18 @@
 [
   {
-    "title": "Titulo nuevo",
+    "title": "Sirope de regaliz",
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
     "thumbnail": "./public/img/0.jpg",
-    "stock": 98,
+    "stock": 548,
     "id": 1
   },
   {
-    "title": "probando",
+    "title": "Sirope de regaliz",
     "description": "24 - bot. 12 l",
     "price": 80000,
     "thumbnail": "./public/img/1.jpg",
-    "stock": 98,
+    "stock": 58,
     "id": 2
   },
   {
@@ -20,7 +20,7 @@
     "description": "12 - bot. 550 ml",
     "price": 90,
     "thumbnail": "./public/img/2.jpg",
-    "stock": 90,
+    "stock": 57,
     "id": 3
   },
   {
@@ -28,7 +28,7 @@
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
     "thumbnail": "./public/img/3.jpg",
-    "stock": 100,
+    "stock": 99,
     "id": 4
   },
   {
@@ -36,7 +36,7 @@
     "description": "12 - frascos 12 l",
     "price": 5064,
     "thumbnail": "./public/img/4.jpg",
-    "stock": 76,
+    "stock": 72,
     "id": 5
   },
   {
@@ -60,7 +60,7 @@
     "description": "12 - latas 355 ml",
     "price": 80000,
     "thumbnail": "./public/img/7.jpg",
-    "stock": 100,
+    "stock": 99,
     "id": 8
   },
   {
@@ -68,7 +68,7 @@
     "description": "100 - piezas 100 g",
     "price": 90,
     "thumbnail": "./public/img/8.jpg",
-    "stock": 100,
+    "stock": 99,
     "id": 9
   },
   {
@@ -84,7 +84,7 @@
     "description": "36 cajas",
     "price": 2000,
     "thumbnail": "./public/img/10.jpg",
-    "stock": 95,
+    "stock": 94,
     "id": 11
   },
   {
@@ -92,15 +92,15 @@
     "description": "36 cajas",
     "price": 2000,
     "thumbnail": "./public/img/11.jpg",
-    "stock": 100,
+    "stock": 99,
     "id": 13
   },
   {
-    "title": "Fernet Branca",
-    "description": "Unico como la gente que lo toma",
-    "price": 4000,
+    "title": "Sirope de regaliz",
+    "description": "Aguita fresca para tomar despues de los partidos",
+    "price": 433434,
     "thumbnail": "./public/img/12.jpg",
-    "stock": 2000,
+    "stock": 433433,
     "id": 14
   },
   {
