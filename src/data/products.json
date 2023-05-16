@@ -1,31 +1,31 @@
 [
   {
     "title": "Sirope de regaliz",
-    "description": "10 cajas x 20 bolsas",
+    "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 18000,
     "thumbnail": "./public/img/0.jpg",
-    "stock": 537,
+    "stock": 538,
     "id": 1
   },
   {
     "title": "Sirope de regaliz",
-    "description": "24 - bot. 12 l",
+    "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 80000,
     "thumbnail": "./public/img/1.jpg",
-    "stock": 28,
+    "stock": 15,
     "id": 2
   },
   {
     "title": "Sirope de regaliz",
-    "description": "12 - bot. 550 ml",
+    "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 90,
     "thumbnail": "./public/img/2.jpg",
-    "stock": 45,
+    "stock": 39,
     "id": 3
   },
   {
     "title": "Bondiola ahumada",
-    "description": "10 cajas x 20 bolsas",
+    "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 18000,
     "thumbnail": "./public/img/3.jpg",
     "stock": 97,
@@ -33,7 +33,7 @@
   },
   {
     "title": "Salsa de arándanos Northwoods",
-    "description": "12 - frascos 12 l",
+    "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 5064,
     "thumbnail": "./public/img/4.jpg",
     "stock": 70,
@@ -41,7 +41,7 @@
   },
   {
     "title": "Queso Manchego La Pastora",
-    "description": "10 - paq. 500 g",
+    "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 60000,
     "thumbnail": "./public/img/5.jpg",
     "stock": 100,
@@ -49,7 +49,7 @@
   },
   {
     "title": "Cordero Alice Springs",
-    "description": "20 - latas 1 kg",
+    "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 35000,
     "thumbnail": "./public/img/6.jpg",
     "stock": 99,
@@ -57,23 +57,23 @@
   },
   {
     "title": "Refresco Guaraná Fantástica",
-    "description": "12 - latas 355 ml",
+    "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 80000,
     "thumbnail": "./public/img/7.jpg",
-    "stock": 98,
+    "stock": 97,
     "id": 8
   },
   {
     "title": "Chocolate Schoggi",
-    "description": "100 - piezas 100 g",
+    "description": "Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 90,
     "thumbnail": "./public/img/8.jpg",
-    "stock": 92,
+    "stock": 91,
     "id": 9
   },
   {
     "title": "Té Dharamsala",
-    "description": "10 cajas x 20 bolsas",
+    "description": "Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 18000,
     "thumbnail": "./public/img/9.jpg",
     "stock": 100,
@@ -81,7 +81,7 @@
   },
   {
     "title": "Mezcla Gumbo del chef Anton",
-    "description": "36 cajas",
+    "description": "Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 2000,
     "thumbnail": "./public/img/10.jpg",
     "stock": 93,
@@ -89,7 +89,7 @@
   },
   {
     "title": "Mezcla Gumbo del chef Anton",
-    "description": "36 cajas",
+    "description": "Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 2000,
     "thumbnail": "./public/img/11.jpg",
     "stock": 99,
@@ -97,7 +97,7 @@
   },
   {
     "title": "Sirope de regaliz",
-    "description": "Aguita fresca para tomar despues de los partidos",
+    "description": "Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 433434,
     "thumbnail": "./public/img/12.jpg",
     "stock": 433433,
@@ -105,7 +105,7 @@
   },
   {
     "title": "Agua de alibur",
-    "description": "Aguita fresca para tomar despues de los partidos",
+    "description": "Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 300,
     "thumbnail": "./public/img/13.jpg",
     "stock": 500,
