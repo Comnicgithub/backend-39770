@@ -1,28 +1,91 @@
-# Backend-39770 - Entrega N°3
+# Backend-39770 - Entrega N°5
 
-» La clase ProductManager tiene varios métodos para agregar, actualizar, eliminar y obtener productos de la lista. El método addProduct toma como argumento un objeto que describe un producto y lo agrega a la lista de productos. Si la lista ya tiene productos, asigna un nuevo ID al producto agregado. Luego, escribe la lista de productos actualizada en el archivo.
+## Trabajo colaborativo 📋
+### Pablo Lopez
+### Nicolas Lopez 
 
-» El método getProducts devuelve una lista de todos los productos almacenados en la lista de productos.
+## COMO LEVANTAR EL SERVIDOR 💻
 
-» El método getProductById busca y devuelve un producto específico en la lista de productos según su ID. Si el producto no se encuentra, devuelve un mensaje que indica que no se encontró el producto.
+Una ves realizado el git pull o git clone. 
 
-» El método updateProduct actualiza los datos de un producto específico en la lista de productos. Si el producto no se encuentra en la lista, devuelve un mensaje que indica que el producto no se encontró. Luego, escribe la lista de productos actualizada en el archivo.
+Seguir los sugientes comandos para correr el servidor
 
-» El método deleteProduct elimina un producto específico de la lista de productos según su ID. Si el producto no se encuentra en la lista, devuelve un mensaje que indica que el producto no se encontró. Luego, escribe la lista de productos actualizada en el archivo.
+```
+npm install
 
-» Se creo una clase nueva para agregar carts al proyecto, con sus metodos correspondientes.
+npm run dev
 
-» Se creo un servidor y se configuro para poder levantar todo desde npm run dev, desde el json.
+```
+### UNA VEZ EJECUTADOS ESTOS COMENDOS EL SERVIDOR CORRERA EN  [localhost:3000](localhost:3000) 
 
-» Dentro del localhost se configuraron los endpoint para ver los productos y los carts y en caso contrario que muestre un mensaje de error
 
-» Tambien se establecienron los querys de limit para que muestre la cantidad que el usuario determine.
+## Contenido ⌨️ 
 
-» Por ultimo se configuro un endpoint para los productos (/:pid) y para los carts (/:cip) para que muestre el id buscado. 
+Se creo un sitio con Nodejs, Express, Handlebars y Websocket.
 
-» Se generaron los routes, y se ordenaron los manager de prodcuts y de carts.
+```
+GET /       
 
-» Se configuro dentro del manager de carts un metodo para ingresar productos a un array vario antes creado llamado products. Estos productos se agregar por medio del postman mediante parametros asignados. 
+• Se creo una pagina de inicio que contiene un Navbar con los vinculos hacia los siguientes links:
+                » Prodcuts
+                » New Product
+                » Chat
+                » Carts
 
-» Se configuro el metodo delete_cart para poder sacarle unidades a un prodcuto especifico dentro del carrito, estas unidades se agregan de neuvo al stock inicial.
+```
 
+## GET/ New Prodcut ⚙️
+
+```
+GET /new_product 
+
+• Se establecio desde el endpoint /new_product un formulario para agregar productos nuevos.
+                    // Una vez cargado en la base se redirecciona al endpoint /products para visualizar todos los productos disponibles.
+
+```
+
+## GET/ chatbot 🦾
+
+```
+GET /chat         
+
+• Se configuro por medio de socket un webchat para interactuar en vivo.
+                    //Se abre una formulario con un input el cual tiene que ser completado con el nombre de usuario y una vez completado se abre el chat.
+
+```
+
+## GET/ Products 📱
+
+```
+GET /products     
+
+• Se configuro el endpoint /products para mostrar todos los prodcutos en stock en nuestra base de datos.
+• Se puede ingresar al siguiente punto haciendo click en el producto deseado.
+
+```
+
+## GET/ products/:pid 📲
+
+```
+GET /products/:pid   
+
+ • Aqui podras ver todos los detalles del prodcuto. El objeto completo.
+                        "Title"
+                        "Description"
+                        "Price"
+                        "Thumbnail"
+                        "Stock"
+
+ • Aqui tambien se programo boton de agregar al carrito y ademas un update y un delete para subir y bajar la cantidad de prodcutos que el usuario quiera agregar al cart.
+
+```
+
+## GET /carts 🛒
+
+```
+GET /carts              
+
+ • Este endpoint contiene todos los productos que contenga el primer carrito.
+ • Tambien se pueden modificar las unidades y si la unidad es igual a 0 desaparece del cart. Asi como tambien devuelve las unidades del prodcuto al stock de la base de products.
+
+```

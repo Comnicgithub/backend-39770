@@ -110,5 +110,13 @@
     "thumbnail": "./public/img/13.jpg",
     "stock": 500,
     "id": 15
+  },
+  {
+    "title": "Rayban Sonora",
+    "description": "Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
+    "price": 50000,
+    "thumbnail": "./public/img/2.jpg",
+    "stock": 100,
+    "id": 16
   }
 ]
