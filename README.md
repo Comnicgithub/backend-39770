@@ -16,7 +16,7 @@ npm install
 npm run dev
 
 ```
-### UNA VEZ EJECUTADOS ESTOS COMENDOS EL SERVIDOR CORRERA EN  [localhost:3000](localhost:3000) 
+### UNA VEZ EJECUTADOS ESTOS COMENDOS EL SERVIDOR CORRER EN  [localhost:3000](localhost:3000) 
 
 
 ## Contenido ⌨️ 
