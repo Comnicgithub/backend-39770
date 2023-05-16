@@ -121,14 +121,14 @@ document.addEventListener('DOMContentLoaded', function () {
         data.typing = true
         data.message = 'is typing...'
         addChatMessage(data)
-    };
+    }
     const removeChatTyping = data => {
         const typingMessages = getTypingMessages(data);
         typingMessages.forEach(function (message) {
             message.style.display = 'none';
             message.parentNode.removeChild(message)
-        });
-    };
+        })
+    }
     const addMessageElement = (el, options) => {
         const $el = el
 
@@ -149,12 +149,12 @@ document.addEventListener('DOMContentLoaded', function () {
             messages.appendChild($el)
         }
         messages.scrollTop = messages.scrollHeight;
-    };
+    }
     const cleanInput = input => {
         const div = document.createElement('div')
         div.textContent = input
         return div.innerHTML
-    };
+    }
     const updateTyping = () => {
         if (connected) {
             if (!typing) {
@@ -172,13 +172,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }, TYPING_TIMER_LENGTH)
         }
-    };
+    }
     const getTypingMessages = data => {
         const typingMessages = Array.from(document.querySelectorAll('.typing.message')).filter(message => {
             return message.dataset.username === data.username
         });
         return typingMessages
-    };
+    }
     const getUsernameColor = username => {
         let hash = 7;
         for (let i = 0; i < username.length; i++) {
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         const index = Math.abs(hash % COLORS.length)
         return COLORS[index]
-    };
+    }
     windowElement.addEventListener('keydown', event => {
         if (!(event.ctrlKey || event.metaKey || event.altKey)) {
             currentInput.focus()
@@ -201,52 +201,52 @@ document.addEventListener('DOMContentLoaded', function () {
                 setUsername()
             }
         }
-    });
+    })
 
     inputMessage.addEventListener('input', () => {
         updateTyping()
-    });
+    })
     loginPage.addEventListener('click', () => {
         currentInput.focus()
-    });
+    })
     inputMessage.addEventListener('click', () => {
         inputMessage.focus()
-    });
+    })
     socket.on('login', data => {
         connected = true
         const message = 'Bienvenidos al chat del Sitio'
         log(message, {
             prepend: true
-        });
+        })
         addParticipantsMessage(data)
-    });
+    })
     socket.on('new message', data => {
         addChatMessage(data)
-    });
+    })
     socket.on('user joined', data => {
         log(`${data.username} joined`)
         addParticipantsMessage(data)
-    });
+    })
     socket.on('user left', data => {
         log(`${data.username} left`)
         addParticipantsMessage(data)
         removeChatTyping(data)
-    });
+    })
     socket.on('typing', data => {
         addChatTyping(data)
-    });
+    })
     socket.on('stop typing', data => {
         removeChatTyping(data)
-    });
+    })
 
     socket.on('disconnect', () => {
         log('you have been disconnected')
-    });
+    })
 
     socket.io.on('reconnect', () => {
         log('you have been reconnected')
         if (username) {
             socket.emit('add user', username)
         }
-    });
+    })
 })
