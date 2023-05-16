@@ -125,11 +125,11 @@ router.get(
     '/chat',
     async(req,res,next) => {
         try {
-            return res.render(
-                'chat',
-                { title: 'Chat bot',
-                conection: '/public/conection.js'}
-            )
+            return res.render('chat', {
+                title: 'Chat bot',
+                conection: '/public/conection.js',
+                script2: "public/chatbot.js"
+            })
         } catch (error) {
             next()
         }
