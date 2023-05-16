@@ -99,7 +99,7 @@ const updateView = async () => {
             }).then(res => res.json())
 
             if (response.status == 200) {
-                ocket.emit("getCartContent", currentCart)
+                socket.emit("getCartContent", currentCart)
                 Swal.fire({
                     title: `Product added successfully`,
                     icon: 'error',
