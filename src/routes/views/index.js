@@ -52,23 +52,6 @@ router.get(
             // al final si cambia el array original y tuve que clonar
 
 
-            /*
-            [ // estos eran los productos que estaban en el render.
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/1.jpg', price: '$15.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo: 'public/img/3.jpg', price: '$23.000'}
-            ],
-            */
-
             return res.render('products', {
                 products: products,
                 title: 'Products Page',
@@ -125,11 +108,11 @@ router.get(
     '/chat',
     async(req,res,next) => {
         try {
-            return res.render(
-                'chat',
-                { title: 'Chat bot',
-                conection: '/public/conection.js'}
-            )
+            return res.render('chat', {
+                title: 'Chat bot',
+                conection: '/public/conection.js',
+                script2: "public/chatbot.js"
+            })
         } catch (error) {
             next()
         }
@@ -167,10 +150,6 @@ router.get(
 )
 
 router.use('/auth',auth_router)
-// router.use('/products',products_router)
-// router.use('/carts',carts_router)
+
 
 export default router
-//en el enrutador principal de vistas
-//UNICAMENTE llamo a los enrutadores de vistas de recursos
-//el endpoint de prueba de la linea y ESTA MAL UBICADO
