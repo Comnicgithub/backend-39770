@@ -1,5 +1,7 @@
 import server from "./app.js"
 import { Server } from "socket.io"
+import fs from 'fs'
+
 
 const PORT = process.env.PORT || 3000 // lo cambie pq mi puerto 8080 esta siempre ocupado despues rechaza este cambio
 const ready = ()=> console.log('server ready on port '+PORT)
@@ -9,24 +11,25 @@ let socket_server = new Server(http_server)
 
 let contador = 0
 
-socket_server.on(       //on sirve para escuchar los mensajes que llegan (en este caso del cliente)
-    'connection',       //identificador del mensaje a escuchar (el primero siempre connection)
-    socket => {         //callback que se va a ejecutar apenas se conecta un cliente
-        //console.log(socket)
+socket_server.on(
+    'connection', 
+    socket => {
         console.log(`client ${socket.client.id} connected`)
+        
+        
+
         socket.on(
-            'primer_conexion',
-            data=> {
-                console.log(data.name)
-                contador++
-                socket_server.emit(
-                    'contador',
-                    { contador }
-                )
+            'agregar_a_carrito', 
+            data => {
+                const carts = JSON.parse(fs.readFileSync('./src/data/carts.json'))
+                const num_products = carts.reduce((total, currentCart) => total + currentCart.products.length,0)
+                socket.emit('num_products', num_products)
             }
         )
     }
 )
+
+
 
 
 // Chatroom

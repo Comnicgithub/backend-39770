@@ -12,15 +12,12 @@ router.get(
             //let hola = chau
             return res.render(
                 'index',    //nombre de la vista
-                {           //datos dinamicos que puede llegar a necesitar la vista
+                {         
                     name: 'Nico',
                     last_name: 'Lopez',
                     photo: 'https://www.w3schools.com/howto/img_avatar.png',
-                    //last_name: 'borraz',
-                    produtcs: [
-                        {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/1.jpg', price: '$15.000'},
-                        {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/2.jpg', price: '$20.000'},
-                        {title:'Anteojos Ray-Ban Wayfarer 4195Mi', photo:'public/img/3.jpg', price: '$23.000'}],
+
+                    
                     title: 'index',
                     script: '/public/conection.js'
                 }        
@@ -36,7 +33,8 @@ router.get("/products/:pid", async (req, res, next) => {
     try {
         return res.render("view_product", {
             script2: '/public/uniqueProduct.js',
-            topTitle: "prueba"
+            topTitle: "prueba",
+            conection: '/public/conection.js'
         })
     } catch(error) {
 
@@ -76,6 +74,7 @@ router.get(
                 title: 'Products Page',
                 topTitle: `Products: ${products.length}`,
                 script: '/public/products.js',
+                conection: '/public/conection.js'
             })
 
         } catch (error) {
@@ -92,8 +91,8 @@ router.get(
             return res.render(
                 'new_product',
                 {   title: 'new_product',
-                    script: '/public/conection.js',
-                    title: 'Product' }
+                    title: 'Product',
+                    conection: '/public/conection.js'}
             )
         } catch (error) {
             next()
@@ -106,8 +105,13 @@ router.get(
     '/carts',
     async(req,res,next) => {
         try {
+            
             return res.render('carts', {
-                script: "public/cart.js"
+                name: 'Nico',
+                last_name: 'Lopez',
+                photo: 'https://www.w3schools.com/howto/img_avatar.png',
+                script: "public/cart.js",
+                conection: '/public/conection.js'
             })
         } catch (error) {
             next()
@@ -122,7 +126,8 @@ router.get(
         try {
             return res.render(
                 'chat',
-                { title: 'Chat bot' }
+                { title: 'Chat bot',
+                conection: '/public/conection.js'}
             )
         } catch (error) {
             next()
@@ -136,7 +141,8 @@ router.get(
         try {
             return res.render(
                 'form',
-                { title: 'Form' }
+                { title: 'Form',
+                conection: '/public/conection.js' }
             )
         } catch (error) {
             next()
@@ -150,7 +156,8 @@ router.get(
         try {
             return res.render(
                 'register',
-                { title: 'Register' }
+                { title: 'Register', 
+                conection: '/public/conection.js'}
             )
         } catch (error) {
             next()

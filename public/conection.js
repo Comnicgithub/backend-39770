@@ -1,5 +1,4 @@
 const socket = io()
-console.log('js de index')
 
 function emit_data() {
     socket.emit( //emit envia datos (en este caso desde el cliente hacia el servidor)
@@ -12,16 +11,24 @@ function emit_data() {
     )
 }
 
-let selectors = document.querySelectorAll('.btn')
-console.log(selectors)
-selectors.forEach(each => each.addEventListener('click', emit_data))
+// socket.on(
+//     'num_products',
+//     data => console.log(data)
+// )
 
-socket.on(
-    'contador',
-    data => console.log(data)
-)
+// socket.on('num_products', data => {
+//     const contadorSpan = document.getElementById('num_products');
+//     contadorSpan.innerText = data.contador;
+// });
 
-    socket.on('contador', data => {
+socket.on('connect', () => {
+        let selector = document.querySelectorAll('#btn')
+        selector.forEach(each => each.addEventListener('click'))
+        socket.emit('agregar_a_carrito')
+    })
+    
+    socket.on('num_products', numProducts => {
         const contadorSpan = document.getElementById('contador');
-        contadorSpan.innerText = data.contador;
-    });
+        contadorSpan.innerText = numProducts;
+    })
+    

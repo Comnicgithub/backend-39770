@@ -1,49 +1,49 @@
 [
   {
-    "title": "Titulo nuevo",
+    "title": "Sirope de regaliz",
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
     "thumbnail": "./public/img/0.jpg",
-    "stock": 550,
+    "stock": 548,
     "id": 1
   },
   {
-    "title": "probando",
+    "title": "Sirope de regaliz",
     "description": "24 - bot. 12 l",
     "price": 80000,
-    "thumbnail": "./public/img/pc002.jpg",
-    "stock": 75,
+    "thumbnail": "./public/img/1.jpg",
+    "stock": 58,
     "id": 2
   },
   {
     "title": "Sirope de regaliz",
     "description": "12 - bot. 550 ml",
     "price": 90,
-    "thumbnail": "./public/img/ipad998.jpg",
-    "stock": 82,
+    "thumbnail": "./public/img/2.jpg",
+    "stock": 57,
     "id": 3
   },
   {
     "title": "Bondiola ahumada",
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
-    "thumbnail": "./public/img/iphone002.jpg",
-    "stock": 100,
+    "thumbnail": "./public/img/3.jpg",
+    "stock": 99,
     "id": 4
   },
   {
     "title": "Salsa de arándanos Northwoods",
     "description": "12 - frascos 12 l",
     "price": 5064,
-    "thumbnail": "./public/img/a50.jpg",
-    "stock": 74,
+    "thumbnail": "./public/img/4.jpg",
+    "stock": 72,
     "id": 5
   },
   {
     "title": "Queso Manchego La Pastora",
     "description": "10 - paq. 500 g",
     "price": 60000,
-    "thumbnail": "./public/img/canont6.jpg",
+    "thumbnail": "./public/img/5.jpg",
     "stock": 100,
     "id": 6
   },
@@ -51,7 +51,7 @@
     "title": "Cordero Alice Springs",
     "description": "20 - latas 1 kg",
     "price": 35000,
-    "thumbnail": "./public/img/iphone002.jpg",
+    "thumbnail": "./public/img/6.jpg",
     "stock": 100,
     "id": 7
   },
@@ -59,15 +59,15 @@
     "title": "Refresco Guaraná Fantástica",
     "description": "12 - latas 355 ml",
     "price": 80000,
-    "thumbnail": "./public/img/pc002.jpg",
-    "stock": 100,
+    "thumbnail": "./public/img/7.jpg",
+    "stock": 99,
     "id": 8
   },
   {
     "title": "Chocolate Schoggi",
     "description": "100 - piezas 100 g",
     "price": 90,
-    "thumbnail": "./public/img/ipad998.jpg",
+    "thumbnail": "./public/img/8.jpg",
     "stock": 99,
     "id": 9
   },
@@ -75,7 +75,7 @@
     "title": "Té Dharamsala",
     "description": "10 cajas x 20 bolsas",
     "price": 18000,
-    "thumbnail": "./public/img/iphone002.jpg",
+    "thumbnail": "./public/img/9.jpg",
     "stock": 100,
     "id": 10
   },
@@ -83,23 +83,23 @@
     "title": "Mezcla Gumbo del chef Anton",
     "description": "36 cajas",
     "price": 2000,
-    "thumbnail": "./public/img/calefon.jpg",
-    "stock": 95,
+    "thumbnail": "./public/img/10.jpg",
+    "stock": 94,
     "id": 11
   },
   {
     "title": "Mezcla Gumbo del chef Anton",
     "description": "36 cajas",
     "price": 2000,
-    "thumbnail": "./public/img/calefon.jpg",
-    "stock": 100,
+    "thumbnail": "./public/img/11.jpg",
+    "stock": 99,
     "id": 13
   },
   {
-    "title": "fdvfd",
-    "description": "vdfvfvf",
+    "title": "Sirope de regaliz",
+    "description": "Aguita fresca para tomar despues de los partidos",
     "price": 433434,
-    "thumbnail": "fddf",
+    "thumbnail": "./public/img/12.jpg",
     "stock": 433433,
     "id": 14
   },
@@ -107,7 +107,7 @@
     "title": "Agua de alibur",
     "description": "Aguita fresca para tomar despues de los partidos",
     "price": 300,
-    "thumbnail": "no hay",
+    "thumbnail": "./public/img/13.jpg",
     "stock": 500,
     "id": 15
   }
