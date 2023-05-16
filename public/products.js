@@ -1,5 +1,4 @@
 
-const currentCart = 1
 const websiteUrl = 'http://localhost:3000'
 
 const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un texto para agregar entre separaciones (Esto para convertir el amount en un texto mas bonito para el usuario)
@@ -100,6 +99,7 @@ const updateView = async () => {
             }).then(res => res.json())
 
             if (response.status == 200) {
+                ocket.emit("getCartContent", currentCart)
                 Swal.fire({
                     title: `Product added successfully`,
                     icon: 'error',

@@ -1,4 +1,5 @@
 const socket = io()
+let currentCart = 1
 
 function emit_data() {
     socket.emit( //emit envia datos (en este caso desde el cliente hacia el servidor)
@@ -10,18 +11,26 @@ function emit_data() {
         }
     )
 }
-
+/*
 socket.on('connect', () => {
-        let selector = document.querySelectorAll('#btn')
-        selector.forEach(each => each.addEventListener('click'))
-        socket.emit('agregar_a_carrito')
-    })
-    
+    let selector = document.querySelectorAll('#btn')
+    selector.forEach(each => each.addEventListener('click'))
+    socket.emit('agregar_a_carrito')
+})*/
 
+socket.on("cartUpdated", (cartContent) => {
+    console.log("el carrito tiene:", cartContent, "contenidos")
 
-    
-    socket.on('num_products', numContador => {
-        const contadorSpan = document.getElementById('contador');
-        contadorSpan.innerText = numContador
-        })
+    const contadorSpan = document.getElementById('contador');
+    contadorSpan.innerText = cartContent
+})
+
+socket.emit("getCartContent", currentCart)
+
+/*
+socket.on('num_products', numContador => {
+    console.log("recibido")
+    const contadorSpan = document.getElementById('contador');
+    contadorSpan.innerText = numContador
+}) */
 

@@ -1,6 +1,7 @@
 import server from "./app.js"
 import { Server } from "socket.io"
 import fs from 'fs'
+import CartManager from "./managers/cart.js"
 
 
 const PORT = process.env.PORT || 3000 // lo cambie pq mi puerto 8080 esta siempre ocupado despues rechaza este cambio
@@ -15,15 +16,37 @@ let socket_server = new Server(http_server)
 
 let numUsers = 0;
 
-socket_server.on('connection', (socket) => {
 
+
+socket_server.on("connection", socket => {
+    socket.on("getCartContent", (cartId) => {
+
+        console.log("el servidor recibio una solicitud de carrito:", cartId)
+        try {
+            const cart = CartManager.read_cart(cartId)
+    
+            let i = 0
+    
+            cart.products.forEach(e => {
+                i += e.x
+            })
+    
+            socket.emit("cartUpdated", i)
+        } catch (err) {
+            console.log(err)
+        }
+    }) 
+})
+
+socket_server.on('connection', (socket) => {
+/*
     socket.on('agregar_a_carrito', () => {
         const carts = JSON.parse(fs.readFileSync('./src/data/carts.json'))
                 const numContador = carts.reduce((total, currentCart) => total + currentCart.products.length,0)
                 console.log(numContador)
                 socket.emit('num_products', numContador)
     });
-
+*/
 // Chatroom
 
     let addedUser = false;

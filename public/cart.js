@@ -1,4 +1,4 @@
-const currentCart = 1
+
 const websiteUrl = 'http://localhost:3000'
 
 const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un texto para agregar entre separaciones (Esto para convertir el amount en un texto mas bonito para el usuario)
@@ -76,8 +76,6 @@ const update = async () => {
         
         const productData = productsResponse.products.find(ele => ele.id == e.pid )
         
-        console.log(productData)
-        console.log(e)
         divContainer.classList.add("cartContainer")
 
         del.classList.add("btn")
@@ -116,6 +114,7 @@ const update = async () => {
 
             if (response.status == 200) {
                 update()
+                socket.emit("getCartContent", currentCart)
             }
         })
 
@@ -127,6 +126,7 @@ const update = async () => {
 
             if (response.status == 200) {
                 update()
+                socket.emit("getCartContent", currentCart)
             }
         })
 
@@ -138,6 +138,7 @@ const update = async () => {
 
             if (response.status == 200) {
                 update()
+                socket.emit("getCartContent", currentCart)
             }
         })
 
@@ -147,5 +148,3 @@ const update = async () => {
 }
 
 update()
-
-console.log("CART SCRIPT")
