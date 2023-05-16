@@ -34,7 +34,7 @@ GET /
 
 ```
 
-## GET/ New Prodcut ⚙️
+## GET/ New Product ⚙️
 
 ```
 GET /new_product 
