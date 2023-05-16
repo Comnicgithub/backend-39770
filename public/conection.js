@@ -17,8 +17,11 @@ socket.on('connect', () => {
         socket.emit('agregar_a_carrito')
     })
     
+
+
+    
     socket.on('num_products', numContador => {
         const contadorSpan = document.getElementById('contador');
-        contadorSpan.innerText = numContador;
-    })
-    
+        contadorSpan.innerText = numContador
+        })
+

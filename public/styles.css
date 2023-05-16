@@ -651,8 +651,14 @@ ul {
 
     color: #FFFFFF;
 
-    background: rgba(214, 3, 3, 0.93);
+    background:  #FFC107;
     border-radius: 6px;
+}
+
+.deleteButton:hover {
+    background-color: #383838;
+    color: #FFFFFF;
+    transition: 0.3s;
 }
 
 .removeButton {
@@ -662,7 +668,7 @@ ul {
     right: 36px;
     bottom: 36px;
 
-    background: rgba(0, 0, 0, 0.93);
+    background: rgba(153, 153, 153, 0.93);
     border-radius: 6px;
 
     font-family: 'Kreon';
@@ -695,7 +701,7 @@ ul {
     text-align: center;
     justify-content: center;
 
-    background: rgba(0, 0, 0, 0.93);
+    background: rgba(153, 153, 153, 0.93);
     border-radius: 6px;
 
     color: #FFFFFF;
@@ -705,7 +711,7 @@ ul {
     position: absolute;
     width: 313px;
     height: 24px;
-    left: 137px;
+    left: 200px;
     top: 120px;
 
     font-family: 'Kreon';
@@ -724,7 +730,7 @@ ul {
     position: absolute;
     width: 304px;
     height: 20px;
-    left: 137px;
+    left: 200px;
     top: 6px;
 
     font-family: 'Kreon';
@@ -742,7 +748,7 @@ ul {
     position: absolute;
     width: 304px;
     height: 20px;
-    left: 137px;
+    left: 200px;
     top: 30px;
 
     font-family: 'Kreon';
@@ -760,7 +766,6 @@ ul {
     position: absolute;
     width: 125px;
     height: 138px;
-    left: 6px;
     top: calc(50% - 138px/2);
 
     background: #ffffff;
@@ -774,8 +779,9 @@ ul {
     width: 200px;
     height: 50px;
     left: 5px;
-    background: rgba(0, 255, 102, 0.93);
+    background: #FFC107;
     border-radius: 6px;
+    margin: 15px;
 
     font-family: 'Kreon';
     font-style: normal;
@@ -787,4 +793,10 @@ ul {
     justify-content: center;
 
     color: #ffffff;
+}
+.checkoutButton:hover {
+
+    background: #b3b3b3;
+    transition: 0.3s;
+
 }

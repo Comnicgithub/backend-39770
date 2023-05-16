@@ -9,33 +9,23 @@ const ready = ()=> console.log('server ready on port '+PORT)
 let http_server = server.listen(PORT,ready)
 let socket_server = new Server(http_server)
 
-socket_server.on(
-    'connection', 
-    socket => {
-        console.log(`client ${socket.client.id} connected`)
-        
-        
-
-        socket.on(
-            'agregar_a_carrito', 
-            data => {
-                const carts = JSON.parse(fs.readFileSync('./src/data/carts.json'))
-                const numContador = carts.reduce((total, currentCart) => total + currentCart.products.length,0)
-                console.log(numContador)
-                socket.emit('num_products', numContador)
-            }
-        )
-    }
-)
 
 
 
-
-// Chatroom
 
 let numUsers = 0;
 
 socket_server.on('connection', (socket) => {
+
+    socket.on('agregar_a_carrito', () => {
+        const carts = JSON.parse(fs.readFileSync('./src/data/carts.json'))
+                const numContador = carts.reduce((total, currentCart) => total + currentCart.products.length,0)
+                console.log(numContador)
+                socket.emit('num_products', numContador)
+    });
+
+// Chatroom
+
     let addedUser = false;
 
     // when the client emits 'new message', this listens and executes

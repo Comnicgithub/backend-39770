@@ -12,7 +12,7 @@
     "description": "24 - bot. 12 l",
     "price": 80000,
     "thumbnail": "./public/img/1.jpg",
-    "stock": 55,
+    "stock": 54,
     "id": 2
   },
   {
@@ -20,7 +20,7 @@
     "description": "12 - bot. 550 ml",
     "price": 90,
     "thumbnail": "./public/img/2.jpg",
-    "stock": 48,
+    "stock": 45,
     "id": 3
   },
   {
@@ -44,7 +44,7 @@
     "description": "10 - paq. 500 g",
     "price": 60000,
     "thumbnail": "./public/img/5.jpg",
-    "stock": 100,
+    "stock": 97,
     "id": 6
   },
   {
@@ -60,7 +60,7 @@
     "description": "12 - latas 355 ml",
     "price": 80000,
     "thumbnail": "./public/img/7.jpg",
-    "stock": 99,
+    "stock": 97,
     "id": 8
   },
   {
@@ -68,7 +68,7 @@
     "description": "100 - piezas 100 g",
     "price": 90,
     "thumbnail": "./public/img/8.jpg",
-    "stock": 99,
+    "stock": 92,
     "id": 9
   },
   {
