@@ -1,12 +1,6 @@
 [
   {
-    "products": [
-      {
-        "id": 11,
-        "title": "Mezcla Gumbo del chef Anton",
-        "units": 5
-      }
-    ],
-    "id": 1
+    "id": 1,
+    "products": []
   }
 ]
