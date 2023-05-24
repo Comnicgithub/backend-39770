@@ -12,7 +12,7 @@
     "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 80000,
     "thumbnail": "./public/img/1.jpg",
-    "stock": 13,
+    "stock": 11,
     "id": 2
   },
   {
@@ -20,7 +20,7 @@
     "description": " Pagando con A convenir (Efectivo, Transferencia/deposito, Link de pago) con un 10% de descuento.",
     "price": 90,
     "thumbnail": "./public/img/2.jpg",
-    "stock": 35,
+    "stock": 34,
     "id": 3
   },
   {
