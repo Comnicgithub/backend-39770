@@ -16,18 +16,30 @@ router.post('/', async(req,res,next)=> {
     }
 })
 
-router.get('/', async(req,res,next)=> {
+router.get('/', async (req, res, next) => {
     try {
-        let all = Carts.find()
-        if (all.length>0) {
-            return res.json({ status:200,all })
-        }
-        let message = 'not found'
-        return res.json({ status:404,message })
-    } catch(error) {
+        const all = await Carts.find()
+        const message = all.length > 0 ? 'found' : 'not found'
+        const status = all.length > 0 ? 200 : 404
+        res.json({ status, message, all })
+        } catch (error) {
         next(error)
-    }
-})
+        }
+    })
+
+
+// router.get('/', async(req,res,next)=> {
+//     try {
+//         let all = Carts.find()
+//         if (all.length>0) {
+//             return res.json({ status:200,all })
+//         }
+//         let message = 'not found'
+//         return res.json({ status:404,message })
+//     } catch(error) {
+//         next(error)
+//     }
+// })
 router.get('/:cid', async(req,res,next)=> {
     try {
         let id = Number(req.params.cid)
@@ -43,7 +55,7 @@ router.get('/:cid', async(req,res,next)=> {
 })
 router.put('/:cid', async(req,res,next)=> {
     try {
-        let id = Number(req.params.cid)
+        let id = req.params.cid
         let data = req.body
 
 
@@ -78,7 +90,7 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
 
 router.delete('/:cid', async(req,res,next)=> {
     try {
-        let id = Number(req.params.cid)
+        let id = req.params.cid
         let response = await Carts.findByIdAndDelete(id)
         if (response) {
             return res.json({ status:200,message:'cart deleted'})
