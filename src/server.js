@@ -1,11 +1,16 @@
 import server from "./app.js"
 import { Server } from "socket.io"
-import fs from 'fs'
-import CartManager from "./managers/cart.js"
+import Carts from "./models/cart.model.js"
+import { connect } from "mongoose"
 
 
 const PORT = process.env.PORT || 3000 // lo cambie pq mi puerto 8080 esta siempre ocupado despues rechaza este cambio
-const ready = ()=> console.log('server ready on port '+PORT)
+const ready = ()=> {
+    console.log('server ready on port '+PORT);
+    connect(process.env.LINK_MONGO)
+    .then(()=>console.log('Conectado a la base de datos'))
+    .catch(err=>console.log(err))
+}
 
 let http_server = server.listen(PORT,ready)
 let socket_server = new Server(http_server)
@@ -18,25 +23,52 @@ let numUsers = 0;
 
 
 
+// socket_server.on("connection", socket => {
+//     socket.on("getCartContent", (cartId) => {
+
+//         console.log("el servidor recibio una solicitud de carrito:", cartId)
+//         try {
+//             const cart = CartManager.read_cart(cartId)
+    
+//             let i = 0
+    
+//             cart.products.forEach(e => {
+//                 i += e.x
+//             })
+    
+//             socket.emit("cartUpdated", i)
+//         } catch (err) {
+//             console.log(err)
+//         }
+//     }) 
+// })
+
 socket_server.on("connection", socket => {
     socket.on("getCartContent", (cartId) => {
 
         console.log("el servidor recibio una solicitud de carrito:", cartId)
         try {
-            const cart = CartManager.read_cart(cartId)
+            const Cart = Carts.findOne({_id: cartId})
+            if (Cart !== null && Cart !== undefined) {
+                let i = 0
     
-            let i = 0
-    
-            cart.products.forEach(e => {
-                i += e.x
-            })
-    
-            socket.emit("cartUpdated", i)
+                Cart.products.forEach(e => {
+                    i += e.x
+                })
+                    
+                socket.emit("cartUpdated", i)
+            } else {
+                let message = 'not found'
+                socket.emit("cartUpdated", message)
+            }
         } catch (err) {
             console.log(err)
         }
     }) 
 })
+
+
+
 
 socket_server.on('connection', (socket) => {
 /*

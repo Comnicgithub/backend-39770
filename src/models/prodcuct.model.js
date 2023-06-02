@@ -9,5 +9,5 @@ let schema = new Schema({
     price:{ type:Number,required:true }
 })
 
-let Product = model(collection,schema)
-export default Product
+let Products = model(collection,schema)
+export default Products
