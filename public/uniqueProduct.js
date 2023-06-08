@@ -35,13 +35,12 @@ const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un tex
 }
 
 const createView = async () => {
-    const { pathname } = window.location
-    const response = await fetch(`${websiteUrl}/api${pathname}`, {
-        method: "GET"
-    })
-    .then(res => res.json())
 
-    if (response.status != 200) return
+    const { pathname } = window.location
+    const req = await fetch(`${websiteUrl}/api${pathname}`, { method: "GET" })
+    if (req.status != 200) return
+
+    const response = await req.json()
 
     const bigUniqueProduct = document.getElementById("productContainer")
 
@@ -88,7 +87,7 @@ const createView = async () => {
 
     prodAddButton.classList.add("btn")
     prodAddButton.classList.add("prodAddButton")
-    prodAddButton.classList.add(response.product.stock>0 ? "prodAddButton-enabled" : "prodAddButton-disabled")
+    prodAddButton.classList.add(response.stock>0 ? "prodAddButton-enabled" : "prodAddButton-disabled")
 
     prodImage.classList.add("prodImage-big")
 
@@ -99,21 +98,20 @@ const createView = async () => {
     addStockRestar.textContent = "-"
     addStockInput.placeholder = "1"
 
-    prodAddButton.textContent = response.product.stock>0 ? "ADD 1 PRODUCT TO CART" : "PRODUCT WITHOUT STOCK"
+    prodAddButton.textContent = response.stock>0 ? "ADD 1 PRODUCT TO CART" : "PRODUCT WITHOUT STOCK"
 
     prodAddButton.type = "button"
 
-    prodImage.alt = response.product.title 
-    prodImage.src = `../${response.product.thumbnail}`
+    prodImage.alt = response.title 
+    prodImage.src = `../${response.thumbnail}`
 
-    prodPrice.textContent = ConvertPrice(response.product.price, ".")
-    prodTitle.textContent = response.product.title
-    prodDescription.textContent = response.product.description
+    prodPrice.textContent = ConvertPrice(response.price, ".")
+    prodTitle.textContent = response.title
+    prodDescription.textContent = response.description
 
     let currentAmount = 1
 
-    const currentCart = 1
-    const pid = response.product.id
+    const pid = response._id
     
     const add = (type) => {
         const x = 1
@@ -127,7 +125,7 @@ const createView = async () => {
             }
 
             const max = Math.max(1, currentAmount)
-            const min = Math.min(max, response.product.stock, 9)
+            const min = Math.min(max, response.stock, 9)
             currentAmount = min
 
             prodAddButton.textContent = "ADD TO CART"//currentAmount == 1 ? `ADD 1 PRODUCT TO CART` : `ADD ${currentAmount} PRODUCTS TO CART`
@@ -144,16 +142,18 @@ const createView = async () => {
     })
 
     prodAddButton.addEventListener("click", async () => {
-        const response = await fetch(`${websiteUrl}/api/carts/${currentCart}/product/${pid}/${currentAmount}`, {
+        console.log(sessionStorage.getItem("userCart"))
+        const request = await fetch(`${websiteUrl}/api/carts/${sessionStorage.getItem("userCart")}/product/${pid}/${currentAmount}`, {
             method: "PUT",
             body: JSON.stringify({units: currentAmount}),
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(res => res.json())
+        })
+        const response = await request.json()
 
-        if (response.status == 200) {
-            socket.emit("getCartContent", currentCart)
+        if (request.status == 200) {
+            socket.emit("getCartContent", sessionStorage.getItem("userCart"))
             Swal.fire({
                 title: currentAmount==1 ? `Product added successfully` : `${currentAmount} Products added successfully`,
                 icon: 'error',
@@ -172,7 +172,7 @@ const createView = async () => {
     addStockInput.addEventListener("keyup", (data) => {
         const n = Number(data.key)
         if (n != NaN && n>0 && n<10){
-            currentAmount = Math.min(n, response.product.stock)
+            currentAmount = Math.min(n, response.stock)
         } else {
             addStockInput.value = currentAmount
         }

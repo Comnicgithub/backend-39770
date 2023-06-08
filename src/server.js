@@ -44,16 +44,21 @@ let numUsers = 0;
 // })
 
 socket_server.on("connection", socket => {
-    socket.on("getCartContent", (cartId) => {
+
+    socket.on("getUserCartId", async () => {
+        
+    })
+
+    socket.on("getCartContent", async (cartId) => {
 
         console.log("el servidor recibio una solicitud de carrito:", cartId)
         try {
-            const Cart = Carts.findOne({_id: cartId})
-            if (Cart !== null && Cart !== undefined) {
+            const Cart = await Carts.findById(cartId)
+            console.log(Cart)
+            if (Cart != null) {
                 let i = 0
-    
                 Cart.products.forEach(e => {
-                    i += e.x
+                    i += e.units
                 })
                     
                 socket.emit("cartUpdated", i)
@@ -62,6 +67,7 @@ socket_server.on("connection", socket => {
                 socket.emit("cartUpdated", message)
             }
         } catch (err) {
+            socket.emit("cartUpdated", -1)
             console.log(err)
         }
     }) 
