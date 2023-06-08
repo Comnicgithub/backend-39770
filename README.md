@@ -21,7 +21,8 @@ npm run dev
 
 ## Contenido ⌨️ 
 
-Se crearon los siguientes endpoint para levantar datos desde mongo
+Se crearon los siguientes endpoint para levantar datos desde mongo.
+Los managers y data del file sistem quedaron alojados en una carpeta llamada 'Dao'
 
 ## GET/ New Product ⚙️
 
