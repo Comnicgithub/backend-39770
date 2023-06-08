@@ -11,12 +11,7 @@ function emit_data() {
         }
     )
 }
-/*
-socket.on('connect', () => {
-    let selector = document.querySelectorAll('#btn')
-    selector.forEach(each => each.addEventListener('click'))
-    socket.emit('agregar_a_carrito')
-})*/
+
 
 socket.on("cartUpdated", (cartContent) => {
     console.log("el carrito tiene:", cartContent, "contenidos")
@@ -41,11 +36,4 @@ if (sessionStorage.getItem("userCart") == undefined) {
     })
 } // le envia al servidor una solicitud para que haga un carrito para el usuario
 
-
-/*
-socket.on('num_products', numContador => {
-    console.log("recibido")
-    const contadorSpan = document.getElementById('contador');
-    contadorSpan.innerText = numContador
-}) */
 
