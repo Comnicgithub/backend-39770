@@ -21,18 +21,7 @@ npm run dev
 
 ## Contenido ⌨️ 
 
-Se creo un sitio con Nodejs, Express, Handlebars y Websocket.
-
-```
-GET /       
-
-• Se creo una pagina de inicio que contiene un Navbar con los vinculos hacia los siguientes links:
-                » Prodcuts
-                » New Product
-                » Chat
-                » Carts
-
-```
+Se crearon los siguientes endpoint para levantar datos desde mongo
 
 ## GET/ New Product ⚙️
 
@@ -41,16 +30,6 @@ GET /new_product
 
 • Se establecio desde el endpoint /new_product un formulario para agregar productos nuevos.
                     // Una vez cargado en la base se redirecciona al endpoint /products para visualizar todos los productos disponibles.
-
-```
-
-## GET/ chatbot 🦾
-
-```
-GET /chat         
-
-• Se configuro por medio de socket un webchat para interactuar en vivo.
-                    //Se abre una formulario con un input el cual tiene que ser completado con el nombre de usuario y una vez completado se abre el chat.
 
 ```
 
