@@ -1,0 +1,121 @@
+header {
+    width: 100%;
+}
+
+.logotop {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+
+.nav2 {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+
+
+ul.navega li {
+    display: inline-flex;
+    padding-right: 50px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+ul.iconos li {
+    display: inline-flex;
+    padding-right: 50px;
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    color: black;
+    padding: 2px 1px 0;
+    transition: color 0.5s;
+
+    &:hover {
+        color: $colorprincipal;
+        text-decoration: none;
+    }
+}
+
+.active {
+    font-weight: bolder;
+    
+}
+
+.top {
+    width: 100%;
+}
+
+.logo {
+    padding: 30px;
+
+}
+
+.social {
+    display: inline-flex;
+    padding: 30px;
+    vertical-align: top;
+
+}
+
+.centrarcont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 30px;
+}
+
+.contenedor2 {
+    width: 1200px;
+}
+
+.navbar {
+    position: fixed;
+    z-index: 1;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.navbar-light a {
+    color: #000000 !important;
+    margin-right: 30px;
+    transition: all 0.5s;
+    &:hover {
+        color: $colorprincipal !important;
+        transform: scale(1.1);
+        transition: all 0.5s;
+
+    }
+}
+
+.bg-light {
+    z-index: 1;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.801) !important;
+    box-shadow: 2px 2px 10px #3f3f3f81;
+}
+
+.nav-link {
+    text-align: center;
+}
+
+.imgtop {
+    width: 100%;
+    object-fit: cover;
+    min-height: 700px;
+    z-index: 0;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    z-index: 0;
+}
