@@ -6,74 +6,8 @@ import path from 'path'
 
 const router = Router()
 
-router.get(
-    '/',
-    async (req,res,next) => {
-        try {
-            //let hola = chau
-            return res.render(
-                'index',    //nombre de la vista
-                {         
-                    name: 'Nico',
-                    last_name: 'Lopez',
-                    photo: 'https://www.w3schools.com/howto/img_avatar.png',
-
-                    
-                    title: 'index',
-                    script: '/public/conection.js'
-                }        
-            )
-        } catch (error) {
-            next(error)
-        }
-    }
-)
-
-router.get("/products/:pid", async (req, res, next) => {
-    try {
-        return res.render("view_product", {
-            script2: '/public/uniqueProduct.js',
-            topTitle: "prueba",
-            conection: '/public/conection.js'
-        })
-    } catch(error) {
-
-    }
-})
-
-// router.get(
-//     '/products',
-//     async(req,res,next) => {
-//         try {
-
-//             const all = await Products.find()
-//             const prodsClone = JSON.parse(JSON.stringify(all)) // esto lo hago porque nose si el product manager regresa el objeto original 
-//             const products = ProductsArrayConvert(prodsClone)
-//             // al final si cambia el array original y tuve que clonar
-
-
-//             return res.render('products', {
-//                 products: products,
-//                 title: 'Products Page',
-//                 topTitle: `Products: ${products.length}`,
-//                 script: '/public/products.js',
-//                 conection: '/public/conection.js',
-//                 cart: 'numProducts'
-//             })
-
-//         } catch (error) {
-//             console.log(error)
-//             next()
-//         }
-//     }
-// )
-
-
 router.get('/', async (req, res, next) => {
     try {
-      const all = await Products.find();
-      const prodsClone = JSON.parse(JSON.stringify(all));
-      const products = ProductsArrayConvert(prodsClone);
       const filePath = path.resolve('./public/index.html');
 res.sendFile(filePath);
     } catch (error) {
@@ -86,6 +20,7 @@ router.get('/products', async (req, res, next) => {
       const all = await Products.find();
       const prodsClone = JSON.parse(JSON.stringify(all));
       const products = ProductsArrayConvert(prodsClone);
+      console.log(products)
       const filePath = path.resolve('./public/pages/tienda.html');
 res.sendFile(filePath);
     } catch (error) {
@@ -96,9 +31,6 @@ res.sendFile(filePath);
 
 router.get('/contact', async (req, res, next) => {
     try {
-      const all = await Products.find();
-      const prodsClone = JSON.parse(JSON.stringify(all));
-      const products = ProductsArrayConvert(prodsClone);
       const filePath = path.resolve('./public/pages/contacto.html');
 res.sendFile(filePath);
     } catch (error) {
@@ -108,9 +40,6 @@ res.sendFile(filePath);
   });
 router.get('/marcas', async (req, res, next) => {
     try {
-      const all = await Products.find();
-      const prodsClone = JSON.parse(JSON.stringify(all));
-      const products = ProductsArrayConvert(prodsClone);
       const filePath = path.resolve('./public/pages/marcas.html');
 res.sendFile(filePath);
     } catch (error) {
@@ -121,9 +50,6 @@ res.sendFile(filePath);
 
 router.get('/chat', async (req, res, next) => {
     try {
-      const all = await Products.find();
-      const prodsClone = JSON.parse(JSON.stringify(all));
-      const products = ProductsArrayConvert(prodsClone);
       const filePath = path.resolve('./public/pages/chat.html');
 res.sendFile(filePath);
     } catch (error) {
@@ -131,11 +57,9 @@ res.sendFile(filePath);
       next();
     }
   });
+
 router.get('/nosotros', async (req, res, next) => {
     try {
-      const all = await Products.find();
-      const prodsClone = JSON.parse(JSON.stringify(all));
-      const products = ProductsArrayConvert(prodsClone);
       const filePath = path.resolve('./public/pages/nosotros.html');
 res.sendFile(filePath);
     } catch (error) {
@@ -155,6 +79,19 @@ res.sendFile(filePath);
       next();
     }
   });
+
+router.get("/products/:pid", async (req, res, next) => {
+    try {
+        return res.render("view_product", {
+            script2: '/public/uniqueProduct.js',
+            topTitle: "prueba",
+            conection: '/public/conection.js'
+        })
+    } catch(error) {
+
+    }
+})
+
 
 router.get(
     '/carts',
