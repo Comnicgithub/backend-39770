@@ -30,6 +30,7 @@ import { __dirname } from './utils.js'
 
 const server = express()
 
+server.set('views',__dirname+'/views')
 server.use(express.static('public'));
 server.use(express.json())
 server.use(express.urlencoded({extended:true}))

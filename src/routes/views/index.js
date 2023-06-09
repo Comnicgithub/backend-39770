@@ -1,7 +1,7 @@
 import { Router } from "express"
-import { ProductsArrayConvert } from "../../devUtils.js"
 import Products from '../../models/prodcuct.model.js'
 import path from 'path'
+import fs from 'fs'
 
 
 const router = Router()
@@ -15,19 +15,48 @@ res.sendFile(filePath);
       next();
     }
   });
-router.get('/products', async (req, res, next) => {
+
+
+  router.get("/products", async (req, res, next) => {
     try {
       const all = await Products.find();
-      const prodsClone = JSON.parse(JSON.stringify(all));
-      const products = ProductsArrayConvert(prodsClone);
-      console.log(products)
-      const filePath = path.resolve('./public/pages/tienda.html');
-res.sendFile(filePath);
+      if (all.length === 0) return res.status(404).send("No products found");
+  
+      const products = all.map((product) => {
+        return {
+          thumbnail: product.thumbnail,
+          title: product.title,
+          price: product.price,
+        };
+      });
+  
+      const cards = products.map((product) => {
+        return `
+                  <div class="col-md-6 col-lg-3 destacados">
+                    <img src="${product.thumbnail}" alt="Producto" class="productosdestacadosimg">
+                    <h3>${product.title}</h3>
+                    <h2>
+                        ${product.price}
+                    </h2>
+                <a href="../pages/product/producto1.html" class="comprar">Comprar</a>
+            </div>
+
+            `;
+      });
+  
+      const htmlFilePath = path.resolve('./public/pages/products.html');
+      console.log(htmlFilePath); // Output: /path/to/your/project/src/public/pages/products.html
+      const html = fs.readFileSync(htmlFilePath, "utf8");
+  
+      const modifiedHtml = html.replace("<!-- PRODUCT_CARDS -->", cards.join(""));
+      res.send(modifiedHtml);
     } catch (error) {
-      console.log(error);
-      next();
+      console.error(error.message);
+      next(error);
     }
   });
+
+
 
 router.get('/contact', async (req, res, next) => {
     try {
