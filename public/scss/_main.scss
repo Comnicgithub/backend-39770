@@ -57,6 +57,7 @@ h3 {
     position: r;
     text-align: center;
     transition: all 0.7s;
+    border: none !important ;
 
     &:hover {
         background-color: $Color-gris;
