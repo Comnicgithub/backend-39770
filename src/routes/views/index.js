@@ -1,7 +1,6 @@
 import { Router } from "express"
-import auth_router from "./auth.js"
-import ProductManager from "../../managers/product.js"
 import { ProductsArrayConvert } from "../../devUtils.js"
+import Products from '../../models/prodcuct.model.js'
 
 const router = Router()
 
@@ -29,7 +28,6 @@ router.get(
 )
 
 router.get("/products/:pid", async (req, res, next) => {
-
     try {
         return res.render("view_product", {
             script2: '/public/uniqueProduct.js',
@@ -46,8 +44,8 @@ router.get(
     async(req,res,next) => {
         try {
 
-            const prods = ProductManager.read_products()
-            const prodsClone = JSON.parse(JSON.stringify(prods)) // esto lo hago porque nose si el product manager regresa el objeto original 
+            const all = await Products.find()
+            const prodsClone = JSON.parse(JSON.stringify(all)) // esto lo hago porque nose si el product manager regresa el objeto original 
             const products = ProductsArrayConvert(prodsClone)
             // al final si cambia el array original y tuve que clonar
 
@@ -149,7 +147,6 @@ router.get(
     }
 )
 
-router.use('/auth',auth_router)
 
 
 export default router

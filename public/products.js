@@ -35,17 +35,16 @@ const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un tex
 }
 
 const updateView = async () => {
-    const response = await fetch(`${websiteUrl}/api/products`, {
-        method: "GET"
-    })
-    .then(res => res.json())
+    const req = await fetch(`${websiteUrl}/api/products`, { method: "GET" })
+    if (req.status != 200) return
 
-    if (response.status != 200) return
+    const response = await req.json()
 
+    console.log(response)
 
     const total_container = document.getElementById("containerElementos")
     
-    response.products.forEach(e => {
+    response.forEach(e => {
         const card = document.createElement("div")
 
         const thumbnailContainer = document.createElement("div")
@@ -85,21 +84,25 @@ const updateView = async () => {
         p.textContent = ConvertPrice(e.price, ".")
         total_container.appendChild(card)
 
-        const pid = e.id
+        const pid = e._id
         const units = 1
 
-        anchor.href = `/products/${e.id}`
+        anchor.href = `/products/${pid}`
         button.addEventListener("click", async (data) => {
-            const response = await fetch(`${websiteUrl}/api/carts/${currentCart}/product/${pid}/${units}`, {
+            console.log(sessionStorage.getItem("userCart"))
+            console.log(pid)
+            const request = await fetch(`${websiteUrl}/api/carts/${sessionStorage.getItem("userCart")}/product/${pid}/${units}`, {
                 method: "PUT",
                 body: JSON.stringify({units: units}),
                 headers: {
                     "Content-Type": "application/json"
                 }
-            }).then(res => res.json())
+            })
+            
+            const response = request.json()
 
-            if (response.status == 200) {
-                socket.emit("getCartContent", currentCart)
+            if (request.status == 200) {
+                socket.emit("getCartContent", sessionStorage.getItem("userCart"))
                 Swal.fire({
                     title: `Product added successfully`,
                     icon: 'error',
