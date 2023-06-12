@@ -1,11 +1,25 @@
 
 <div class="container title">
-    {{topTitle}}
+  <div class="pagination-buttons">
+    <a href="/products?page={{paginationprev}}">Previous</a>
+    <a href="/products?page={{paginationnext}}">Next</a>
+</div>
+    {{topTitle}}<br>
+    {{limit}}
 </div>
 <div class="container">
-    <div class="d-flex prodcutos" id="containerElementos">
-
+<div class="d-flex productos" id="containerElementos">
+  <div class="cards-container">
+    {{#each products}}
+  <div>
+    <img src="{{thumbnail}}" alt="{{title}}">
+    <h2>{{title}}</h2>
+    <p>Price: {{price}}</p>
+  </div>
+{{/each}}
+  </div>
 </div>
+
 </div>
 
 <script type="module" src={{script2}}></script>

@@ -1,3 +1,5 @@
+import Products from './models/product.model.js'
+
 const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un texto para agregar entre separaciones (Esto para convertir el amount en un texto mas bonito para el usuario)
     try {
         amount = Number(amount)
@@ -30,14 +32,15 @@ const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un tex
         return "ERROR"
     }
 }
-
+    
 const updateView = async () => {
-    const req =  fetch(`/api/products`, { method: "GET" })
-    if (req.status != 200) return
+    
+    const pageNumber = parseInt(req.query.page) || 1; // obtener el número de página de la solicitud
+    const productsPerPage = 5; // especificar la cantidad de productos por página
 
-    const response = req.json()
+    const products = await Products.paginate({}, { page: pageNumber, limit: productsPerPage }); // realizar la consulta paginada con Mongoose
 
-    console.log(response)
+    console.log(products)
 
     const total_container = document.getElementById("containerElementos")
     
