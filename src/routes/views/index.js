@@ -39,33 +39,6 @@ router.get("/products/:pid", async (req, res, next) => {
     }
 })
 
-// router.get(
-//     '/products',
-//     async(req,res,next) => {
-//         try {
-
-//             const all = await Products.find()
-//             const prodsClone = JSON.parse(JSON.stringify(all)) // esto lo hago porque nose si el product manager regresa el objeto original 
-//             const products = ProductsArrayConvert(prodsClone)
-//             // al final si cambia el array original y tuve que clonar
-
-
-//             return res.render('products', {
-//                 products: products,
-//                 title: 'Products Page',
-//                 topTitle: `Products: ${products.length}`,
-//                 script: '/public/products.js',
-//                 conection: '/public/conection.js',
-//                 cart: 'numProducts'
-//             })
-
-//         } catch (error) {
-//             console.log(error)
-//             next()
-//         }
-//     }
-// )
-
     router.get('/products', async (req, res, next) => {
         try {
         const pageNumber = parseInt(req.query.page) ||  1;
