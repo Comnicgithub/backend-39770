@@ -42,7 +42,7 @@ router.get("/products/:pid", async (req, res, next) => {
 router.get('/products', async (req, res, next) => {
     try {
         const pageNumber = parseInt(req.query.page) || 1;
-        const productsPerPage = 5;
+        const productsPerPage = +req.query.limit || 5;
         const filter = req.query.filter || "";
         const query = {};
         if (filter) {
