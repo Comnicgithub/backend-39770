@@ -8,13 +8,10 @@
 <input type="text" placeholder="Buscar productos" name="filter">
 <button type="submit">Buscar</button>
 </form>
-<form method="POST">
-    <label for="productLimit">Mostrar:</label>
-    <select name="productLimit" id="productLimit" onchange="this.form.submit()">
-        {{#each options}}
-            <option value="{{this.value}}" {{#if (eq selected this.value)}}selected{{/if}}>{{this.label}}</option>
-        {{/each}}
-    </select>
+<form action="/products" method="GET">
+  <label for="limit">Productos por página:</label>
+  <input type="number" id="limit" name="limit" value={{productsPerPage}}>
+  <button type="submit">Aplicar</button>
 </form>
     {{topTitle}}<br>
     {{limit}}

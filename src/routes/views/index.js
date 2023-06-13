@@ -39,32 +39,43 @@ router.get("/products/:pid", async (req, res, next) => {
     }
 })
 
-router.get(
-    '/products',
-    async(req,res,next) => {
-        try {
-
-            const all = await Products.find()
-            const prodsClone = JSON.parse(JSON.stringify(all)) // esto lo hago porque nose si el product manager regresa el objeto original 
-            const products = ProductsArrayConvert(prodsClone)
-            // al final si cambia el array original y tuve que clonar
-
-
-            return res.render('products', {
-                products: products,
-                title: 'Products Page',
-                topTitle: `Products: ${products.length}`,
-                script: '/public/products.js',
-                conection: '/public/conection.js',
-                cart: 'numProducts'
-            })
-
-        } catch (error) {
-            console.log(error)
-            next()
+router.get('/products', async (req, res, next) => {
+    try {
+        const pageNumber = parseInt(req.query.page) || 1;
+        const productsPerPage = 5;
+        const filter = req.query.filter || "";
+        const query = {};
+        if (filter) {
+            query.title = { $regex: filter, $options: "i" };
         }
+        const products = await Products.paginate(query, { page: pageNumber, limit: productsPerPage });
+        console.log(products)
+
+        const formattedProducts = products.docs.map(product => ({
+            title: product.title,
+            thumbnail: product.thumbnail,
+            price: product.price,
+            link: `/products/${product._id}`
+        }));
+
+        return res.render('products', {
+            products: formattedProducts,
+            title: 'Products Page',
+            topTitle: `Total Products: ${products.totalDocs}`,
+            limit: `Productos por pagina ${products.limit}`,
+            conection: '/public/conection.js',
+            cart: 'numProducts',
+            paginationprev: `${products.prevPage}`,
+            paginationnext: `${products.nextPage}`,
+            currentPage: `Pagina ${pageNumber}`,
+            totalPages: products.totalPages,
+            filter: filter
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
     }
-)
+});
 
 router.get(
     '/new_product',
