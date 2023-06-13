@@ -1,9 +1,14 @@
-import { model,Schema } from 'mongoose'
+import { model, Schema, Types } from 'mongoose'
 
 const collection = 'carts'
 const schema = new Schema({
-    products: {type:Array, required:true},
+    products: [{
+        prod: {type: Types.ObjectId},
+        units: Number,
+        type: Object,
+        
+        ref: "products"
+    }]
 })
 
-let Cart = model(collection,schema)
-export default Cart
+export default model(collection,schema)

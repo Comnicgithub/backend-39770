@@ -2,6 +2,8 @@ import { Router } from "express"
 import Carts from '../../models/cart.model.js'
 import Products from "../../models/prodcuct.model.js"
 
+import { Types } from "mongoose"
+
 const router = Router()
 
 router.post('/', async (req, res, next) => {
@@ -28,7 +30,10 @@ router.get('/', async (req, res, next) => {
 router.get('/:cid', async (req, res, next) => {
     try {
         let id = req.params.cid
-        let one = await Carts.findById(id).exec()
+        const one = await Carts.aggregate([
+            { $match: { _id: new Types.ObjectId(id)}}
+        ]).populate("products.product")
+        //let one = await Carts.findById(id).populate("products.product").sort({"products.units": "desc"})
         return res.status(200).json(one)
     } catch (error) {
         next(error)
