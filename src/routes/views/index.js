@@ -39,19 +39,25 @@ router.get("/products/:pid", async (req, res, next) => {
     }
 })
 
-    router.get('/products', async (req, res, next) => {
-        try {
-        const pageNumber = parseInt(req.query.page) ||  1;
-        const productsPerPage = 5;
-        const products = await Products.paginate({}, { page: pageNumber, limit: productsPerPage });
+router.get('/products', async (req, res, next) => {
+    try {
+        const pageNumber = parseInt(req.query.page) || 1;
+        const productsPerPage = req.query.limit || 5;
+        const filter = req.query.filter || "";
+        const query = {};
+        if (filter) {
+            query.title = { $regex: filter, $options: "i" };
+        }
+        const products = await Products.paginate(query, { page: pageNumber, limit: productsPerPage });
         console.log(products)
 
         const formattedProducts = products.docs.map(product => ({
             title: product.title,
             thumbnail: product.thumbnail,
-            price: product.price
+            price: product.price,
+            link: `/products/${product._id}`
         }));
-    
+
         return res.render('products', {
             products: formattedProducts,
             title: 'Products Page',
@@ -59,19 +65,17 @@ router.get("/products/:pid", async (req, res, next) => {
             limit: `Productos por pagina ${products.limit}`,
             conection: '/public/conection.js',
             cart: 'numProducts',
-            paginationprev:  `${products.prevPage}`,
-            paginationnext:  `${products.nextPage}`, 
-            currentPage: pageNumber,
-            totalPages: products.totalPages
-            
+            paginationprev: `${products.prevPage}`,
+            paginationnext: `${products.nextPage}`,
+            currentPage: `Pagina ${pageNumber}`,
+            totalPages: products.totalPages,
+            filter: filter
         });
-    
-        } catch (error) {
+    } catch (error) {
         console.log(error);
-        next(error); // Se manejan apropiadamente los errores
-        }
-    });   
-
+        next(error);
+    }
+});
 router.get(
     '/new_product',
     async(req,res,next) => {

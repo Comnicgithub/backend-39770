@@ -27,12 +27,30 @@ router.post('/', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
     try {
-        let products = await Products.find().exec()
-        return res.status(200).json(products)
+        const productsPerPage = 6; // number of products per page for pagination
+
+        const defaultPage = 1; // default page if 'page' query parameter is not present
+        const page = req.query.page ? parseInt(req.query.page) : defaultPage; // get page number from 'page' query parameter or use default value
+        const filter = req.query.filter ? req.query.filter : ''; // get filter value from 'filter' query parameter or use empty string
+
+        const query = {}; // empty query object
+        if (filter) {
+            query.title = { $regex: new RegExp(filter, 'i') }; // add case-insensitive regex for 'title' field if 'filter' query parameter is present
+        }
+
+        // paginate Products collection using 'mongoose-paginate-v2' plugin
+        const products = await Products.paginate(query, {
+            page: page,
+            limit: productsPerPage
+        });
+
+        console.log(products); // log paginated products
+
+        return res.status(200).json(products); // send JSON response with paginated products and HTTP status code 200 (OK)
     } catch (error) {
         next(error)
     }
-})
+});
 
 
 router.get('/:pid', async (req, res, next) => {
