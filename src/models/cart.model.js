@@ -7,3 +7,4 @@ const schema = new Schema({
 
 let Cart = model(collection,schema)
 export default Cart
+
