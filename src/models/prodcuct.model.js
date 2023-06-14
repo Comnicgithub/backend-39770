@@ -1,5 +1,6 @@
 import { model,Schema } from 'mongoose'
 
+
 let collection = 'products'
 let schema = new Schema({
     title:{ type:String,required:true },
