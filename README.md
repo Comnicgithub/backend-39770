@@ -1,4 +1,4 @@
-# Backend-39770 - Entrega N°6
+# Backend-39770 - 2da Pre-entrega Final 
 
 ## Trabajo colaborativo 📋
 ### Pablo Lopez
@@ -21,51 +21,22 @@ npm run dev
 
 ## Contenido ⌨️ 
 
-Se crearon los siguientes endpoint para levantar datos desde mongo.
-Los managers y data del file sistem quedaron alojados en una carpeta llamada 'Dao'
+A los metodos de mongoose ya realizados en la entrega anterior se agregaron los siguientes comando y funcionalidades para prodcutos y carritos
 
-## GET/ New Product ⚙️
+## PRODUCTS
 
-```
-GET /new_product 
+SE AGREGO LA PAGINACION, UNA QUERY DE BUSQUEDA Y UN LIMIT DE 6 PRODCUTOS POR PAGINA
+ASI TAMBIEN SE CONFIGURO EL API/PRODUCTS PARA QUE TENGA LA MISMA FUNCIONALIDAD
 
-• Se establecio desde el endpoint /new_product un formulario para agregar productos nuevos.
-                    // Una vez cargado en la base se redirecciona al endpoint /products para visualizar todos los productos disponibles.
+## CARTS
 
-```
+### /api/carts
+SE POPULO Y SE ORDENA POR TITLE
 
-## GET/ Products 📱
+### /api/carts/bills/cid:
 
-```
-GET /products     
+SE CALCULA EL TOTAL A PAGAR
 
-• Se configuro el endpoint /products para mostrar todos los prodcutos en stock en nuestra base de datos.
-• Se puede ingresar al siguiente punto haciendo click en el producto deseado.
+###  /carts
 
-```
-
-## GET/ products/:pid 📲
-
-```
-GET /products/:pid   
-
- • Aqui podras ver todos los detalles del prodcuto. El objeto completo.
-                        "Title"
-                        "Description"
-                        "Price"
-                        "Thumbnail"
-                        "Stock"
-
- • Aqui tambien se programo boton de agregar al carrito y ademas un update y un delete para subir y bajar la cantidad de prodcutos que el usuario quiera agregar al cart.
-
-```
-
-## GET /carts 🛒
-
-```
-GET /carts              
-
- • Este endpoint contiene todos los productos que contenga el primer carrito.
- • Tambien se pueden modificar las unidades y si la unidad es igual a 0 desaparece del cart. Asi como tambien devuelve las unidades del prodcuto al stock de la base de products.
-
-```
+INCLUIMOS EL MONTO TODAL A PAGAR
