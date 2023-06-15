@@ -91,8 +91,20 @@ footer {
     border-radius: 20px;
 }
 
+.prev-next {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 .agregar-carrito {
     background-color: orange;
+    color: white;
+    width: 100%;
+    border-radius: 20px;
+    margin: 5px;
+}
+.agregar-carrito:hover {
+    background-color: rgb(139, 139, 139);
     color: white;
     width: 100%;
     border-radius: 20px;

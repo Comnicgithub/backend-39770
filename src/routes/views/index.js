@@ -42,7 +42,7 @@ router.get("/products/:pid", async (req, res, next) => {
 router.get('/products', async (req, res, next) => {
     try {
         const pageNumber = parseInt(req.query.page) || 1;
-        const productsPerPage = req.query.limit || 5;
+        const productsPerPage = req.query.limit || 6;
         const filter = req.query.filter || "";
         const query = {};
         if (filter) {
@@ -59,10 +59,10 @@ router.get('/products', async (req, res, next) => {
         }));
 
         return res.render('products', {
-            //products: formattedProducts,
+            products: formattedProducts,
             title: 'Products Page',
-            //topTitle: `Total Products: ${products.totalDocs}`,
-            //limit: `Productos por pagina ${products.limit}`,
+            topTitle: `Total Products: ${products.totalDocs}`,
+            limit: `Productos por pagina ${products.limit}`,
             conection: '/public/conection.js',
             cart: 'numProducts',
             paginationprev: `${products.prevPage}`,
