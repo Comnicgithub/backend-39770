@@ -1,4 +1,5 @@
 import { Router } from "express"
+import { Types } from "mongoose"
 import Carts from '../../models/cart.model.js'
 import Products from "../../models/product.model.js"
 
@@ -28,7 +29,21 @@ router.get('/', async (req, res, next) => {
 router.get('/:cid', async (req, res, next) => {
     try {
         let id = req.params.cid
-        let one = await Carts.findById(id).exec()
+        const one = await Carts.findById(id).populate({
+            path: 'products',
+            populate: {
+                path: 'product',
+                model: "products"
+            }
+        }).exec()
+
+        one.products.sort((a, b) => {
+            if (a.product.title < b.product.title) return -1
+            if (a.product.title > b.product.title) return 1
+            return 0
+        })
+        // intente con la parte de abajo y nose, no pude.
+        //let one = await Carts.findById(id).populate("products.product").sort({"products.units": "desc"})
         return res.status(200).json(one)
     } catch (error) {
         next(error)
@@ -140,5 +155,29 @@ router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
         next(error);
     }
 });
+
+router.get("/bills/:cid", async (req, res, next) => {
+    try {
+        const cid = req.params.cid;
+        const cart = await Carts.findById(cid).populate({
+            path: 'products',
+            populate: {
+                path: 'product',
+                model: "products"
+            }
+        }).exec()
+
+        let price = 0
+        console.log(cart)
+        cart.products.forEach(e => {
+            if (typeof e.product == typeof []) {
+                price += e.product.price*e.units
+            }
+        })
+        return res.status(200).json({success: true, price})
+    } catch(err) {
+        next(err)
+    }
+})
 
 export default router

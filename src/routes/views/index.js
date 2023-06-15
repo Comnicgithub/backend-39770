@@ -59,10 +59,10 @@ router.get('/products', async (req, res, next) => {
         }));
 
         return res.render('products', {
-            products: formattedProducts,
+            //products: formattedProducts,
             title: 'Products Page',
-            topTitle: `Total Products: ${products.totalDocs}`,
-            limit: `Productos por pagina ${products.limit}`,
+            //topTitle: `Total Products: ${products.totalDocs}`,
+            //limit: `Productos por pagina ${products.limit}`,
             conection: '/public/conection.js',
             cart: 'numProducts',
             paginationprev: `${products.prevPage}`,
