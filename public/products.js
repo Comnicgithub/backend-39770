@@ -1,5 +1,11 @@
 const websiteUrl = 'http://localhost:3000'
 
+const urlParams = new URLSearchParams(window.location.search)
+const page = urlParams.get("page") || 1
+
+const previousPageButton = document.getElementById("previousPageButton")
+const nextPageButton = document.getElementById("nextPageButton")
+
 const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un texto para agregar entre separaciones (Esto para convertir el amount en un texto mas bonito para el usuario)
     try {
         amount = Number(amount)
@@ -34,16 +40,23 @@ const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un tex
 }
 
 const updateView = async () => {
-    const req =  fetch(`${websiteUrl}/api/products`, { method: "GET" })
+    console.log("upd view")
+    console.log("viendo la pagina:", page)
+    const req = await fetch(`${websiteUrl}/api/products?page=${page}`, { method: "GET" })
     if (req.status != 200) return
-
-    const response = req.json()
+    const response = await req.json()
 
     console.log(response)
 
     const total_container = document.getElementById("containerElementos")
     
-    response.forEach(e => {
+    previousPageButton.hidden = (Number(page) <= 1)
+    nextPageButton.hidden = response.nextPage == null
+
+    previousPageButton.href = `/products?page=${Math.max(1, Number(page)-1 )}`
+    nextPageButton.href = `/products?page=${Math.max(1, Number(page)+1 )}`
+
+    response.docs.forEach(e => {
         const card = document.createElement("div")
 
         const thumbnailContainer = document.createElement("div")

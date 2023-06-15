@@ -1,18 +1,14 @@
 
 <div class="container title">
   <div class="pagination-buttons">
-    <a href="/products?page={{paginationprev}}">Previous</a>
-    <a href="/products?page={{paginationnext}}">Next</a>
+    <a hidden id="previousPageButton" href="">Previous Page</a>
+    <a hidden id="nextPageButton" href="">Next Page</a>
 </div>
 <form action="/products" method="GET">
 <input type="text" placeholder="Buscar productos" name="filter">
 <button type="submit">Buscar</button>
 </form>
-<form action="/products" method="GET">
-  <label for="limit">Productos por página:</label>
-  <input type="number" id="limit" name="limit" value={{productsPerPage}}>
-  <button type="submit">Aplicar</button>
-</form>
+
     {{topTitle}}<br>
     {{limit}}
 </div>

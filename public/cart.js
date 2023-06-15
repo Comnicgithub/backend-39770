@@ -1,6 +1,8 @@
 
 const websiteUrl = 'http://localhost:3000'
 
+const checkoutButton = document.getElementById("checkoutButton")
+
 const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un texto para agregar entre separaciones (Esto para convertir el amount en un texto mas bonito para el usuario)
     try {
         amount = Number(amount)
@@ -39,13 +41,13 @@ const update = async () => {
     const elementProductList = document.getElementById("productList")
     if (elementProductList == undefined) return
 
-    const productsRequest = await fetch(`${websiteUrl}/api/products`)
+    //const productsRequest = await fetch(`${websiteUrl}/api/products`)
     const cartRequest = await fetch(`${websiteUrl}/api/carts/${sessionStorage.getItem("userCart")}`)
-
-    const productsResponse = await productsRequest.json()
+    const cartpriceRequest = await fetch(`${websiteUrl}/api/carts/bills/${sessionStorage.getItem("userCart")}`)
     const cartResponse = await cartRequest.json()
-    
-    if (productsRequest.status != 200) return
+    const cartpriceResponse = await cartpriceRequest.json()
+
+    //if (productsRequest.status != 200) return
     if (cartRequest.status != 200) return
 
     while (elementProductList.firstChild) elementProductList.removeChild(elementProductList.firstChild);
@@ -72,8 +74,9 @@ const update = async () => {
         divContainer.appendChild(del)
 
         
-        const productData = productsResponse.find(ele => ele._id == e.product )
-        
+        const productData = e.product
+
+
         divContainer.classList.add("cartContainer")
 
         del.classList.add("btn")
@@ -104,6 +107,7 @@ const update = async () => {
 
         elementProductList.appendChild(divContainer)
         
+        checkoutButton.textContent = `TOTAL TO PAY ${ConvertPrice(cartpriceResponse.price, ".")}`
         console.log(productData)
         del.addEventListener("click", async () => {
             const req = await fetch(`${websiteUrl}/api/carts/${sessionStorage.getItem("userCart")}/product/${productData._id}/${e.units}`, {
