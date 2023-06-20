@@ -1,6 +1,4 @@
 import { Router } from "express"
-import { Types } from "mongoose"
-import MongoStore from "connect-mongo"
 import Users from "../../models/user.model.js"
 
 const router = Router()
@@ -9,13 +7,6 @@ const verify = a => {
     if (a != undefined || a != null) return true
     return false
 }
-
-router.post("/signout", async(req, res, next) => {
-    if (!req.session.mail) return res.status(400).json({success: false, message: "user is not logged in"})
-    req.session.destroy()
-    return res.status(200).json({success: true, message: "successfully signout"})
-})
-
 router.use((req, res, next) => { // middleware para validar propiedades obligatorias
     try {
         const { mail, password } = req.body
