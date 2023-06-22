@@ -10,6 +10,8 @@ const router = Router()
 
 router.use('/products', products_router)
 router.use('/carts', carts_router)
-router.use('/auth', auth_login, auth_register, auth_signout)
+router.use('/auth/login', auth_login)
+router.use('/auth/register', auth_register)
+router.use('/auth/signout', auth_signout)
 
 export default router

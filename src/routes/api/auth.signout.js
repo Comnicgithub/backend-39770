@@ -2,7 +2,7 @@ import { Router } from "express"
 
 const router = Router()
 
-router.post("/signout", async(req, res, next) => {
+router.post("/", async(req, res, next) => {
     if (!req.session || !req.session.mail) {
         return res.status(401).json({success: false, message: "Not authorized"});
     }

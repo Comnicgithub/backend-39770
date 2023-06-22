@@ -68,15 +68,12 @@ router.put('/:cid', async (req, res, next) => {
 
 router.put("/:cid/product/:pid/:units", async (req, res, next) => {
     try {
-        let id = req.params.pid;
-        let cid = req.params.cid;
-        let units = Number(req.params.units);
+        const id = req.params.pid;
+        const cid = req.params.cid;
+        const units = Number(req.params.units);
 
-        let cart = await Carts.findById(cid)
-        let product = await Products.findById(id)
-
-        console.log(cart)
-        console.log(product)
+        const cart = await Carts.findById(cid)
+        const product = await Products.findById(id)
 
         if (cart && product) {
             if (product.stock >= units) {
