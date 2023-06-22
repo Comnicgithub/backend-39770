@@ -57,7 +57,9 @@ router.post('/login', async (req, res, next) => {
         req.session.role = finded.role
 
         console.log(req.session)
-        return res.status(200).json({success: true, message: "user is now logged in"})
+        return res.status(200).redirect('/product').send({
+            email: req.session.email
+            });
     } catch (err) {
         next()
     }

@@ -45,7 +45,7 @@ router.post('/register', async (req, res, next) => {
             password
         })
 
-        return res.status(201).json({ success: true, message: "created" })
+        return res.redirect('/products') 
     } catch (err) {
         next(err)
     }
