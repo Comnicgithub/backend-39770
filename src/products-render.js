@@ -1,10 +1,4 @@
-const websiteUrl = 'http://localhost:3000'
-
-const urlParams = new URLSearchParams(window.location.search)
-const page = urlParams.get("page") || 1
-
-const previousPageButton = document.getElementById("previousPageButton")
-const nextPageButton = document.getElementById("nextPageButton")
+import Products from './models/product.model.js'
 
 const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un texto para agregar entre separaciones (Esto para convertir el amount en un texto mas bonito para el usuario)
     try {
@@ -38,25 +32,19 @@ const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un tex
         return "ERROR"
     }
 }
-
+    
 const updateView = async () => {
-    console.log("upd view")
-    console.log("viendo la pagina:", page)
-    const req = await fetch(`${websiteUrl}/api/products?page=${page}`, { method: "GET" })
-    if (req.status != 200) return
-    const response = await req.json()
+    
+    const pageNumber = parseInt(req.query.page) || 1; // obtener el número de página de la solicitud
+    const productsPerPage = 5; // especificar la cantidad de productos por página
 
-    console.log(response)
+    const products = await Products.paginate({}, { page: pageNumber, limit: productsPerPage }); // realizar la consulta paginada con Mongoose
+
+    console.log(products)
 
     const total_container = document.getElementById("containerElementos")
     
-    previousPageButton.hidden = (Number(page) <= 1)
-    nextPageButton.hidden = response.nextPage == null
-
-    previousPageButton.href = `/products?page=${Math.max(1, Number(page)-1 )}`
-    nextPageButton.href = `/products?page=${Math.max(1, Number(page)+1 )}`
-
-    response.docs.forEach(e => {
+    response.forEach(e => {
         const card = document.createElement("div")
 
         const thumbnailContainer = document.createElement("div")
