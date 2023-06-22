@@ -58,9 +58,7 @@ router.post('/', async (req, res, next) => {
         req.session.role = finded.role
 
         console.log(req.session.mail)
-        return res.status(200).redirect('/perfil').send({
-            email: req.session.email
-        })
+        return res.redirect('/perfil')
     } catch (err) {
         next()
     }

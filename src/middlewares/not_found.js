@@ -1,4 +1,5 @@
 const not_found_handler = (req, res, next) => {
+    console.log(req)
     console.log(`not found ${req.method} ${req.url}`)
     return res.json({
         status: 404,
