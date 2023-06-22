@@ -157,6 +157,22 @@ router.get(
     }
 )
 
+router.get('/login', async (req, res, next) => {
+    try {
+        return res.render('login', {})
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
 
+router.get('/signout', async (req, res, next) => {
+    try {
+        return res.render('signout', {})
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
 
 export default router
