@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000 // lo cambie pq mi puerto 8080 esta siempr
 const ready = ()=> {
     console.log('server ready on port '+PORT);
     connect(process.env.LINK_MONGO)
+    .then(()=>console.log('Conectado a la base de datos'))
     .catch(err=>console.log(err))
 }
 

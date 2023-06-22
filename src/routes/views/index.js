@@ -9,17 +9,16 @@ router.get(
     '/',
     async (req, res, next) => {
         try {
-            //let hola = chau
+            const user = req.session
             return res.render(
-                'index', //nombre de la vista
+                'index', 
                 {
                     name: 'Nico',
                     last_name: 'Lopez',
                     photo: 'https://www.w3schools.com/howto/img_avatar.png',
-
-
                     title: 'index',
-                    script: '/public/conection.js'
+                    script: '/public/conection.js',
+                    session: req.session
                 }
             )
         } catch (error) {
@@ -27,13 +26,13 @@ router.get(
         }
     }
 )
-
 router.get("/products/:pid", async (req, res, next) => {
     try {
         return res.render("view_product", {
             script2: '/public/uniqueProduct.js',
             topTitle: "prueba",
-            conection: '/public/conection.js'
+            conection: '/public/conection.js',
+            session: req.session
         })
     } catch (error) {
 
@@ -66,6 +65,7 @@ router.get('/products', async (req, res, next) => {
         }));
 
         return res.render('products', {
+            session: req.session,
             products: formattedProducts,
             title: 'Products Page',
             topTitle: `Total Products: ${products.totalDocs}`,
@@ -91,7 +91,8 @@ router.get(
                 'new_product', {
                     title: 'new_product',
                     title: 'Product',
-                    conection: '/public/conection.js'
+                    conection: '/public/conection.js',
+                    session: req.session
                 }
             )
         } catch (error) {
@@ -111,7 +112,8 @@ router.get(
                 last_name: 'Lopez',
                 photo: 'https://www.w3schools.com/howto/img_avatar.png',
                 script: "public/cart.js",
-                conection: '/public/conection.js'
+                conection: '/public/conection.js',
+                session: req.session
             })
         } catch (error) {
             next()
@@ -127,7 +129,8 @@ router.get(
             return res.render('chat', {
                 title: 'Chat bot',
                 conection: '/public/conection.js',
-                script2: "public/chatbot.js"
+                script2: "public/chatbot.js",
+                session: req.session
             })
         } catch (error) {
             next()
@@ -142,7 +145,8 @@ router.get(
             return res.render(
                 'form', {
                     title: 'Form',
-                    conection: '/public/conection.js'
+                    conection: '/public/conection.js',
+                    session: req.session
                 }
             )
         } catch (error) {
@@ -158,7 +162,8 @@ router.get(
             return res.render(
                 'register', {
                     title: 'Register',
-                    conection: '/public/conection.js'
+                    conection: '/public/conection.js',
+                    session: req.session
                 }
             )
         } catch (error) {
@@ -167,26 +172,6 @@ router.get(
     }
 )
 
-router.get('/login', async (req, res, next) => {
-    try {
-        return res.render('login', {title: 'Login',
-        conection: '/public/conection.js'})
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-});
-
-router.get('/signout', async (req, res, next) => {
-    try {
-        const user = req.session
-        return res.render('signout', {title: 'signout',
-        conection: '/public/conection.js'})
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-});
 
 router.get('/perfil', async (req, res) => {
     try {
@@ -194,6 +179,7 @@ router.get('/perfil', async (req, res) => {
         // y establecer `req.session.email` en el correo electrónico del usuario
 
         const user = req.session
+        const role = req.session.role
 
         if (user) {
             req.session.email = user.mail;
