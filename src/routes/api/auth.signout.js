@@ -10,7 +10,7 @@ router.post("/signout", async(req, res, next) => {
         if (err) {
             return res.status(500).json({success: false, message: "Unexpected error"});
         }
-        return res.status(200).json({success: true, message: "successfully signout"})
+        return res.redirect("/perfil");
     });
 });
 

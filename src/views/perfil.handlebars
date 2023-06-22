@@ -1,0 +1,20 @@
+<h1>Perfil de usuario</h1>
+
+{{#if session.email}}
+<p>Bienvenido, {{session.email}}!</p>
+<form action="./api/auth/signout" method="POST">
+  <input type="submit" value="Log Out">
+</form>
+{{else}}
+<p>No has iniciado sesión.</p>
+<form action="./api/auth/login" method="POST">
+        <label for="mail">E-mail:</label>
+        <input type="email" id="mail" name="mail" required>
+        <br><br>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+        <input type="submit" value="Iniciar sesión">
+    </form>
+{{/if}}
+
