@@ -1,6 +1,8 @@
 import { Router } from "express"
 import { Types } from "mongoose"
-import Users from "../../models/user.model.js"
+import Users from "../models/user.model.js"
+import create_hash from "../middlewares/create_hash.js"
+import passport from "passport"
 
 const router = Router()
 
@@ -40,22 +42,24 @@ router.use((req, res, next) => { // middleware para validar la contraseña
     }
 })
 
-router.post('/', async (req, res, next) => {
-    try {
-        const { name, photo, mail, role, password } = req.body
-        const response = await Users.create({
-            name,
-            photo,
-            mail: mail.toLowerCase(),
-            role,
-            password
-        })
+router.post('/', 
+        create_hash,
+        passport.authenticate(
+            'register',  // nombre de la estrategia a buscar
+            { failureRedirect: '' }  // objeto de configuracion de la ruta de redireccionamiento en caso de error
+            
+            ),
+            (req,res)=> res.status(201).json({
+                success: true,
+                message: 'user created!'
+            })
+        )
 
-        return res.redirect('/perfil')
-    } catch (err) {
-        next(err)
-    }
+        router.get('/fail-register',(req,res)=> res.status(400).json({
+            success: false,
+            message: 'fail register!'
+        }))
+        
 
-})
 
 export default router
