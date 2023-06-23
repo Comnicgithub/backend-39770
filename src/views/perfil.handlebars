@@ -1,7 +1,7 @@
 <h1>Perfil de usuario</h1>
 
-{{#if session.email}}
-<p>Bienvenido, {{session.email}}!</p>
+{{#if session.mail}}
+<p>Bienvenido, {{session.mail}}!</p>
 <form action="./api/auth/signout" method="POST">
   <input type="submit" value="Log Out">
 </form>
