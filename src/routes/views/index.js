@@ -175,21 +175,11 @@ router.get(
 
 router.get('/perfil', async (req, res) => {
     try {
-        // Aquí, normalmente podrías verificar las credenciales del usuario
-        // y establecer `req.session.email` en el correo electrónico del usuario
-
-        const user = req.session
-        const role = req.session.role
-
-        if (user) {
-            req.session.email = user.mail;
-        } else {
-            // handle error
-        }
-
         res.render('perfil', {
             // Pasa el objeto `req.session` a la plantilla Handlebars
-            session: req.session
+            session: req.session,
+            title: 'perfil',
+            conection: '/public/conection.js'
         });
     } catch (err) {
         // handle error
