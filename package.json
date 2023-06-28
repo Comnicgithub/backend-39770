@@ -10,8 +10,8 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "src/data/carts.json",
-      "src/data/products.json"
+      "src/dao/data/carts.json",
+      "src/dao/data/products.json"
     ]
   },
   "author": "",
@@ -25,6 +25,7 @@
     "express-handlebars": "^7.0.7",
     "express-session": "^1.17.3",
     "handlebars": "^4.7.7",
+    "jsonwebtoken": "^9.0.0",
     "middleware": "^1.0.0",
     "mongoose": "^7.3.0",
     "mongoose-paginate-v2": "^1.7.1",
