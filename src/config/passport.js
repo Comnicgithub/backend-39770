@@ -50,7 +50,7 @@ export default function () {
         )
     )
 
-      passport.use(
+    passport.use(
         'jwt',
         new jwt.Strategy({
             jwtFromRequest: jwt.ExtractJwt.fromExtractors([(req)=>req?.cookies['token']]),
@@ -58,7 +58,7 @@ export default function () {
         },
         async (jwt_payload,done) => {
             try {              
-                let user = await User.findOne({ email:jwt_payload.email })
+                let user = await Users.findOne({ email:jwt_payload.email })
                 delete user.password
                 if (user) {    
                     return done(null, user)
