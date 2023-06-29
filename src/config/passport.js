@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import Users from "../models/user.model.js";
+import jwt from 'passport-jwt'
 
 export default function () {
     passport.serializeUser(
@@ -48,6 +49,28 @@ export default function () {
             }
         )
     )
+
+      passport.use(
+        'jwt',
+        new jwt.Strategy({
+            jwtFromRequest: jwt.ExtractJwt.fromExtractors([(req)=>req?.cookies['token']]),
+            secretOrKey: process.env.SECRET
+        },
+        async (jwt_payload,done) => {
+            try {              
+                let user = await User.findOne({ email:jwt_payload.email })
+                delete user.password
+                if (user) {    
+                    return done(null, user)
+                } else {
+                    return done(null, false)
+                }
+            } catch (error) {
+                return done(error,false)
+            }
+        })
+    )
+
     
     
 }
