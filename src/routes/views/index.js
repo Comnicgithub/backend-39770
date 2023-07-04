@@ -11,6 +11,7 @@ router.get(
     '/',
     async (req, res, next) => {
         try {
+            const { token } = req.cookies
             const user = req.session
             return res.render(
                 'index', 
@@ -20,6 +21,7 @@ router.get(
                     photo: 'https://www.w3schools.com/howto/img_avatar.png',
                     title: 'index',
                     script: '/public/conection.js',
+                    token,
                     session: req.session
                 }
             )
@@ -30,11 +32,13 @@ router.get(
 )
 router.get("/products/:pid", async (req, res, next) => {
     try {
+        const { token } = req.cookies
         return res.render("view_product", {
             script2: '/public/uniqueProduct.js',
             topTitle: "prueba",
             conection: '/public/conection.js',
-            session: req.session
+            session: req.session,
+            token
         })
     } catch (error) {
 
@@ -43,6 +47,7 @@ router.get("/products/:pid", async (req, res, next) => {
 
 router.get('/products', async (req, res, next) => {
     try {
+        const { token } = req.cookies
         const pageNumber = parseInt(req.query.page) || 1;
         const productsPerPage = req.query.limit || 6;
         const filter = req.query.filter || "";
@@ -68,6 +73,7 @@ router.get('/products', async (req, res, next) => {
 
         return res.render('products', {
             session: req.session,
+            token,
             products: formattedProducts,
             title: 'Products Page',
             topTitle: `Total Products: ${products.totalDocs}`,
@@ -91,12 +97,14 @@ router.get(
     authorization,
     async (req, res, next) => {
         try {
+            const { token } = req.cookies
             return res.render(
                 'new_product', {
                     title: 'new_product',
                     title: 'Product',
                     conection: '/public/conection.js',
-                    session: req.session
+                    session: req.session,
+                    token
                 }
             )
         } catch (error) {
@@ -110,14 +118,15 @@ router.get(
     '/carts',
     async (req, res, next) => {
         try {
-
+            const { token } = req.cookies
             return res.render('carts', {
                 name: 'Nico',
                 last_name: 'Lopez',
                 photo: 'https://www.w3schools.com/howto/img_avatar.png',
                 script: "public/cart.js",
                 conection: '/public/conection.js',
-                session: req.session
+                session: req.session,
+                token,
             })
         } catch (error) {
             next()
@@ -130,11 +139,13 @@ router.get(
     '/chat',
     async (req, res, next) => {
         try {
+            const { token } = req.cookies
             return res.render('chat', {
                 title: 'Chat bot',
                 conection: '/public/conection.js',
                 script2: "public/chatbot.js",
-                session: req.session
+                session: req.session,
+                token,
             })
         } catch (error) {
             next()
@@ -146,11 +157,13 @@ router.get(
     '/form',
     async (req, res, next) => {
         try {
+            const { token } = req.cookies
             return res.render(
                 'form', {
                     title: 'Form',
                     conection: '/public/conection.js',
-                    session: req.session
+                    session: req.session,
+                    token,
                 }
             )
         } catch (error) {
@@ -163,11 +176,13 @@ router.get(
     '/register',
     async (req, res, next) => {
         try {
+            const { token } = req.cookies
             return res.render(
                 'register', {
                     title: 'Register',
                     conection: '/public/conection.js',
-                    session: req.session
+                    session: req.session,
+                    token,
                 }
             )
         } catch (error) {
