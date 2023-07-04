@@ -2,6 +2,8 @@ import {Router} from "express"
 import Products from '../../models/product.model.js'
 import session from "express-session"
 import Users from "../../models/user.model.js"
+import passport_call from "../../middlewares/passport_call.js"
+import authorization from "../../middlewares/authorization.js"
 
 const router = Router()
 
@@ -85,6 +87,8 @@ router.get('/products', async (req, res, next) => {
 });
 router.get(
     '/new_product',
+    passport_call("jwt"),
+    authorization,
     async (req, res, next) => {
         try {
             return res.render(
@@ -175,9 +179,14 @@ router.get(
 
 router.get('/perfil', async (req, res) => {
     try {
+        const { token } = req.cookies
+
+        if (token) {
+
+        }
         res.render('perfil', {
             // Pasa el objeto `req.session` a la plantilla Handlebars
-            session: req.session,
+            token,
             title: 'perfil',
             conection: '/public/conection.js'
         });
