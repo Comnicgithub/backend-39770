@@ -188,7 +188,8 @@ router.get('/perfil', async (req, res) => {
             // Pasa el objeto `req.session` a la plantilla Handlebars
             token,
             title: 'perfil',
-            conection: '/public/conection.js'
+            conection: '/public/conection.js',
+            session: req.session
         });
     } catch (err) {
         // handle error
