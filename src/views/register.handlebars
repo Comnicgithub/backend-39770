@@ -3,27 +3,26 @@
             <div class="row">
                 <div class="col-6 d-flex flex-column">
                     <h3>User register</h3>
-                    <form id="productsForm" enctype="multipart/form-data" action="/api/auth/signup", method="POST">
-                        <fieldset class="mb-2">
-                            <label for="productName" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name" id="productName" />
-                        </fieldset>
-                        <fieldset class="mb-2">
-                            <label for="productLast_Name" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" name="last_name" id="productLast_Name" />
-                        </fieldset>
-                        <fieldset class="mb-2">
-                            <label for="productNumber" class="form-label">Age</label>
-                            <input type="number" class="form-control" name="age" id="productNumber" />
-                        </fieldset>
-                        <div class="mb-2">
-                            <label for="productPhoto" class="form-label">Photo</label>
-                            <input type="file" class="form-control" name="url_photo" id="productPhoto" aria-describedby="photoSource"/>
-                        </div>
-                        <button id='newProduct' type="submit" class="btn btn-danger mt-2">Sign Up!</button>
+                    <form action="api/auth/register" method="POST">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="photo">Photo:</label>
+                        <input type="text" id="photo" name="photo" required>
+
+                        <label for="mail">Email:</label>
+                        <input type="email" id="mail" name="mail" required>
+
+                        <label for="role">Role:</label>
+                        <input type="text" id="role" name="role" required>
+
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+
+                        <button type="submit">Register</button>
                     </form>
                 </div>
-            <div id="productTable" class="col-6"></div>
+                <div id="productTable" class="col-6"></div>
             </div>
         </div>
     </main>

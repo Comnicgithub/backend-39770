@@ -1,40 +1,40 @@
-import { Router } from "express"
-import { ProductsArrayConvert } from "../../devUtils.js"
+import {Router} from "express"
 import Products from '../../models/product.model.js'
+import session from "express-session"
+import Users from "../../models/user.model.js"
 
 const router = Router()
 
 router.get(
     '/',
-    async (req,res,next) => {
+    async (req, res, next) => {
         try {
-            //let hola = chau
+            const user = req.session
             return res.render(
-                'index',    //nombre de la vista
-                {         
+                'index', 
+                {
                     name: 'Nico',
                     last_name: 'Lopez',
                     photo: 'https://www.w3schools.com/howto/img_avatar.png',
-
-                    
                     title: 'index',
-                    script: '/public/conection.js'
-                }        
+                    script: '/public/conection.js',
+                    session: req.session
+                }
             )
         } catch (error) {
             next(error)
         }
     }
 )
-
 router.get("/products/:pid", async (req, res, next) => {
     try {
         return res.render("view_product", {
             script2: '/public/uniqueProduct.js',
             topTitle: "prueba",
-            conection: '/public/conection.js'
+            conection: '/public/conection.js',
+            session: req.session
         })
-    } catch(error) {
+    } catch (error) {
 
     }
 })
@@ -46,9 +46,15 @@ router.get('/products', async (req, res, next) => {
         const filter = req.query.filter || "";
         const query = {};
         if (filter) {
-            query.title = { $regex: filter, $options: "i" };
+            query.title = {
+                $regex: filter,
+                $options: "i"
+            };
         }
-        const products = await Products.paginate(query, { page: pageNumber, limit: productsPerPage });
+        const products = await Products.paginate(query, {
+            page: pageNumber,
+            limit: productsPerPage
+        });
         console.log(products)
 
         const formattedProducts = products.docs.map(product => ({
@@ -59,6 +65,7 @@ router.get('/products', async (req, res, next) => {
         }));
 
         return res.render('products', {
+            session: req.session,
             products: formattedProducts,
             title: 'Products Page',
             topTitle: `Total Products: ${products.totalDocs}`,
@@ -78,13 +85,15 @@ router.get('/products', async (req, res, next) => {
 });
 router.get(
     '/new_product',
-    async(req,res,next) => {
+    async (req, res, next) => {
         try {
             return res.render(
-                'new_product',
-                {   title: 'new_product',
+                'new_product', {
+                    title: 'new_product',
                     title: 'Product',
-                    conection: '/public/conection.js'}
+                    conection: '/public/conection.js',
+                    session: req.session
+                }
             )
         } catch (error) {
             next()
@@ -95,15 +104,16 @@ router.get(
 
 router.get(
     '/carts',
-    async(req,res,next) => {
+    async (req, res, next) => {
         try {
-            
+
             return res.render('carts', {
                 name: 'Nico',
                 last_name: 'Lopez',
                 photo: 'https://www.w3schools.com/howto/img_avatar.png',
                 script: "public/cart.js",
-                conection: '/public/conection.js'
+                conection: '/public/conection.js',
+                session: req.session
             })
         } catch (error) {
             next()
@@ -114,12 +124,13 @@ router.get(
 
 router.get(
     '/chat',
-    async(req,res,next) => {
+    async (req, res, next) => {
         try {
             return res.render('chat', {
                 title: 'Chat bot',
                 conection: '/public/conection.js',
-                script2: "public/chatbot.js"
+                script2: "public/chatbot.js",
+                session: req.session
             })
         } catch (error) {
             next()
@@ -129,12 +140,14 @@ router.get(
 
 router.get(
     '/form',
-    async(req,res,next) => {
+    async (req, res, next) => {
         try {
             return res.render(
-                'form',
-                { title: 'Form',
-                conection: '/public/conection.js' }
+                'form', {
+                    title: 'Form',
+                    conection: '/public/conection.js',
+                    session: req.session
+                }
             )
         } catch (error) {
             next()
@@ -144,12 +157,14 @@ router.get(
 
 router.get(
     '/register',
-    async(req,res,next) => {
+    async (req, res, next) => {
         try {
             return res.render(
-                'register',
-                { title: 'Register', 
-                conection: '/public/conection.js'}
+                'register', {
+                    title: 'Register',
+                    conection: '/public/conection.js',
+                    session: req.session
+                }
             )
         } catch (error) {
             next()
@@ -158,5 +173,27 @@ router.get(
 )
 
 
+router.get('/perfil', async (req, res) => {
+    try {
+        // Aquí, normalmente podrías verificar las credenciales del usuario
+        // y establecer `req.session.email` en el correo electrónico del usuario
+
+        const user = req.session
+        const role = req.session.role
+
+        if (user) {
+            req.session.email = user.mail;
+        } else {
+            // handle error
+        }
+
+        res.render('perfil', {
+            // Pasa el objeto `req.session` a la plantilla Handlebars
+            session: req.session
+        });
+    } catch (err) {
+        // handle error
+    }
+});
 
 export default router

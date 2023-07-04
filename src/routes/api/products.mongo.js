@@ -14,8 +14,8 @@ router.post('/', async (req, res, next) => {
         // Ejecutar la función de añadir producto correctamente y manejar errores
         let response = await Products.create({ title, description, price, thumbnail, stock });
         if (response) {
-            //return res.redirect('/products') 
-            return res.status(201).json(response);
+            return res.redirect('/products') 
+            // return res.status(201).json(response);
         }
 
         return res.status(400).json({ message: 'Product not created' }); // Manejar error genérico
@@ -51,6 +51,7 @@ router.get('/', async (req, res, next) => {
         next(error)
     }
 });
+
 
 
 router.get('/:pid', async (req, res, next) => {
