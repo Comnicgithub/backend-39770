@@ -58,14 +58,16 @@ export default function () {
             async (accessToken, refreshToken, profile, done) => {
                 try {
                     let one = await Users.findOne({ mail: profile._json.login })
+                    console.log(one)
                     if (!one) {
                         let user = await Users.create({
-                            name: profile._json.name,
+                            name: profile._json.name || "Github User",
                             mail: profile._json.login,
                             age: 18,
                             photo: profile._json.avatar_url,
                             password: profile._json.id
                         })
+                        console.log(user)
                         return done(null, user)
                     }
                     return done(null, one)
