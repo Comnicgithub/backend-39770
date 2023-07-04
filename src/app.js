@@ -8,6 +8,10 @@ import {engine} from 'express-handlebars'
 import session from 'express-session'
 import mongoStore from 'connect-mongo'
 import cookieParser from 'cookie-parser'
+import passport from 'passport'
+import inicializePassport from './config/passport.js'
+
+
 
 const server = express()
 
@@ -25,6 +29,9 @@ server.use(session({
         ttl: 604800*1000
     })
 }))
+inicializePassport()
+server.use(passport.initialize())
+server.use(passport.session())
 server.use('/public',express.static('public'))
 server.use(express.json())
 server.use(express.urlencoded({extended:true}))

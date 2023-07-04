@@ -14,7 +14,22 @@ footer {
     width: 100%;
 }
 
+.submit{
+    background-color: orange;
+    color: white;
+    width: 100%;
+    border-radius: 20px;
+    margin: 5px;
+}
 
+.session {
+    font-size: 18px;
+    justify-content: space-around;
+    transition: 0.3s;
+    transition: 0.3s;
+    padding: 15px;
+    
+}
 
 
 .bkg {

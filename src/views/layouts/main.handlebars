@@ -29,38 +29,38 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
-{{#if session.role}}
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
-    </li>
+                        {{#if token}}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="/register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/perfil">Mi cuenta</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/products">Product</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/new_product">Add Product</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/chat">Chat</a>
-    </li>
-{{else}}
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
-    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/perfil">Mi cuenta</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products">Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/new_product">Add Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/chat">Chat</a>
+                        </li>
+                        {{else}}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="/register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/perfil">Mi cuenta</a>
-    </li>
-{{/if}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/perfil">Mi cuenta</a>
+                        </li>
+                        {{/if}}
                         <li class="nav-item">
                             <a class="nav-link" id="cart" href="/carts"><span id="contador">0</span><i
                                     class="fa-solid fa-bag-shopping"></i></i></a>
@@ -78,7 +78,7 @@
         </div>
         </a>
     </div>
-    
+
     {{{body}}}
     <div class="container-fluid">
         <!-- Footer -->
