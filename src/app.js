@@ -12,7 +12,6 @@ import passport from 'passport'
 import inicializePassport from './config/passport.js'
 
 
-
 const server = express()
 
 server.engine('handlebars',engine())
