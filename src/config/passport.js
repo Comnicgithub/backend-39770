@@ -58,10 +58,11 @@ export default function () {
             async (accessToken, refreshToken, profile, done) => {
                 try {
                     let one = await Users.findOne({ mail: profile._json.login })
-                    console.log(one)
+                    console.log(profile._json)
                     if (!one) {
                         let user = await Users.create({
-                            name: profile._json.name || "Github User",
+                            first_name: profile._json.name || "Github User",
+                            last_name: "GitHub user", // hardcodeado por que no tira mas data gh
                             mail: profile._json.login,
                             age: 18,
                             photo: profile._json.avatar_url,
