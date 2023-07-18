@@ -41,7 +41,8 @@ router.get('/', async (req, res, next) => {
         // paginate Products collection using 'mongoose-paginate-v2' plugin
         const products = await Products.paginate(query, {
             page: page,
-            limit: productsPerPage
+            limit: productsPerPage,
+            lean: true
         });
 
         console.log(products); // log paginated products
