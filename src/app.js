@@ -10,7 +10,34 @@ import mongoStore from 'connect-mongo'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
 import inicializePassport from './config/passport.js'
+// import {config} from '.config/config.js'
 
+
+// const app = express()
+// config.connectDB()
+// const PORT = process.env.PORT || 3000
+
+// app.use(express.json())
+// app.use(express.urlencoded({extended: true}))
+// inicializePassport()
+// app.use(passport.initialize())
+
+// app.use('/api/session',  sessionRouter.getRouter())
+// app.use('/api/users',    usersRouter.getRouter())
+// app.use('/api/products', productsRouter)
+// app.use('/pruebas',     pruebasRouter)
+
+// app.use((err, req, res, next)=>{
+//     console.log(err)
+//     res.status(500).send('Todo mal')
+// })
+
+// const httpServer = app.listen(PORT,err =>{
+//     if (err)  console.log(err)
+//     console.log(`Escuchando en el puerto: ${PORT}`)
+// })
+
+// // jwt o session 
 
 const server = express()
 
@@ -28,6 +55,11 @@ server.use(session({
         ttl: 604800*1000
     })
 }))
+
+
+
+
+
 inicializePassport()
 server.use(passport.initialize())
 server.use(passport.session())
