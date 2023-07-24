@@ -5,6 +5,8 @@ class UserDTO {
         this.full_name  = `${user.first_name} ${user.apellido}`
         this.email      = user.email
         this.password   = user.password
+        this.age        = user.age
+        this.role       = user.role
     }
 }
 
