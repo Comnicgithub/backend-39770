@@ -1,7 +1,5 @@
 import {Router} from "express"
 import Products from '../../models/product.model.js'
-import session from "express-session"
-import Users from "../../models/user.model.js"
 import passport_call from "../../middlewares/passport_call.js"
 import authorization from "../../middlewares/authorization.js"
 
