@@ -1,4 +1,4 @@
-# Backend-39770 - REFACTOREO
+# Backend-39770 
 
 ## 📋 Trabajo de: 
 ### Pablo Lopez
@@ -17,9 +17,3 @@ npm run dev
 
 ```
 ### UNA VEZ EJECUTADOS ESTOS COMANDOS CORRER EL SERVIDOR EN  [localhost:3000](localhost:3000) 
-
-
-## Se ajusto el proyecto para que cuente con sistema de usuarios
-## Se configuraron todos los middlewares 
-## Se implemento un boton para iniciar sesión desde github
-## Se implemento una autentificaciones  de JWT. Para endpoint de creacion de productos
