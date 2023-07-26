@@ -1,4 +1,4 @@
-import UserManagerMongo from "../managers/user.mongo"
+import UserManagerMongo from "../dao/mongo/user.mongo.js"
 
 
 class UserController {

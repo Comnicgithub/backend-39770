@@ -1,6 +1,6 @@
 import { Router } from "express"
-import Users from "../../models/user.model.js"
-import session from 'express-session';
+// import Users from "../../models/user.model.js"
+// import session from 'express-session';
 import isValidPassword from "../../middlewares/is_valid_password.js";
 import passport from "passport"
 import create_hash from "../../middlewares/create_hash.js";
