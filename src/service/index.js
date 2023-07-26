@@ -1,5 +1,5 @@
 import ProductDaoMongo from '../dao/Mongo/product.mongo.js'
-import ProductRepository from '../repositories/product.repository.js'
+import ProductRepository from '../repositories/product.repositories.js'
 // const UserDaoMongo = require('../dao/Mongo/User.mongo.js')
 // const CartDaoMongo = require('../dao/Mongo/Cart.mongo.js')
 
