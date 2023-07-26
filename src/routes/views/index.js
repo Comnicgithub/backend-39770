@@ -1,5 +1,5 @@
 import {Router} from "express"
-import Products from '../../models/product.model.js'
+import Products from '../../dao/mongo/models/product.model.js'
 import passport_call from "../../middlewares/passport_call.js"
 import authorization from "../../middlewares/authorization.js"
 

@@ -1,6 +1,6 @@
 import server from "./app.js"
 import { Server } from "socket.io"
-import Carts from "./models/cart.model.js"
+import Carts from "./dao/mongo/models/cart.model.js"
 import { connect } from "mongoose"
 
 

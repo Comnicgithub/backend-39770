@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { Types } from "mongoose"
-import Carts from '../../models/cart.model.js'
-import Products from "../../models/product.model.js"
+import Carts from '../../dao/mongo/models/cart.model.js'
+import Products from "../../dao/mongo/models/product.model.js"
 
 const router = Router()
 
