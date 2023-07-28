@@ -1,14 +1,8 @@
-// argumentos - process
-// console.log(process.cwd())
-// console.log(process.pid)
-// console.log(process.memoryUsage())
-// console.log(process.version)
-// console.log(process.argv.slice(2))
+import { Command } from 'commander';
 
-import { Command } from 'commander'
-// import { Command } from 'commander'
+export const commander = new Command();
 
-// const program   = new Command()
+// const program = new Command()
 
 // npm i o npm install
 // program 
@@ -22,12 +16,6 @@ import { Command } from 'commander'
 // console.log('options: ', program.opts())
 // console.log('Argumentos: ', program.args)
 
-const commander = new Command()
-
 commander
     .option('--mode <mode>', 'Modo de ejecución de nuesta app', 'development')
-    .parse()
-
-export default {
-    commander
-}
+    .parse();
