@@ -108,8 +108,8 @@ router.get("/fail-register", async (req, res, next) => {
 
 router.get("/current", passport_call("jwt"), async (req, res, next) => {
     const data = await jwt.verify(req.cookies.token, process.env.JWT_SECRET, async (error, credentials) => {
-        if (error) return { message: "error to get token credentials" }
-        return credentials
+        if (error) return { message: "error to get token credentials" };
+        return credentials;
     })
     return res.status(200).json(data)
 })

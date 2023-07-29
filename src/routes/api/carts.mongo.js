@@ -2,6 +2,9 @@ import { Router } from "express"
 import { Types } from "mongoose"
 import Carts from '../../dao/mongo/models/cart.model.js'
 import Products from "../../dao/mongo/models/product.model.js"
+import Tickets from "../../dao/mongo/models/ticket.model.js";
+import Users from "../../dao/mongo/models/user.model.js";
+
 
 const router = Router()
 
@@ -176,5 +179,81 @@ router.get("/bills/:cid", async (req, res, next) => {
         next(err)
     }
 })
+
+router.post("/:cid/purchase", async (req, res, next) => {
+    try {
+        const cid = req.params.cid;
+        const user = await Users.findOne();
+
+        if (!user || !user.mail) {
+            return res.status(400).json({ message: "User or user email not found" });
+        }
+
+        const purchaser = user.mail;
+
+        const cart = await Carts.findById(cid).populate({
+            path: 'products',
+            populate: {
+                path: 'product',
+                model: "products"
+            }
+        }).exec()
+
+        if (!cart) {
+            return res.status(404).json({ message: "Cart not found" });
+        }
+
+        let successItems = [];
+        let failedItems = [];
+        let totalAmount = 0;
+
+        for (let item of cart.products) {
+            const product = await Products.findById(item.product._id)
+            if (product.stock >= item.units) {
+                product.stock -= item.units;
+                await product.save();
+                successItems.push({
+                    product: item.product._id,
+                    units: item.units,
+                    title: item.product.title,
+                    price: item.product.price,
+                });
+                totalAmount += item.units * item.product.price;
+            } else {
+                failedItems.push({
+                    product: item.product._id,
+                    units: item.units,
+                    title: item.product.title,
+                    message: "Not enough stock"
+                });
+            }
+        }
+
+        // Create ticket if any item is successfully purchased
+        if (successItems.length > 0) {
+            const ticket = new Tickets({
+                amount: totalAmount,
+                purchaser: purchaser
+            });
+            await ticket.save();
+
+            console.log(ticket.toObject());  // Aquí
+        }
+
+        // Update cart to only contain failed items
+        cart.products = failedItems.map(failedItem => failedItem.product); // We only need product ids in cart
+        await cart.save();
+
+        console.log(cart.toObject()); // Y aquí
+
+        return res.status(200).json({
+            message: "Purchase processed",
+            successItems: successItems, // No need to call toObject() here
+            failedItems: failedItems, // No need to call toObject() here
+        });
+    } catch (error) {
+        next(error);
+    }
+});
 
 export default router
