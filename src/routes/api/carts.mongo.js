@@ -127,7 +127,7 @@ router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
         const pid = req.params.pid;
         const units = Number(req.params.units);
 
-        if (Number.isNaN(units)) { // check if units is actually a number
+        if (Number.isNaN(units)) {
             return res.status(400).json({ message: "Invalid units parameter" });
         }
 
@@ -229,7 +229,6 @@ router.post("/:cid/purchase", async (req, res, next) => {
             }
         }
 
-        // Create ticket if any item is successfully purchased
         if (successItems.length > 0) {
             const ticket = new Tickets({
                 amount: totalAmount,
@@ -237,19 +236,18 @@ router.post("/:cid/purchase", async (req, res, next) => {
             });
             await ticket.save();
 
-            console.log(ticket.toObject());  // Aquí
+            console.log(ticket.toObject())
         }
 
-        // Update cart to only contain failed items
-        cart.products = failedItems.map(failedItem => failedItem.product); // We only need product ids in cart
+        cart.products = failedItems.map(failedItem => failedItem.product);
         await cart.save();
 
-        console.log(cart.toObject()); // Y aquí
+        console.log(cart.toObject())
 
         return res.status(200).json({
             message: "Purchase processed",
-            successItems: successItems, // No need to call toObject() here
-            failedItems: failedItems, // No need to call toObject() here
+            successItems: successItems,
+            failedItems: failedItems,
         });
     } catch (error) {
         next(error);
