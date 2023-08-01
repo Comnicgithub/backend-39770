@@ -41,5 +41,8 @@
     "socket.io": "^4.6.1",
     "twilio": "^4.14.1",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2"
   }
 }
