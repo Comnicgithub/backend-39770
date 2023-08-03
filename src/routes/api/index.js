@@ -41,6 +41,4 @@ router.get('/mockingproducts', (req,res) => {
     })
 })
 
-
-
 export default router

@@ -2,6 +2,7 @@ import 'dotenv/config.js'
 import express from 'express'
 import router from './routes/index.js'
 import error_handler from './middlewares/error_handler.js'
+import new_error_handler from './service/errors/index.js'
 import not_found_handler from './middlewares/not_found.js'
 import { __dirname } from './utils/utils.js'
 import { engine } from 'express-handlebars'
@@ -41,7 +42,8 @@ server.use('/public', express.static('public'))
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
 server.use('/', router)
-server.use(error_handler)
+server.use(new_error_handler)
+server.use(error_handler) // Como agregamos un custom error tal vez este tengamos q borrarlo pero por el momento lo deje aca
 server.use(not_found_handler)
 
 export default server
