@@ -1,6 +1,6 @@
-import {faker} from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 
-const generateProducts = () => {
+const generateProduct = () => {
     return {
         title: faker.commerce.productName(),
         price: faker.commerce.price(),
@@ -12,13 +12,14 @@ const generateProducts = () => {
     }
 }
 
+const generateUser = () => {
+    const numOfPRoducts = parseInt(faker.string.numeric(1, { bannedDigits: ['0'] }))
+    const products = []
 
-export const generateUser = () => {
-    let numOfPRoducts = parseInt(faker.string.numeric(1, {bannedDigits: ['0']}))
-    let products = []
     for (let i = 0; i < numOfPRoducts; i++) {
-        products.push(generateProducts())        
+        products.push(generateProduct())
     }
+
     return {
         first_name: faker.person.firstName(),
         last_name: faker.person.lastName(),
@@ -31,3 +32,5 @@ export const generateUser = () => {
         products
     }
 }
+
+export { generateUser, generateProduct }

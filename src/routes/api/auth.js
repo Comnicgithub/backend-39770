@@ -13,7 +13,6 @@ import jwt from "jsonwebtoken"
 import sendMail from "../../utils/sendMail.js";
 import { sendSms, sendWhatsapp } from '../../utils/sendSms.js';
 import UserDTO from '../../dto/user.dto.js'
-import { generateUser } from "../../utils/mocks/generateUserFake.js";
 
 
 const router = Router()
@@ -135,20 +134,5 @@ router.get("/current", passport_call("jwt"), async (req, res, next) => {
         return res.status(400).json({ message: error.message });
     }
 });
-
-
-router.get('/mockusers', (req,res)=>{
-    let users = []
-    for(let i = 0; i < 100; i++){
-        users.push(generateUser())
-    }
-
-    res.send({
-        status:'success',
-        payload: users
-    })
-})
-
-
 
 export default router

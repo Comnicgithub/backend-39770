@@ -1,6 +1,6 @@
-function validator_register (req,res,next) {
-    const { name,password,mail } = req.body
-    if (!name || !password || !mail) {
+export default (req, res, next) => {
+    const { first_name, last_name, password, email, mail } = req.body
+    if (!first_name || !last_name || !password || !mail) {
         return res.status(400).json({
             success: false,
             message: 'name,password,email are required'
@@ -9,5 +9,3 @@ function validator_register (req,res,next) {
         return next()
     }
 }
-
-export default validator_register
