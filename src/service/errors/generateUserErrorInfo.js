@@ -6,4 +6,11 @@ const generateUserErrorInfo = (user) => {
     * email      : needs to be a string, received: ${user.mail}`
 }
 
-export {generateUserErrorInfo}
+const generateLoginErrorInfo = (user) => {
+    return `One or more properties were incomplete or not valid.
+    List of required properties.
+    * email    : needs to be a string, received: ${user.mail}
+    * password : needs to be a string, received: ${user.password}`
+}
+
+export {generateUserErrorInfo, generateLoginErrorInfo}
