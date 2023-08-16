@@ -11,6 +11,13 @@ router.post('/', async (req, res, next) => {
         let thumbnail = req.body.thumbnail
         let stock = Number(req.body.stock)
 
+        CustomError.CreateError({
+            name: "User creation error",
+            cause: generateUserErrorInfo({first_name, last_name, mail}),
+            message: "Error: Trying to create user",
+            code: ErrorEnum.INVALID_TYPES_ERROR
+        })
+
         // Ejecutar la función de añadir producto correctamente y manejar errores
         let response = await Products.create({ title, description, price, thumbnail, stock });
         if (response) {

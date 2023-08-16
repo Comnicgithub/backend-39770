@@ -13,6 +13,7 @@ import passport from 'passport'
 import inicializePassport from './config/passport.js'
 import { config } from './config/config.js'
 import cors from 'cors'
+import { addLogger } from './utils/logger.js'
 
 const server = express()
 
@@ -36,11 +37,13 @@ server.use(session({
 }))
 
 inicializePassport()
+
 server.use(passport.initialize())
 server.use(passport.session())
 server.use('/public', express.static('public'))
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
+server.use(addLogger)
 server.use('/', router)
 server.use(new_error_handler)
 server.use(error_handler) // Como agregamos un custom error tal vez este tengamos q borrarlo pero por el momento lo deje aca

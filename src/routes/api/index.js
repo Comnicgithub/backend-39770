@@ -41,4 +41,16 @@ router.get('/mockingproducts', (req,res) => {
     })
 })
 
+router.get("/loggerTest", (req, res) => {
+    req.logger.fatal("Fatal logger test 1")
+    req.logger.error("Error logger test 2")
+    req.logger.warning("Warning logger test 3")
+    req.logger.info("Info logger test 4")
+    req.logger.debug("Debug logger test 5")
+    return res.status(201).json({
+        success: true,
+        message: "logs created!"
+    })
+})
+
 export default router
