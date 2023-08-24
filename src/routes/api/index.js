@@ -34,7 +34,7 @@ router.post("/forgot-password", (req, res) => {
         }
     
         // Generate a JWT token for password reset (expires in 1 hour)
-        const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1h" });
+        const token = jwt.sign({ userMail: user.mail }, secretKey, { expiresIn: "1h" });
     
         // Send the reset link to the user's email
         const resetLink = `http://localhost:${process.env.PORT}/reset-password?token=${token}`;

@@ -28,6 +28,16 @@ router.get(
         }
     }
 )
+
+router.get("/forgot-password", (req, res) => {
+    res.render("forgot-password");
+});
+
+router.get("/reset-password", (req, res) => {
+    const token = req.query.token;
+    res.render("reset-password", { token });
+});
+
 router.get("/products/:pid", async (req, res, next) => {
     try {
         const { token } = req.cookies
