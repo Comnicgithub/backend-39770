@@ -1,3 +1,4 @@
+import 'dotenv/config.js'
 import { Router } from "express";
 import carts_router from './carts.mongo.js';
 import products_router from './products.mongo.js';
@@ -6,7 +7,7 @@ import jwt from "jsonwebtoken"; // Import the jwt module only once
 import nodemailer from "nodemailer";
 import { generateUser, generateProduct } from "../../utils/mocks/generateUserFake.js";
 import Users from "../../dao/mongo/models/user.model.js";
-import dotenv from "dotenv"; // Import dotenv
+
 
 const router = Router()
 const secretKey = process.env.JWT_SECRET;
@@ -27,7 +28,7 @@ router.post("/forgot-password", (req, res) => {
         const { email } = req.body;
     
         // Find user by email in the database
-        const user = Users.find((user) => user.email === email);
+        const user = Users.findOne({ email: email });
         if (!user) {
         return res.status(404).send("User not found");
         }
@@ -36,7 +37,7 @@ router.post("/forgot-password", (req, res) => {
         const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1h" });
     
         // Send the reset link to the user's email
-        const resetLink = `http://localhost:${port}/reset-password?token=${token}`;
+        const resetLink = `http://localhost:${process.env.PORT}/reset-password?token=${token}`;
         const mailOptions = {
         from: process.env.GMAIL_USER_APP,
         to: user.email,
@@ -132,5 +133,23 @@ router.get("/loggerTest", (req, res) => {
         message: "logs created!"
     })
 })
+
+
+router.put("/premium/:uid", (req, res) => {
+    const uid = req.params.uid;
+
+    // Busca el usuario por su id en la base de datos
+    const user = Users.find((user) => user.id === uid);
+
+    if (!user) {
+        return res.status(404).send("User not found");
+    }
+
+    // Cambia el rol del usuario
+    user.role = user.role === "user" ? "premium" : "user";
+
+    res.send("User role updated successfully");
+});
+
 
 export default router
