@@ -10,7 +10,7 @@ import validator_signin from "../../middlewares/validator_signin.js"
 import generatejwt from "../../middlewares/jwt_generate.js";
 import passport_call from "../../middlewares/passport_call.js"
 import jwt from "jsonwebtoken"
-import sendMail from "../../utils/sendMail.js";
+import {sendMail, forgotPass} from "../../utils/sendMail.js";
 import { sendSms, sendWhatsapp } from '../../utils/sendSms.js';
 import UserDTO from '../../dto/user.dto.js'
 
