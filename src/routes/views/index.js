@@ -1,7 +1,11 @@
 import {Router} from "express"
 import Products from '../../dao/mongo/models/product.model.js'
+import Users from "../../dao/mongo/models/user.model.js"
 import passport_call from "../../middlewares/passport_call.js"
 import authorization from "../../middlewares/authorization.js"
+import jwt from "jsonwebtoken"
+
+const secretKey = process.env.JWT_SECRET;
 
 const router = Router()
 
@@ -34,8 +38,20 @@ router.get("/forgot-password", (req, res) => {
 });
 
 router.get("/reset-password", (req, res) => {
-    const token = req.query.token;
-    res.render("reset-password", { token });
+    const { token } = req.query;
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("no hubo error")
+            console.log(decoded)
+            res.render("reset-password", {
+                email: decoded.userMail,
+                token
+            });
+        }
+    })
 });
 
 router.get("/products/:pid", async (req, res, next) => {
