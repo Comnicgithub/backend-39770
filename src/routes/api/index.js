@@ -9,6 +9,7 @@ import { generateUser, generateProduct } from "../../utils/mocks/generateUserFak
 import Users from "../../dao/mongo/models/user.model.js";
 import sendMail from "../../utils/sendMail.js"
 import { hashSync,genSaltSync, compareSync } from "bcrypt";
+import {config} from '../../config/config.js'
 
 const router = Router()
 const secretKey = process.env.JWT_SECRET;
@@ -17,6 +18,19 @@ const secretKey = process.env.JWT_SECRET;
 router.use('/products', products_router)
 router.use('/carts', carts_router)
 router.use('/auth', auth_router)
+
+const transport = nodemailer.createTransport({
+    service: 'gmail',
+    port: 587,
+    auth: {
+        user: config.gmail_user_app,
+        pass: config.gmail_pass_app,
+    },
+    tls: {
+        rejectUnauthorized: false,
+    },
+});
+
 
 router.post("/forgot-password", async (req, res) => {
     try {
@@ -42,7 +56,7 @@ router.post("/forgot-password", async (req, res) => {
             html: `Click <a href="${resetLink}">here</a> to reset your password.`,
         };
 
-        transporter.sendMail(mailOptions).then(content => {
+        transport.sendMail(mailOptions).then(content => {
             console.log(content)
         }).catch(err => {
             console.log(err)
