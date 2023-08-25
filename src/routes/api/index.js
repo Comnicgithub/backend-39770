@@ -62,38 +62,12 @@ router.post("/forgot-password", async (req, res) => {
             console.log(err)
         })
 
-        /*
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.log(error);
-                return res.status(500).send("Error sending email");
-            }
-            console.log("Email sent: " + info.response);
-            res.send("Password reset email sent");
-        });*/
     } catch (err) {
         console.log("el server tubo un error")
         console.log(err)
     }
 
 });
-
-/*
-router.get("/reset-password", (req, res) => {
-    const { token } = req.query
-    console.log(token)
-    console.log("ruta reset password")
-    const tokenContent = jwt.verify(token + "4", secretKey)
-    console.log(tokenContent)
-    jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) {
-            return res.status(401).send("Invalid or expired token");
-        }
-        console.log(token, secretKey)
-        // Render the password reset form
-        res.render("reset-password", { token });
-    });
-});*/
 
 router.post("/reset-password", async (req, res) => {
     const { token, newPassword } = req.body;
