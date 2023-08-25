@@ -19,10 +19,36 @@ router.use('/products', products_router)
 router.use('/carts', carts_router)
 router.use('/auth', auth_router)
 
-router.post("/forgot-password", async (req, res) => {
-    await forgotPass()
-    res.send('Email enviado')
-})
+router.post("/forgot-password", (req, res) => {
+    const { email } = req.body;
+
+    // Find user by email in the database
+    const user = Users.findOne({ email: email });
+    if (!user) {
+    return res.status(404).send("User not found");
+    }
+
+    // Generate a JWT token for password reset (expires in 1 hour)
+    const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1h" });
+
+    // Send the reset link to the user's email
+    const resetLink = `http://localhost:${process.env.PORT}/reset-password?token=${token}`;
+    const mailOptions = {
+    from: process.env.GMAIL_USER_APP,
+    to: user.email,
+    subject: "Password Reset",
+    html: `Click <a href="${resetLink}">here</a> to reset your password.`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        console.log(error);
+        return res.status(500).send("Error sending email");
+    }
+    console.log("Email sent: " + info.response);
+    res.send("Password reset email sent");
+    });
+});
     
 router.get("/reset-password", (req, res) => {
         const token = req.query.token;
