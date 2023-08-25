@@ -8,7 +8,7 @@ import nodemailer from "nodemailer";
 import { generateUser, generateProduct } from "../../utils/mocks/generateUserFake.js";
 import Users from "../../dao/mongo/models/user.model.js";
 import sendMail from "../../utils/sendMail.js"
-import { hashSync,genSaltSync } from "bcrypt";
+import { hashSync,genSaltSync, compareSync } from "bcrypt";
 
 const router = Router()
 const secretKey = process.env.JWT_SECRET;
@@ -90,12 +90,6 @@ router.get("/reset-password", (req, res) => {
 
 router.post("/reset-password", async (req, res) => {
     const { token, newPassword } = req.body;
-
-    console.log("ruta post resetpassword")
-
-    console.log("se recibio esto:")
-    console.log(token)
-    console.log(newPassword)
     jwt.verify(token, secretKey, async (err, decoded) => {
         if (err) {
             return res.status(401).send("Invalid or expired token");
@@ -106,21 +100,18 @@ router.post("/reset-password", async (req, res) => {
         const user = await Users.findById(decoded.userId)
         if (user == null) return res.status(404).json({success: false})
 
-        const currentPassword = user.password
-        const newPass = hashSync(newPassword, genSaltSync())
-
-        if (currentPassword != newPass) {
-            user.password = newPass
-            await user.save()
-
-            res.status(200).json({
-                success: true,
-                message: "Password reset successful"
-            })
-        } else {
-            res.status(406).json({
+        if (compareSync(newPassword, user.password)) {
+            return res.status(406).json({
                 success: false,
                 message: "The new password cannot be the same as the old one"
+            })
+        } else {
+            user.password = hashSync(newPassword, genSaltSync())
+            await user.save()
+
+            return res.status(200).json({
+                success: true,
+                message: "Password reset successful"
             })
         }
     });
