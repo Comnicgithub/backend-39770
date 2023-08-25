@@ -7,9 +7,8 @@ import jwt from "jsonwebtoken"; // Import the jwt module only once
 import nodemailer from "nodemailer";
 import { generateUser, generateProduct } from "../../utils/mocks/generateUserFake.js";
 import Users from "../../dao/mongo/models/user.model.js";
-import { forgotPass } from '../../utils/sendMail.js';
-
-
+import sendMail from "../../utils/sendMail.js"
+import { hashSync,genSaltSync, compareSync } from "bcrypt";
 
 const router = Router()
 const secretKey = process.env.JWT_SECRET;
@@ -19,100 +18,126 @@ router.use('/products', products_router)
 router.use('/carts', carts_router)
 router.use('/auth', auth_router)
 
-router.post("/forgot-password", (req, res) => {
-    const { email } = req.body;
+router.post("/forgot-password", async (req, res) => {
+    try {
+        const { email } = req.body;
 
-    // Find user by email in the database
-    const user = Users.findOne({ email: email });
-    if (!user) {
-    return res.status(404).send("User not found");
-    }
-
-    // Generate a JWT token for password reset (expires in 1 hour)
-    const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1h" });
-
-    // Send the reset link to the user's email
-    const resetLink = `http://localhost:${process.env.PORT}/reset-password?token=${token}`;
-    const mailOptions = {
-    from: process.env.GMAIL_USER_APP,
-    to: user.email,
-    subject: "Password Reset",
-    html: `Click <a href="${resetLink}">here</a> to reset your password.`,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-        console.log(error);
-        return res.status(500).send("Error sending email");
-    }
-    console.log("Email sent: " + info.response);
-    res.send("Password reset email sent");
-    });
-});
-    
-router.get("/reset-password", (req, res) => {
-        const token = req.query.token;
-    
-        // Verify the JWT token
-        jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) {
-            return res.status(401).send("Invalid or expired token");
-        }
-        console.log(token,secretKey)
-        // Render the password reset form
-        res.render("reset-password", { token });
-        });
-    });
-    
-router.post("/reset-password", (req, res) => {
-        const token = req.body.token;
-        const newPassword = req.body.newPassword;
-    
-        // Verify the JWT token
-        jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) {
-            return res.status(401).send("Invalid or expired token");
-        }
-        // Update user's password in the database
-        const user = Users.find((user) => user.id === decoded.userId);
+        // Find user by email in the database
+        const user = await Users.findOne({ mail: email });
         if (!user) {
             return res.status(404).send("User not found");
         }
-    
-        user.password = newPassword;
-    
-        res.send("Password reset successful");
-        });
+
+        // Generate a JWT token for password reset (expires in 1 hour)
+        const token = jwt.sign({ userMail: user.mail, userId: user._id }, secretKey, { expiresIn: "1h" });
+
+        // Send the reset link to the user's email
+
+        console.log(user.mail, process.env.GMAIL_USER_APP)
+        const resetLink = `http://localhost:${process.env.PORT}/reset-password?token=${token}`;
+        const mailOptions = {
+            from: process.env.GMAIL_USER_APP,
+            to: user.mail,
+            subject: "Password Reset",
+            html: `Click <a href="${resetLink}">here</a> to reset your password.`,
+        };
+
+        transporter.sendMail(mailOptions).then(content => {
+            console.log(content)
+        }).catch(err => {
+            console.log(err)
+        })
+
+        /*
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log(error);
+                return res.status(500).send("Error sending email");
+            }
+            console.log("Email sent: " + info.response);
+            res.send("Password reset email sent");
+        });*/
+    } catch (err) {
+        console.log("el server tubo un error")
+        console.log(err)
+    }
+
+});
+
+/*
+router.get("/reset-password", (req, res) => {
+    const { token } = req.query
+    console.log(token)
+    console.log("ruta reset password")
+    const tokenContent = jwt.verify(token + "4", secretKey)
+    console.log(tokenContent)
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(401).send("Invalid or expired token");
+        }
+        console.log(token, secretKey)
+        // Render the password reset form
+        res.render("reset-password", { token });
     });
-    
+});*/
+
+router.post("/reset-password", async (req, res) => {
+    const { token, newPassword } = req.body;
+    jwt.verify(token, secretKey, async (err, decoded) => {
+        if (err) {
+            return res.status(401).send("Invalid or expired token");
+        } else {
+            console.log(decoded)
+        }
+        // Update user's password in the database
+        const user = await Users.findById(decoded.userId)
+        if (user == null) return res.status(404).json({success: false})
+
+        if (compareSync(newPassword, user.password)) {
+            return res.status(406).json({
+                success: false,
+                message: "The new password cannot be the same as the old one"
+            })
+        } else {
+            user.password = hashSync(newPassword, genSaltSync())
+            await user.save()
+
+            return res.status(200).json({
+                success: true,
+                message: "Password reset successful"
+            })
+        }
+    });
+});
+
 
 
 // Endpoint solo para pruebas, /api/mockU
-router.get('/mockusers', (req,res)=>{
+router.get('/mockusers', (req, res) => {
     const { limit } = req.query
 
     const users = []
-    for(let i = 0; i < (limit||100); i++){
+    for (let i = 0; i < (limit || 100); i++) {
         users.push(generateUser())
     }
 
     return res.status(200).json({
-        status:'success',
+        status: 'success',
         payload: users
     })
 })
 
 // Endpoint solo para pruebas, /api/mockusers
-router.get('/mockingproducts', (req,res) => {
+router.get('/mockingproducts', (req, res) => {
     const { limit } = req.query
 
     const products = []
-    for(let i = 0; i < (limit||100); i++){
+    for (let i = 0; i < (limit || 100); i++) {
         products.push(generateProduct())
     }
 
     return res.status(200).json({
-        status:'success',
+        status: 'success',
         payload: products
     })
 })
