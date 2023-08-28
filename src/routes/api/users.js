@@ -28,6 +28,7 @@ router.get("/premium/:uid", async (req, res, next) => {
         })
 
         mongouser.role = mongouser.role == "user" ? "premium" : "user"
+        
         await mongouser.save()
 
         res.status(200).json({
