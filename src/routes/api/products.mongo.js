@@ -1,33 +1,82 @@
 import { Router } from "express"
 import Products from '../../dao/mongo/models/product.model.js'
+import authorization from "../../middlewares/authorization.js"
+import product_edit from "../../middlewares/product_edit.js"
+
+import jwt from "jsonwebtoken"
 
 const router = Router()
 
-router.post('/', async (req, res, next) => {
+router.get("/canEdit/:productId", product_edit, async (req, res, next) => {
     try {
+        return res.status(200).json({
+            success: true,
+            message: "user can edit this product"
+        })
+
+    } catch(err) {
+        return res.json(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+})
+
+router.get("/admin-delete/:productId", product_edit, async(req, res, next) => {
+    try {
+        const { _id } = req.product
+        const deleted = await Products.findByIdAndDelete(_id)
+        
+        console.log(deleted)
+        if (deleted) return res.status(200).json({
+            success: true,
+            message: "product deleted"
+        })
+
+        return res.status(400).json({
+            success: false,
+            message: "idk"
+        })
+
+    } catch(err) {
+        console.log(err);
+        next(err);
+    }
+})
+
+router.post('/', authorization, async (req, res, next) => {
+    try {
+        const owner = req.user._id
+        if (!owner) {
+            return res.status(401).json({
+                success: false,
+                message: "unable to auth"
+            })
+        }
+
         let title = req.body.title
         let description = req.body.description
         let price = Number(req.body.price)
         let thumbnail = req.body.thumbnail
         let stock = Number(req.body.stock)
 
+        /* Nose como llego esto aca
         CustomError.CreateError({
             name: "User creation error",
             cause: generateUserErrorInfo({first_name, last_name, mail}),
             message: "Error: Trying to create user",
             code: ErrorEnum.INVALID_TYPES_ERROR
-        })
+        })*/
 
         // Ejecutar la función de añadir producto correctamente y manejar errores
-        let response = await Products.create({ title, description, price, thumbnail, stock });
+        let response = await Products.create({ title, description, price, thumbnail, stock, owner});
         if (response) {
-            return res.redirect('/products') 
+            return res.redirect(`/products/${response._id}`) 
             // return res.status(201).json(response);
         }
 
         return res.status(400).json({ message: 'Product not created' }); // Manejar error genérico
     } catch (error) {
-        console.log("hubo un error tio")
         next(error); // Manejar errores correctamente
     }
 });
@@ -72,6 +121,7 @@ router.get('/:pid', async (req, res, next) => {
         next(error)
     }
 })
+
 router.put('/:pid', async (req, res, next) => {
     try {
         let id = String(req.params.pid)
@@ -85,7 +135,22 @@ router.put('/:pid', async (req, res, next) => {
         next(error)
     }
 })
-router.delete('/:pid', async (req, res, next) => {
+
+router.get('/edit/:productId', product_edit, async (req, res, next) => {
+    try {
+        let id = String(req.params.productId)
+        let data = req.query
+        let response = await Products.findByIdAndUpdate(id, data)
+        if (response) {
+            return res.status(200).json({ message: 'product updated' })
+        }
+        return res.status(400).json({ message: 'product not found' })
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.delete('/:pid', authorization, async (req, res, next) => {
     try {
         let id = String(req.params.pid)
         let response = await Products.findByIdAndDelete(id)

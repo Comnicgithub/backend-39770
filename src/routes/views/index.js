@@ -3,11 +3,33 @@ import Products from '../../dao/mongo/models/product.model.js'
 import Users from "../../dao/mongo/models/user.model.js"
 import passport_call from "../../middlewares/passport_call.js"
 import authorization from "../../middlewares/authorization.js"
+import product_edit from "../../middlewares/product_edit.js"
+
 import jwt from "jsonwebtoken"
 
 const secretKey = process.env.JWT_SECRET;
 
 const router = Router()
+
+router.use((req, res, next) => {
+    const { token } = req.cookies
+    console.log("asd")
+    
+    if (token) {
+        jwt.verify(token, secretKey, (err, decode) => {
+            if (err) {
+                req.accessLevel = "user"
+                next()
+            } else {
+                req.accessLevel = decode.role || "user"
+                next()
+            }
+        })
+    } else {
+        req.accessLevel = "user"
+        next()
+    }
+})
 
 router.get(
     '/',
@@ -24,7 +46,8 @@ router.get(
                     title: 'index',
                     script: '/public/conection.js',
                     token,
-                    session: req.session
+                    session: req.session,
+                    accessLevel: req.accessLevel
                 }
             )
         } catch (error) {
@@ -37,6 +60,10 @@ router.get("/forgot-password", (req, res) => {
     res.render("forgot-password");
 });
 
+router.get("/success-email", (req, res, next) => {
+    res.render("recovery-email-sended");
+})
+
 router.get("/reset-password", (req, res) => {
     const { token } = req.query;
 
@@ -47,12 +74,28 @@ router.get("/reset-password", (req, res) => {
             console.log("no hubo error")
             console.log(decoded)
             res.render("reset-password", {
+                
                 email: decoded.userMail,
-                token
+                token,
+                accessLevel: req.accessLevel
             });
         }
     })
 });
+
+router.get("/edit-product/:productId", product_edit, async (req, res, next) => {
+    try {
+        const { _id, title, description, price, stock, photo } = req.product
+
+        return res.render("editProduct", {
+            productid: _id,
+            title, description, price, stock, photo
+        })
+    } catch(err) {
+        console.log(err);
+        next(err);
+    }
+})
 
 router.get("/products/:pid", async (req, res, next) => {
     try {
@@ -62,10 +105,12 @@ router.get("/products/:pid", async (req, res, next) => {
             topTitle: "prueba",
             conection: '/public/conection.js',
             session: req.session,
-            token
+            token,
+            accessLevel: req.accessLevel
         })
-    } catch (error) {
-
+    } catch (err) {
+        console.log(err);
+        next(err);
     }
 })
 
@@ -108,7 +153,8 @@ router.get('/products', async (req, res, next) => {
             paginationnext: `${products.nextPage}`,
             currentPage: `Pagina ${pageNumber}`,
             totalPages: products.totalPages,
-            filter: filter
+            filter: filter,
+            accessLevel: req.accessLevel
         });
     } catch (error) {
         console.log(error);
@@ -128,6 +174,7 @@ router.get(
                     title: 'Product',
                     conection: '/public/conection.js',
                     session: req.session,
+                    accessLevel: req.accessLevel,
                     token
                 }
             )
@@ -150,6 +197,7 @@ router.get(
                 script: "public/cart.js",
                 conection: '/public/conection.js',
                 session: req.session,
+                accessLevel: req.accessLevel,
                 token,
             })
         } catch (error) {
@@ -171,6 +219,7 @@ router.get(
                 conection: '/public/conection.js',
                 script2: "public/chatbot.js",
                 session: req.session,
+                accessLevel: req.accessLevel,
                 token,
             })
         } catch (error) {
@@ -189,6 +238,7 @@ router.get(
                     title: 'Form',
                     conection: '/public/conection.js',
                     session: req.session,
+                    accessLevel: req.accessLevel,
                     token,
                 }
             )
@@ -208,6 +258,7 @@ router.get(
                     title: 'Register',
                     conection: '/public/conection.js',
                     session: req.session,
+                    accessLevel: req.accessLevel,
                     token,
                 }
             )
@@ -230,6 +281,7 @@ router.get('/perfil', async (req, res) => {
             token,
             title: 'perfil',
             conection: '/public/conection.js',
+            accessLevel: req.accessLevel,
             session: req.session
         });
     } catch (err) {

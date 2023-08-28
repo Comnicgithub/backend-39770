@@ -3,6 +3,7 @@ import { Router } from "express";
 import carts_router from './carts.mongo.js';
 import products_router from './products.mongo.js';
 import auth_router from './auth.js';
+import users_router from "./users.js";
 import jwt from "jsonwebtoken"; // Import the jwt module only once
 import nodemailer from "nodemailer";
 import { generateUser, generateProduct } from "../../utils/mocks/generateUserFake.js";
@@ -18,6 +19,7 @@ const secretKey = process.env.JWT_SECRET;
 router.use('/products', products_router)
 router.use('/carts', carts_router)
 router.use('/auth', auth_router)
+router.use("/users", users_router)
 
 const transport = nodemailer.createTransport({
     service: 'gmail',
@@ -58,8 +60,10 @@ router.post("/forgot-password", async (req, res) => {
 
         transport.sendMail(mailOptions).then(content => {
             console.log(content)
+            res.redirect("/success-email")
         }).catch(err => {
             console.log(err)
+            res.redirect("/forgot-password")
         })
 
     } catch (err) {

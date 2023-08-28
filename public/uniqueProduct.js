@@ -6,38 +6,88 @@ const ConvertPrice = (amount, add) => {// recibe dos valores: un numero y un tex
         amount = Number(amount)
 
         const entero = Math.floor(amount)
-        const centavos = amount-entero
+        const centavos = amount - entero
         const amountString = entero.toString()
         const amountArray = amountString.split("")
         const amountString_reverse = amountArray.reverse().join("")
 
         let text = ""
         let init = 0
-        if (entero>999) {
-            const cant = Math.floor(amountArray.length/3)
-            for (let i = 0; i<cant; i++) {
-                text += amountString_reverse.substring(init, init+3) + add
+        if (entero > 999) {
+            const cant = Math.floor(amountArray.length / 3)
+            for (let i = 0; i < cant; i++) {
+                text += amountString_reverse.substring(init, init + 3) + add
                 init += 3
             }
-            if (init<amountString_reverse.length) { text += amountString_reverse.substring(init) }
-            else { text = text.substring(0, text.length-1) }
+            if (init < amountString_reverse.length) { text += amountString_reverse.substring(init) }
+            else { text = text.substring(0, text.length - 1) }
 
             text = text.split("").reverse().join("")
         } else {
-            text = String(entero) 
+            text = String(entero)
         }
-        if (centavos != 0)  text += "," + (String(centavos) + "0").substring(2, 4) // esta mezcla toda rara es para evitar el .555555555555 y el 0.5 para que finalize en "0.55" y "0.50"}
+        if (centavos != 0) text += "," + (String(centavos) + "0").substring(2, 4) // esta mezcla toda rara es para evitar el .555555555555 y el 0.5 para que finalize en "0.55" y "0.50"}
         text = "$ " + text
         return text
-    } catch(err) {
+    } catch (err) {
         return "ERROR"
     }
+}
+
+const adminButtons = async (parent) => {
+    const content = window.location.pathname.split("/")
+
+    const request = await fetch(`/api/products/canEdit/${content[2]}`)
+
+    if (request.status == 200) {
+        const json = await request.json()
+
+        console.log(json)
+        if (json.success) {
+            const prodEditButton = document.createElement("button")
+
+            parent.appendChild(prodEditButton)
+            
+            prodEditButton.classList.add("btn")
+            prodEditButton.classList.add("prodEditButton")
+            prodEditButton.classList.add("prodAddButton-enabled")
+
+            prodEditButton.textContent = "EDIT PRODUCT"
+
+            prodEditButton.addEventListener("click", () => {
+                window.location.replace(`/edit-product/${content[2]}`)
+            })
+
+            const prodDeleteButton = document.createElement("button")
+
+            parent.appendChild(prodDeleteButton)
+            
+            prodDeleteButton.classList.add("btn")
+            prodDeleteButton.classList.add("prodDeleteButton")
+            prodDeleteButton.classList.add("prodAddButton-enabled")
+
+            prodDeleteButton.textContent = "DELETE PRODUCT"
+
+            prodDeleteButton.addEventListener("click", async () => {
+
+                const res = await fetch(`/api/products/admin-delete/${content[2]}`)
+
+                if (res.status == 200){
+                    window.location.replace("/products")
+                }
+            })
+
+        }
+    }
+
+
 }
 
 const createView = async () => {
 
     const { pathname } = window.location
-    const req = await fetch(`${websiteUrl}/api${pathname}`, { method: "GET" })
+
+    const req = await fetch(`/api${pathname}`, { method: "GET" })
     if (req.status != 200) return
 
     const response = await req.json()
@@ -82,7 +132,7 @@ const createView = async () => {
 
     prodAddButton.classList.add("btn")
     prodAddButton.classList.add("prodAddButton")
-    prodAddButton.classList.add(response.stock>0 ? "prodAddButton-enabled" : "prodAddButton-disabled")
+    prodAddButton.classList.add(response.stock > 0 ? "prodAddButton-enabled" : "prodAddButton-disabled")
 
     prodImage.classList.add("prodImage-big")
 
@@ -93,11 +143,11 @@ const createView = async () => {
     addStockRestar.textContent = "-"
     addStockInput.placeholder = "1"
 
-    prodAddButton.textContent = response.stock>0 ? "ADD 1 PRODUCT TO CART" : "PRODUCT WITHOUT STOCK"
+    prodAddButton.textContent = response.stock > 0 ? "ADD 1 PRODUCT TO CART" : "PRODUCT WITHOUT STOCK"
 
     prodAddButton.type = "button"
 
-    prodImage.alt = response.title 
+    prodImage.alt = response.title
     prodImage.src = `../${response.thumbnail}`
 
     prodPrice.textContent = ConvertPrice(response.price, ".")
@@ -107,13 +157,13 @@ const createView = async () => {
     let currentAmount = 1
 
     const pid = response._id
-    
+
     const add = (type) => {
         const x = 1
         if (currentAmount.stock <= 0) {
             prodAddButton.textContent = "PRODUCT WITHOUT STOCK"
         } else {
-            if (type == "-"){
+            if (type == "-") {
                 currentAmount -= 1
             } else {
                 currentAmount += 1
@@ -126,7 +176,7 @@ const createView = async () => {
             prodAddButton.textContent = "ADD TO CART"//currentAmount == 1 ? `ADD 1 PRODUCT TO CART` : `ADD ${currentAmount} PRODUCTS TO CART`
             addStockInput.value = currentAmount
         }
-        
+
     }
     addStockRestar.addEventListener("click", () => {
         add("-")
@@ -140,7 +190,7 @@ const createView = async () => {
         console.log(sessionStorage.getItem("userCart"))
         const request = await fetch(`${websiteUrl}/api/carts/${sessionStorage.getItem("userCart")}/product/${pid}/${currentAmount}`, {
             method: "PUT",
-            body: JSON.stringify({units: currentAmount}),
+            body: JSON.stringify({ units: currentAmount }),
             headers: {
                 "Content-Type": "application/json"
             }
@@ -150,7 +200,7 @@ const createView = async () => {
         if (request.status == 200) {
             socket.emit("getCartContent", sessionStorage.getItem("userCart"))
             Swal.fire({
-                title: currentAmount==1 ? `Product added successfully` : `${currentAmount} Products added successfully`,
+                title: currentAmount == 1 ? `Product added successfully` : `${currentAmount} Products added successfully`,
                 icon: 'error',
                 position: 'bottom-right',
                 confirmButtonText: 'Cool',
@@ -166,7 +216,7 @@ const createView = async () => {
 
     addStockInput.addEventListener("keyup", (data) => {
         const n = Number(data.key)
-        if (n != NaN && n>0 && n<10){
+        if (n != NaN && n > 0 && n < 10) {
             currentAmount = Math.min(n, response.stock)
         } else {
             addStockInput.value = currentAmount
@@ -174,7 +224,7 @@ const createView = async () => {
     })
 
     add("-")
-
+    adminButtons(bigUniqueProduct)
 }
 
 createView()
