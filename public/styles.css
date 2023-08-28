@@ -352,14 +352,58 @@ ul {
     width: 100%;
 }
 
+/* Estilos para la sección de productos */
+.products {
+    padding: 60px 0;
+    display: flexbox;
+    flex-wrap: wrap;
 
+}
 
+.section-title {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 40px;
+}
 
+.product {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 0 0 calc(33.33% - 40px);
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+    width: 30%;
 
+}
 
+.product-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
 
+.product-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
 
+.product-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
 
+/* Estilos para la sección de contacto */
+.contact {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.contact-description {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
 
 
 
@@ -862,4 +906,31 @@ ul {
     background: #b3b3b3;
     transition: 0.3s;
 
+}
+
+/* Estilos para la sección de promociones */
+.promotions {
+    background-color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.promotion {
+    text-align: center;
+    vertical-align: top;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 20px;
+    width: 30%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.promotion-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.promotion-description {
+    font-size: 16px;
 }
