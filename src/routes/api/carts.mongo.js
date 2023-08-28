@@ -78,15 +78,13 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
         const cart = await Carts.findById(cid)
         const product = await Products.findById(id)
 
-        console.log(req.user)
-        console.log(product)
         if (product.owner == req.user._id) {
             return res.status(401).json({
                 success: false,
                 message: "[TRADUCIR ESTO]: No se puede añadir un producto de tu propiedad al carro"
             })
         }
-        
+
         if (cart && product) {
             if (product.stock >= units) {
                 product.stock -= units
