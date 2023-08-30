@@ -14,6 +14,8 @@ import inicializePassport from './config/passport.js'
 import { config } from './config/config.js'
 import cors from 'cors'
 import { addLogger } from './utils/logger.js'
+import swaggerJsDoc from 'swagger-jsdoc';
+import SwaggerUiExpress from 'swagger-ui-express';
 
 const hbs = handlebars.create({})
 const server = express()
@@ -38,6 +40,23 @@ server.use(session({
 }))
 
 inicializePassport()
+
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.1',
+        info: {
+            title: 'Documentacion de app Optica flex',
+            description: 'API Para comprar lentes y anteojos',
+        },
+    },
+    apis: [`${__dirname}/docs/**/*.yaml`]
+};
+
+console.log(swaggerJsDoc.definition)
+
+const specs = swaggerJsDoc(swaggerOptions);
+
+server.use('/docs', SwaggerUiExpress.serve, SwaggerUiExpress.setup(specs));
 
 server.use(passport.initialize())
 server.use(passport.session())
