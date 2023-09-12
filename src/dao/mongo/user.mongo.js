@@ -1,4 +1,4 @@
-import { Users } from "../mongo/models/user.model.js";
+import Users from "../mongo/models/user.model.js";
 
 class UserManagerMongo {
     constructor() {
@@ -6,15 +6,17 @@ class UserManagerMongo {
         this.userModel = Users; // Use the correct class name here
     }
 
-    getUser = async (limit = 10, page = 1) => await this.userModel.paginate({}, { limit, page, lean: true });
+    static getUser = async (limit = 10, page = 1) => await Users.paginate({}, { limit, page, lean: true });
 
-    getByIdUser = async (uid) => await this.userModel.findOne({ _id: uid });
+    static getAll = async () => await Users.find();
 
-    createUser = async (newUser) => await this.userModel.create(newUser);
+    static getByIdUser = async (uid) => await Users.findOne({ _id: uid });
 
-    updateUser = async (uid, userUpdate) => await this.userModel.findOneAndUpdate({ _id: uid }, userUpdate);
+    static createUser = async (newUser) => await Users.create(newUser);
 
-    deleteUser = async (uid) => await this.userModel.findOneAndDelete({ _id: uid });
+    static updateUser = async (uid, userUpdate) => await Users.findOneAndUpdate({ _id: uid }, userUpdate);
+
+    static deleteUser = async (uid) => await Users.findOneAndDelete({ _id: uid });
 }
 
 export default UserManagerMongo;

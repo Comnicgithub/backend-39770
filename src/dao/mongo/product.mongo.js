@@ -4,20 +4,25 @@ class ProductDaoMongo {
     constructor(){
         this.Products = Products
     }
-    get = async (limit=5, page=1) => {
-        return await this.Products.paginate({}, {limit, page, lean: true} )
+    static get = async (limit=5, page=1) => {
+        return await Products.paginate({}, {limit, page, lean: true} )
     }
-    getById = async (pid) => {
-        return await this.Products.findOne({_id: pid})
+
+    static getAll = async () => {
+        return await Products.find()
     }
-    create = async () => {
-        return await this.Products.create(newProduct)
+
+    static getById = async (pid) => {
+        return await Products.findOne({_id: pid})
     }
-    update = async (pid, updateToProduct) => {
-        return await this.Products.findByIdAndUpdate({_id: pid}, updateToProduct)
+    static create = async (newProduct) => {
+        return await Products.create(newProduct)
     }
-    delete = async (pid) => {
-        return await this.Products.findByIdAndDelete({_id: pid})
+    static update = async (pid, updateToProduct) => {
+        return await Products.findByIdAndUpdate({_id: pid}, updateToProduct)
+    }
+    static delete = async (pid) => {
+        return await Products.findByIdAndDelete({_id: pid})
 
     }
 }

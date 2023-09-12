@@ -1,20 +1,23 @@
 /* The CartDaoMongo class provides methods for retrieving, creating, updating, and deleting carts in a
 MongoDB database. */
+
+import carts from "../mongo/models/cart.model.js"
+
 class CartDaoMongo {
-    get(){
-        return 'getCarts'
+    static async get(){
+        return await carts.find()
     }
-    getById(){
-        return 'getCart'
+    static async getById(id){
+        return await carts.findById(id)
     }
-    create(){
-        return 'createCart'
+    static async create(data){
+        return await carts.create(data)
     }
-    update(){
-        return 'updateCart'
+    static async update(id, data){
+        return await carts.create(id, data)
     }
-    delete(){
-        return 'deleteCart'
+    static async delete(id){
+        return await carts.deleteOne({id})
     }
     
 }
