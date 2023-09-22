@@ -42,4 +42,8 @@ router.get("/premium/:uid", async (req, res, next) => {
     }
 })
 
+router.post("/:uid/documents", async (req, res, next) => {
+
+})
+
 export default router

@@ -22,6 +22,7 @@ export default function () {
                 try {
                     let one = await Users.findOne({ mail: userName })
                     if (!one) {
+                        console.log(req.body)
                         let user = await Users.create(req.body)
                         return done(null, user)
                     }
@@ -40,6 +41,7 @@ export default function () {
             async (userName, password, done) => {
                 try {
                     let one = await Users.findOne({ mail: userName })
+                    one.last_connection = Date.now()
                     if (one) {
                         return done(null, one)
                     }
@@ -59,6 +61,7 @@ export default function () {
                 try {
                     let one = await Users.findOne({ mail: profile._json.login })
                     console.log(profile._json)
+                    console.log("gh strategy")
                     if (!one) {
                         let user = await Users.create({
                             first_name: profile._json.name || "Github User",
@@ -66,7 +69,9 @@ export default function () {
                             mail: profile._json.login,
                             age: 18,
                             photo: profile._json.avatar_url,
-                            password: profile._json.id
+                            password: profile._json.id,
+                            last_connection: Date.now(),
+                            documents: []
                         })
                         console.log(user)
                         return done(null, user)
@@ -87,6 +92,7 @@ export default function () {
         async (jwt_payload, done) => {
             try {
                 const user = await Users.findOne({mail: jwt_payload.mail})
+                user.last_connection = Date.now()
                 if (user) {
                     delete user.password
                     return done(null, user)
