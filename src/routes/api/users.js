@@ -45,7 +45,7 @@ router.delete('/', async (req, res) => {
 
         // Filtra los usuarios inactivos
         const inactiveUsers = users.filter((user) => user.last_connection < cutoffDate);
-
+        console.log(inactiveUsers)
         // Envía un correo a los usuarios inactivos y elimínalos
         for (const user of inactiveUsers) {
             try {
