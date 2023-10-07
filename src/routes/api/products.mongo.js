@@ -3,6 +3,7 @@ import Products from '../../dao/mongo/models/product.model.js'
 import authorization from "../../middlewares/authorization.js"
 import product_edit from "../../middlewares/product_edit.js"
 
+
 import jwt from "jsonwebtoken"
 
 const router = Router()
@@ -59,14 +60,6 @@ router.post('/', authorization, async (req, res, next) => {
         let price = Number(req.body.price)
         let thumbnail = req.body.thumbnail
         let stock = Number(req.body.stock)
-
-        /* Nose como llego esto aca
-        CustomError.CreateError({
-            name: "User creation error",
-            cause: generateUserErrorInfo({first_name, last_name, mail}),
-            message: "Error: Trying to create user",
-            code: ErrorEnum.INVALID_TYPES_ERROR
-        })*/
 
         // Ejecutar la función de añadir producto correctamente y manejar errores
         let response = await Products.create({ title, description, price, thumbnail, stock, owner});

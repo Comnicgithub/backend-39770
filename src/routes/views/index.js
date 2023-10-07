@@ -1,4 +1,4 @@
-import {Router} from "express"
+import { Router} from "express"
 import Products from '../../dao/mongo/models/product.model.js'
 import Users from "../../dao/mongo/models/user.model.js"
 import passport_call from "../../middlewares/passport_call.js"
@@ -12,9 +12,11 @@ const secretKey = process.env.JWT_SECRET;
 const router = Router()
 
 router.use((req, res, next) => {
-    const { token } = req.cookies
+    const {
+        token
+    } = req.cookies
     console.log("asd")
-    
+
     if (token) {
         jwt.verify(token, secretKey, (err, decode) => {
             if (err) {
@@ -35,11 +37,12 @@ router.get(
     '/',
     async (req, res, next) => {
         try {
-            const { token } = req.cookies
+            const {
+                token
+            } = req.cookies
             const user = req.session
             return res.render(
-                'index', 
-                {
+                'index', {
                     name: 'Nico',
                     last_name: 'Lopez',
                     photo: 'https://www.w3schools.com/howto/img_avatar.png',
@@ -65,7 +68,9 @@ router.get("/success-email", (req, res, next) => {
 })
 
 router.get("/reset-password", (req, res) => {
-    const { token } = req.query;
+    const {
+        token
+    } = req.query;
 
     jwt.verify(token, secretKey, (err, decoded) => {
         if (err) {
@@ -74,7 +79,7 @@ router.get("/reset-password", (req, res) => {
             console.log("no hubo error")
             console.log(decoded)
             res.render("reset-password", {
-                
+
                 email: decoded.userMail,
                 token,
                 accessLevel: req.accessLevel
@@ -85,13 +90,24 @@ router.get("/reset-password", (req, res) => {
 
 router.get("/edit-product/:productId", product_edit, async (req, res, next) => {
     try {
-        const { _id, title, description, price, stock, photo } = req.product
+        const {
+            _id,
+            title,
+            description,
+            price,
+            stock,
+            photo
+        } = req.product
 
         return res.render("editProduct", {
             productid: _id,
-            title, description, price, stock, photo
+            title,
+            description,
+            price,
+            stock,
+            photo
         })
-    } catch(err) {
+    } catch (err) {
         console.log(err);
         next(err);
     }
@@ -99,7 +115,9 @@ router.get("/edit-product/:productId", product_edit, async (req, res, next) => {
 
 router.get("/products/:pid", async (req, res, next) => {
     try {
-        const { token } = req.cookies
+        const {
+            token
+        } = req.cookies
         return res.render("view_product", {
             script2: '/public/uniqueProduct.js',
             topTitle: "prueba",
@@ -116,7 +134,9 @@ router.get("/products/:pid", async (req, res, next) => {
 
 router.get('/products', async (req, res, next) => {
     try {
-        const { token } = req.cookies
+        const {
+            token
+        } = req.cookies
         const pageNumber = parseInt(req.query.page) || 1;
         const productsPerPage = req.query.limit || 6;
         const filter = req.query.filter || "";
@@ -167,7 +187,9 @@ router.get(
     authorization,
     async (req, res, next) => {
         try {
-            const { token } = req.cookies
+            const {
+                token
+            } = req.cookies
             return res.render(
                 'new_product', {
                     title: 'new_product',
@@ -189,7 +211,9 @@ router.get(
     '/carts',
     async (req, res, next) => {
         try {
-            const { token } = req.cookies
+            const {
+                token
+            } = req.cookies
             return res.render('carts', {
                 name: 'Nico',
                 last_name: 'Lopez',
@@ -213,7 +237,9 @@ router.get(
     '/chat',
     async (req, res, next) => {
         try {
-            const { token } = req.cookies
+            const {
+                token
+            } = req.cookies
             return res.render('chat', {
                 title: 'Chat bot',
                 conection: '/public/conection.js',
@@ -232,7 +258,9 @@ router.get(
     '/form',
     async (req, res, next) => {
         try {
-            const { token } = req.cookies
+            const {
+                token
+            } = req.cookies
             return res.render(
                 'form', {
                     title: 'Form',
@@ -252,7 +280,9 @@ router.get(
     '/register',
     async (req, res, next) => {
         try {
-            const { token } = req.cookies
+            const {
+                token
+            } = req.cookies
             return res.render(
                 'register', {
                     title: 'Register',
@@ -271,7 +301,9 @@ router.get(
 
 router.get('/perfil', async (req, res) => {
     try {
-        const { token } = req.cookies
+        const {
+            token
+        } = req.cookies
 
         if (token) {
 
@@ -288,5 +320,28 @@ router.get('/perfil', async (req, res) => {
         // handle error
     }
 });
+
+router.get('/usuarios', async (req, res, next) => {
+    try {
+        const { token } = req.cookies;
+        const users = await Users.find();
+        console.log(users)
+        return res.render('usuarios', {
+            title: 'Usuarios',
+            token,
+            users,
+            script: '/public/conection.js',
+            session: req.session,
+            accessLevel: req.accessLevel
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+
+
+
 
 export default router
