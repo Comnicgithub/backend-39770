@@ -35,6 +35,46 @@ router.get('/', adminauth, async (req, res, next) => {
     }
 });
 
+router.delete("/:uid", adminauth, async(req, res, next) => { // Este endpoint se encarga de borrar a un usuario especifico
+    try {
+        const { uid } = req.params
+        const user = await Users.findById(uid)
+        if (user == null) return res.status(404).json({
+            success: false
+        })
+
+        if (user.role == "admin") return res.status(401).json({
+            success: false
+        })
+
+        const deleted = await Users.deleteOne({_id: uid})
+        if (deleted == null) return res.status(404).json({
+            success: false
+        })
+
+        await transport.sendMail({
+            from: process.env.GMAIL_USER_APP,
+            to: user.mail,
+            subject: 'Eliminacion de cuenta',
+            text: 'Tu cuenta ha sido eliminada por un administrador.',
+        })
+
+        return res.status(200).json({
+            success: true,
+            userdata: {
+                first_name: deleted.first_name,
+                last_name: deleted.last_name,
+                photo: deleted.photo,
+                mail: deleted.mail
+            }
+        })
+
+    } catch(err) {
+        console.error(err)
+        next(err)
+    }
+})
+
 router.delete('/', adminauth, async (req, res) => {
     try {
         // Obtén la lista de usuarios de tu base de datos

@@ -62,7 +62,7 @@ router.post('/login',
     (req, res) => {
         req.session.mail = req.user.mail
         req.session.role = req.user.role
-        return res.status(200).cookie("token", req.token, { maxAge: 60 * 60 * 24 * 7, httpOnly: true }).redirect('/perfil')
+        return res.status(200).cookie("token", req.token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: true }).redirect('/perfil')
     })
 
 router.get('/fail-signin', async (req, res) => res.status(400).json({
@@ -91,7 +91,7 @@ router.get('/github/callback', passport.authenticate('github', { failureRedirect
     //req.session.user = req.user
     console.log(req.user)
     console.log(req.token)
-    return res.status(302).cookie("token", req.token, { maxAge: 60 * 60 * 24 * 7, httpOnly: true }).redirect("/perfil")
+    return res.status(302).cookie("token", req.token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: true }).redirect("/perfil")
     //return res.redirect("/perfil")
 
     /*return res.status(201).json({

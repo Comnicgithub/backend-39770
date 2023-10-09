@@ -28,7 +28,14 @@ const toggleRole = async (id) => {
 }
 
 const deleteUser = async (id) => {
+    const req = await fetch(`/api/users/${id}`, { method: "DELETE" })
+    console.log(req)
+    if (req.status != 200) return
 
+    const json = await req.json()
+    console.log(json)
+
+    return json.success
 }
 
 const update = async () => {
