@@ -6,12 +6,12 @@ const create_card = (firstname, lastname, role) => {
             <h5 class="card-title">Nombre: ${firstname}</h5>
             <p class="card-text">Apellido: ${lastname}</p>
             <p class="card-text">Rol: ${role}</p>
+            ${adminType == 1 ?
+                `<div>
+                    <button class="toggleRole btn agregar-carrito">${role == "user" ? "Convertir en Premium" : "Convertir en Usuario" }</button>
+                    <button class="deleteUser btn agregar-carrito">Borrar usuario</button>
+                </div>` : ""}
         </div>
-        ${adminType == 1 ?
-            `<div>
-                <button class="toggleRole">${role == "user" ? "Convertir en Premium" : "Convertir en Usuario" }</button>
-                <button class="deleteUser">Borrar usuario</button>
-            </div>` : ""}
     </div>
     `
 }
