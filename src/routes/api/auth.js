@@ -13,6 +13,7 @@ import jwt from "jsonwebtoken"
 import sendMail from "../../utils/sendMail.js";
 import { sendSms, sendWhatsapp } from '../../utils/sendSms.js';
 import UserDTO from '../../dto/user.dto.js'
+import upload from '../../middlewares/multer.js';
 
 
 
@@ -36,6 +37,7 @@ router.post('/register',
     validator_register,
     pass_is_8,
     create_hash,
+    upload.single('image'), 
     passport.authenticate(
         'register',  // nombre de la estrategia a buscar
         { failureRedirect: '' }  // objeto de configuracion de la ruta de redireccionamiento en caso de error
