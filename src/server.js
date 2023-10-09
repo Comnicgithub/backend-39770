@@ -16,7 +16,7 @@ const ready = ()=> {
 let http_server = server.listen(PORT,ready)
 let socket_server = new Server(http_server)
 
-
+/*
 server.get('/api/user', async (req, res) =>{    
     try {  
         const { limit=5, page=1 }= req.query
@@ -58,7 +58,7 @@ server.post('/api/user', async (req, res) =>{
     }
         
     
-})
+})*/
 
 // server.listen(PORT, () => {
 //     console.log(`Server listening on: http://localhost:${PORT}`)
@@ -89,8 +89,7 @@ socket_server.on("connection", socket => {
                     
                 socket.emit("cartUpdated", i)
             } else {
-                let message = 'not found'
-                socket.emit("cartUpdated", message)
+                socket.emit("cartUpdated", 0)
             }
         } catch (err) {
             socket.emit("cartUpdated", -1)

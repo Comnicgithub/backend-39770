@@ -6,6 +6,7 @@ import authorization from "../../middlewares/authorization.js";
 import nodemailer from "nodemailer";
 import sendMail from "../../utils/sendMail.js"
 import {config} from '../../config/config.js'
+import adminauth from "../../middlewares/adminAuth.js"
 
 import jwt from "jsonwebtoken"
 
@@ -24,34 +25,41 @@ const transport = nodemailer.createTransport({
 const router = Router()
 
 // Ruta GET para obtener solo nombre, email y role de todos los usuarios
-router.get('/', async (req, res, next) => {
+router.get('/', adminauth, async (req, res, next) => {
     try {
-        const users = await Users.find({}, 'first_name mail role').lean();
-        console.log(users);
+        const users = await Users.find({}, 'first_name last_name mail role').lean();
         return res.status(200).json(users);
+
     } catch (error) {
         next(error);
     }
 });
 
-router.delete('/', async (req, res) => {
+router.delete('/', adminauth, async (req, res) => {
     try {
         // Obtén la lista de usuarios de tu base de datos
         const users = await Users.find();
+        console.log(users)
 
-        // Calcula la fecha límite de inactividad (2 días atrás en este caso)
-        const cutoffDate = new Date();
-        cutoffDate.setDate(cutoffDate.getDate() - 2);
+        const deletedUsers = []
+        const notDeletedUsers = []
 
-        // Filtra los usuarios inactivos
-        const inactiveUsers = users.filter((user) => user.last_connection < cutoffDate);
-        console.log(inactiveUsers)
+        const time_to_delete = 1000*60*60*24* (2) // Cambiar el numero encerrado en los parentesis () para cambiar los dias
+        users.forEach( user => {
+            const connection = new Date(user.last_connection)
+            if (connection.getTime() <= Date.now()-time_to_delete ) {
+                deletedUsers.push(user)
+            } else {
+                notDeletedUsers.push(user)
+            }
+        })
+
         // Envía un correo a los usuarios inactivos y elimínalos
-        for (const user of inactiveUsers) {
+        for (const user of deletedUsers) {
             try {
                 // Envía un correo electrónico al usuario
                 const mailOptions = {
-                    from: 'lopeznicolas055@gmail.com',
+                    from: process.env.GMAIL_USER_APP,
                     to: user.mail,
                     subject: 'Eliminación por inactividad',
                     text: 'Tu cuenta ha sido eliminada debido a la inactividad durante 2 días.',
@@ -77,9 +85,8 @@ router.delete('/', async (req, res) => {
     }
 });
 
-router.get("/premium/:uid", async (req, res, next) => {
+router.get("/premium/:uid", adminauth, async (req, res, next) => {
     try {
-
         const {
             uid
         } = req.params
@@ -108,6 +115,7 @@ router.get("/premium/:uid", async (req, res, next) => {
 
         res.status(200).json({
             success: true,
+            newrole: mongouser.role,
             message: `user role changed to ${mongouser.role}`
         })
 

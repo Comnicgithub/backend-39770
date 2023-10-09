@@ -331,6 +331,7 @@ router.get('/usuarios', async (req, res, next) => {
             token,
             users,
             script: '/public/conection.js',
+            script2: "/public/usuarios.js",
             session: req.session,
             accessLevel: req.accessLevel
         });
